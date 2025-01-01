@@ -1,0 +1,33 @@
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+*.min.css
+*.min.js
+
+package-lock.json
+
+.sass-cache/
+
+# Logs
+logs/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE and editor specific files
+.idea/
+.vscode/
+*.swp
+
+# Environmental variables
+.env
+
+# Compiled files
+*.map
+
+# Other
+debug.log
