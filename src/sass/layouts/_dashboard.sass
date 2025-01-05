@@ -1,4 +1,4 @@
-@use '../utils/mixins' as mixins // Correct path to the mixins file
+@use '../utils/mixins' as mixins
 
 .dashboard
     width: 100%
@@ -47,9 +47,8 @@
     &__cards
         width: 100%
         display: grid
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+        grid-template-columns: repeat(3, 1fr)
         gap: 1.5rem
-        padding: 0 1rem
 
         .card
             background: white
@@ -59,3 +58,89 @@
             min-height: 150px
             @include mixins.flex-center
             flex-direction: column
+
+    &__search
+        display: flex
+        align-items: center
+        margin-bottom: 2rem
+
+        &-input
+            flex: 1
+            padding: 0.75rem 1rem
+            border: 1px solid #ddd
+            border-radius: 50px
+            font-size: 1rem
+
+        &-button
+            padding: 0.75rem 1rem
+            border: none
+            background-color: #007bff
+            color: white
+            border-radius: 0 50px 50px 0
+            cursor: pointer
+            @include mixins.transition(background-color)
+
+            &:hover
+                background-color: #0056b3
+
+    &__activities
+        margin-top: 2rem
+        padding: 1rem
+        background-color: white
+        border-radius: 8px
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+
+        &-title
+            font-size: 1.5rem
+            font-weight: bold
+            margin-bottom: 1rem
+
+        &-list
+            list-style: none
+            padding: 0
+
+            &-item
+                padding: 0.5rem 0
+                border-bottom: 1px solid #ddd
+
+                &:last-child
+                    border-bottom: none
+
+    &__performance
+        margin-top: 2rem
+        padding: 1rem
+        background-color: white
+        border-radius: 8px
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+
+        &-title
+            font-size: 1.5rem
+            font-weight: bold
+            margin-bottom: 1rem
+
+        &-chart
+            width: 100%
+            height: 300px
+
+    &__bidding
+        margin-top: 2rem
+        padding: 1rem
+        background-color: white
+        border-radius: 8px
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+
+        &-title
+            font-size: 1.5rem
+            font-weight: bold
+            margin-bottom: 1rem
+
+        &-list
+            list-style: none
+            padding: 0
+
+            &-item
+                padding: 0.5rem 0
+                border-bottom: 1px solid #ddd
+
+                &:last-child
+                    border-bottom: none
