@@ -1,10 +1,30 @@
+@use '../utils/variables' as variables
+
 html, body
   height: 100%
-  background-color: #f9f9f9
+  background: variables.$soft-pastel-gradient
+  color: variables.$dark-font
   overflow-x: hidden
+  font-family: variables.$font-primary
+  font-weight: 400
+  line-height: 1.5
 
+h1, h2, h3, h4, h5, h6
+    font-family: variables.$font-primary
+    font-weight: 500
 a
   text-decoration: none
   color: inherit
   &:hover
     color: #f91942
+
+button
+  background-color: variables.$button-primary
+  color: variables.$button-text
+  border: 1px solid variables.$border-color
+
+  &:hover
+    background-color: variables.$button-hover
+
+  &:active
+    background-color: variables.$button-active

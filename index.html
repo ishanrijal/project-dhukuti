@@ -9,13 +9,107 @@
 <body>
     <div class="dashboard">
         <header class="dashboard__header">
-            <div class="dashboard__header-logo">Hi, Ishan</div>
-            <div class="dashboard__header-profile"></div>
+            <div class="container">
+                <div class="dashboard__header_top">
+                    <div class="header-logo">Hi, Ishan</div>
+                    <div class="header-profile">I.R</div>
+                </div>
+            </div>
         </header>
-
-        <div class="dashboard__search">
-            <input type="text" class="dashboard__search-input" placeholder="Search...">
+        <div class="verification-banner">
+            <div class="container">
+                <div class="verification-banner__content">
+                    <span>Check your eligibility for Dhukuti here </span>
+                    <button class="verification-banner__toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
         </div>
+        
+        <div class="verification-section hidden">
+            <form class="verification-form">
+                <h3>Verify Your Eligibility</h3>
+                <div class="form-group">
+                    <label>Upload Payslip</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+                <div class="form-group">
+                    <label>Certificate of Employment</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+                <div class="form-group">
+                    <label>Visa/Work Permit</label>
+                    <input type="file" accept=".pdf,.jpg,.png">
+                </div>
+                <button type="submit" class="submit-btn">Submit for Verification</button>
+            </form>
+        </div>
+        <main class="dashboard__main">
+            <div class="container">
+                <div class="profile-section">
+                    <div class="profile-left">
+                        <a href="/profile" class="profile-picture">
+                            <img src="assets/images/profile-default.png" alt="Profile Picture">
+                            <div class="profile-overlay">
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="profile-right">
+                        <button class="play-dhukuti-btn">Play Dhukuti</button>
+                        <div class="investment-options">
+                            <div class="frequency-buttons">
+                                <button class="frequency-btn weekly-btn">Weekly</button>
+                                <button class="frequency-btn monthly-btn">Monthly</button>
+                            </div>
+                        </div>
+                        <button class="find-group-btn">Find me a group</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-info">
+                <div class="info-card balance">
+                    <h3>Dhukuti Balance</h3>
+                    <div class="balance-amount">
+                        <span class="amount">$5,000</span>
+                        <button class="toggle-visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>Total Individual Contribution</h3>
+                    <span class="amount">$2,500</span>
+                </div>
+                <div class="info-card">
+                    <h3>Groups Joined</h3>
+                    <span class="amount">3</span>
+                </div>
+                <div class="info-card">
+                    <h3>Total Profit from Pool</h3>
+                    <span class="amount">$750</span>
+                </div>
+                <div class="info-card">
+                    <h3>Pool Donation</h3>
+                    <span class="amount">$100</span>
+                </div>
+            </div>
+        </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         <main class="dashboard__main">
             <button class="dashboard__play-button">
