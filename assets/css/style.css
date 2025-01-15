@@ -1079,4 +1079,109 @@ body {
 .dashboard__bidding-list-item:last-child {
   border-bottom: none;
 }
+
+.investment-tabs {
+  background: #252729;
+  padding: 2rem;
+  border-radius: 16px;
+}
+.investment-tabs .tab-buttons {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 2rem;
+}
+.investment-tabs .tab-buttons .tab-button {
+  flex: 1;
+  padding: 1rem 2rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: #808080;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.investment-tabs .tab-buttons .tab-button:first-child {
+  border-radius: 16px 0 0 16px;
+}
+.investment-tabs .tab-buttons .tab-button:last-child {
+  border-radius: 0 16px 16px 0;
+}
+.investment-tabs .tab-buttons .tab-button i {
+  font-size: 1.2rem;
+}
+.investment-tabs .tab-buttons .tab-button.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: inset 0px 2px 20px 20px rgba(255, 255, 255, 0.1);
+}
+.investment-tabs .tab-content.hidden {
+  display: none;
+}
+.investment-tabs .investment-amounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+.investment-tabs .investment-amounts .glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.investment-tabs .investment-amounts .glass-button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+}
+.investment-tabs .investment-amounts .glass-button .amount {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.investment-tabs .investment-amounts .glass-button .period {
+  font-size: 0.875rem;
+  color: #808080;
+}
 /*# sourceMappingURL=style.css.map */

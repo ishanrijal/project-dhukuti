@@ -100,3 +100,27 @@ document.addEventListener('DOMContentLoaded', () => {
         element.setAttribute('title', element.dataset.tooltip);
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.add('hidden'));
+            
+            // Show selected tab content
+            const tabId = button.dataset.tab;
+            document.getElementById(tabId).classList.remove('hidden');
+        });
+    });
+});

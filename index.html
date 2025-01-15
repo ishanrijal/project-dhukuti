@@ -64,23 +64,55 @@
         <main class="dashboard__main">
             <div class="container">
                 <div class="profile-section">
-                    <div class="profile-left">
-                        <a href="/profile" class="profile-picture">
-                            <img src="assets/images/profile-default.png" alt="Profile Picture">
-                            <div class="profile-overlay">
-                                <i class="fas fa-user-edit"></i>
-                            </div>
-                        </a>
-                    </div>
                     <div class="profile-right">
-                        <button class="play-dhukuti-btn">Play Dhukuti</button>
-                        <div class="investment-options">
-                            <div class="frequency-buttons">
-                                <button class="frequency-btn weekly-btn">Weekly</button>
-                                <button class="frequency-btn monthly-btn">Monthly</button>
-                            </div>
-                        </div>
                         <button class="find-group-btn">Find me a group</button>
+                    </div>
+                </div>
+
+                <div class="investment-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="weekly">
+                            <i class="fas fa-clock"></i>
+                            Weekly
+                        </button>
+                        <button class="tab-button" data-tab="monthly">
+                            <i class="fas fa-calendar-alt"></i>
+                            Monthly
+                        </button>
+                    </div>
+                    
+                    <div class="tab-content" id="weekly">
+                        <div class="investment-amounts">
+                            <button class="glass-button">
+                                <span class="amount">$100</span>
+                                <span class="period">per week</span>
+                            </button>
+                            <button class="glass-button">
+                                <span class="amount">$200</span>
+                                <span class="period">per week</span>
+                            </button>
+                            <button class="glass-button">
+                                <span class="amount">$500</span>
+                                <span class="period">per week</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content hidden" id="monthly">
+                        <div class="investment-amounts">
+                            <button class="glass-button">
+                                <span class="amount">$400</span>
+                                <span class="period">per month</span>
+                            </button>
+                            <button class="glass-button">
+                                <span class="amount">$800</span>
+                                <span class="period">per month</span>
+                            </button>
+                            <button class="glass-button">
+                                <span class="amount">$2000</span>
+                                <span class="period">per month</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

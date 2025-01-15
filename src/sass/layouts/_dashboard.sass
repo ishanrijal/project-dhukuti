@@ -350,3 +350,72 @@
 
                 &:last-child
                     border-bottom: none
+
+
+.investment-tabs
+    background: #252729
+    padding: 2rem
+    border-radius: 16px
+
+    .tab-buttons
+        @include mixins.flexbox
+        margin-bottom: 2rem
+
+        .tab-button
+            flex: 1
+            padding: 1rem 2rem
+            border: none
+            background: rgba(255, 255, 255, 0.05)
+            color: #808080
+            cursor: pointer
+            @include mixins.transition(all)
+            @include mixins.flex-center
+            gap: 0.5rem
+
+            &:first-child
+                border-radius: 16px 0 0 16px
+
+            &:last-child
+                border-radius: 0 16px 16px 0
+
+            i
+                font-size: 1.2rem
+
+            &.active
+                background: rgba(255, 255, 255, 0.1)
+                color: #ffffff
+                box-shadow: inset 0px 2px 20px 20px rgba(255, 255, 255, 0.1)
+
+    .tab-content
+        &.hidden
+            display: none
+
+    .investment-amounts
+        display: grid
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+        gap: 1.5rem
+
+        .glass-button
+            background: rgba(255, 255, 255, 0.05)
+            backdrop-filter: blur(10px)
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 16px
+            padding: 1.5rem
+            color: white
+            cursor: pointer
+            @include mixins.transition(transform)
+            @include mixins.flex-center
+            @include mixins.flex-direction(column)
+            gap: 0.5rem
+
+            &:hover
+                transform: translateY(-2px)
+                background: rgba(255, 255, 255, 0.1)
+
+            .amount
+                font-size: 1.5rem
+                font-weight: bold
+
+            .period
+                font-size: 0.875rem
+                color: #808080
