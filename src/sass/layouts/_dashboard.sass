@@ -71,70 +71,76 @@
     padding-bottom: 2rem
 
     &__header
-        background: #8811d3
-        border-radius: 0 0 40px 40px
+        background: rgb(1,162,140)
         box-shadow: 0 2px 4px rgba(0,0,0,0.05)
-        margin-bottom: 3rem
-        padding-bottom: 24px
+        margin-bottom: 2rem
+        padding-bottom: 6px
         
         &_top
             @include mixins.flex-center
             @include mixins.justify-content(space-between)
-            padding: 1rem 0
+            padding: 2rem 0
             
             .header-logo
                 font-size: 1.5rem
                 font-weight: bold
                 color: variables.$white
                 @include mixins.transition(color)
-
-                &:hover
-                    color: darken(variables.$white, 10%)
-
-            .header-profile
-                width: 40px
-                height: 40px
-                border-radius: 50%
-                background-color: rgba(255, 255, 255, 0.2)
-                border: 2px solid rgba(255, 255, 255, 0.5)
                 @include mixins.flex-center
-                color: variables.$white
+                gap: 16px
+                
+                .profile-picture
+                    display: flex
+                    width: 60px
+                    height: 60px
+                
+                .header-greetings
+                    @include mixins.flexbox
+                    @include mixins.flex-direction(column)
+                    gap: 6px
+                    font-size: 18px
+                    
+            .header-profile
+                width: 60px
+                height: 60px
+                position: relative
                 cursor: pointer
-                @include mixins.transition(background-color)
+                @include mixins.flex-center
+                @include mixins.transition(all)
+
+                // Hamburger middle line
+                &::before,
+                &::after,
+                span
+                    content: ""
+                    position: absolute
+                    width: 30px
+                    height: 3px
+                    background-color: variables.$white
+                    border-radius: 3px
+                    @include mixins.transition(all)
+
+                // Top line
+                &::before
+                    transform: translateY(-10px)
+
+                // Bottom line
+                &::after
+                    transform: translateY(10px)
+
+                // Middle line
+                span
+                    width: 20px // Shorter middle line
+                    right: 15px // Align right with other lines
 
                 &:hover
-                    background-color: rgba(255, 255, 255, 0.3)
-
-    &__search
-        @include mixins.flex-center
-        position: relative
-
-        &-input
-            flex: 1
-            padding: 0.75rem 1rem
-            border: 1px solid #ddd
-            border-radius: 4px
-            font-size: 1rem
-            position: absolute
-            top:-4px
-            width: 100%
-
-            &:focus
-                outline: none
-                border-color: variables.$blue-bg
-
-        &-button
-            padding: 0.75rem 1rem
-            border: none
-            background-color: #007bff
-            color: white
-            border-radius: 0 50px 50px 0
-            cursor: pointer
-            @include mixins.transition(background-color)
-
-            &:hover
-                background-color: #0056b3
-
+                    &::before
+                        transform: translateY(-12px)
+                    &::after
+                        transform: translateY(12px)
+                    span
+                        width: 30px // Expand middle line on hover
+                        right: auto
     .verification-banner
         &__content
             background: #c269fb
@@ -151,6 +157,7 @@
             span
                 font-size: 16px
                 font-weight: 700
+                text-transform: capitalize
 
         &__toggle
             background: transparent
