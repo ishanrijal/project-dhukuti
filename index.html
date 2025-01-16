@@ -12,36 +12,15 @@
 </head>
 <body>
     <div class="dashboard">
-        <header class="dashboard__header">
+        <header class="header-wrapper">
             <div class="container">
-                <div class="dashboard__header_top">
-                    <div class="header-logo">
-                        <div class="logo">
-                            <a href="/profile" class="profile-picture">
-                                <img src="assets/images/profile-default.png" alt="Profile Picture">
-                            </a>
-                        </div>
-                        <div class="header-greetings">
-                            <span>Hi, Ishan</span>
-                            <span>Good morning</span>
-                        </div>
-                    </div>
-                    <div class="header-profile">
-                        <span></span>
-                    </div>
+                <div class="header-content">
+                    <span>Check your eligibility for Dhukuti here 
+                        <i class="fas fa-check-circle eligibility-icon"></i>
+                    </span>
                 </div>
             </div>
         </header>
-        <div class="verification-banner">
-            <div class="container">
-                <div class="verification-banner__content">
-                    <span>Check your eligibility for Dhukuti here </span>
-                    <button class="verification-banner__toggle">
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
         
         <div class="verification-section hidden">
             <form class="verification-form">
@@ -64,6 +43,31 @@
         <main class="dashboard__main">
             <div class="container">
                 <div class="profile-section">
+                    <div class="profile-left">
+                        <a href="/profile" class="profile-picture">
+                            <img src="assets/images/avatar-rectangle.png" alt="Profile Picture">
+                            <div class="profile-overlay">
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="profile-right">
+                        <button class="play-dhukuti-btn">Play Dhukuti</button>
+                        <div class="investment-options">
+                            <div class="frequency-buttons">
+                                <button class="frequency-btn weekly-btn">Weekly</button>
+                                <button class="frequency-btn monthly-btn">Monthly</button>
+                            </div>
+                        </div>
+                        <button class="find-group-btn">Find me a group</button>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <a href="/play" class="mobile-footer__item mobile-footer__item--play">
+                        <div class="play-button">
+                            <span>Play Dhukuti</span>
+                        </div>
+                    </a>
                     <div class="profile-right">
                         <button class="find-group-btn">Find me a group</button>
                     </div>
@@ -214,12 +218,11 @@
                 <i class="fas fa-calendar"></i>
                 <span>Calendar</span>
             </a>
-            <span class="mobile-footer__item">
-            </span>
-            <a href="/play" class="mobile-footer__item mobile-footer__item--play">
-                <div class="play-button">
-                    <span>Play Dhukuti</span>
+            <a href="/pay" class="mobile-footer__item">
+                <div class="pay-icon">
+                    <i class="fas fa-circle-dollar-to-slot"></i>
                 </div>
+                <span>Pay</span>
             </a>
             <a href="/groups" class="mobile-footer__item">
                 <i class="fas fa-users"></i>
