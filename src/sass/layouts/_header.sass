@@ -1,11 +1,37 @@
 @use '../utils/mixins' as mixins
 @use '../utils/variables' as variables
 
+
+.eligibility-btn
+    width: 90%
+    margin: 0 auto
+    background: transparent
+    padding: 1rem 1.6rem
+    color: variables.$white
+    font-size: 1.2rem
+    border: 2px solid #6e8efb
+    border-radius: 50px
+
+
+    span
+        @include mixins.flex-center
+        gap: 0.5rem
+        cursor: pointer
+        @include mixins.transition(all)
+        text-transform: capitalize
+
+        .eligibility-icon
+            font-size: 1.2rem
+            @include mixins.transition(transform)
+
+        &:hover
+            opacity: 0.8
+            .eligibility-icon
+                transform: scale(1.1) rotate(10deg)
+
 .header
     &-wrapper
-        background: rgb(1,162,140)
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05)
-        margin-bottom: 2rem
+        margin: 2rem 0
         padding: 16px
 
     &-content
@@ -14,19 +40,203 @@
         text-transform: capitalize
         font-size: 18px
         font-weight: 700
+        @include mixins.flexbox
+        @include mixins.justify-content(space-between)
+        gap: 24px
 
-        span
-            @include mixins.flex-center
-            gap: 0.5rem
-            cursor: pointer
-            @include mixins.transition(all)
+        .header-icon
+            width: 40%
+            background: silver
+            border-radius: 50px
 
-            .eligibility-icon
+            .profile-picture
+                position: relative
+                display: block
+                width: 100%
+                border-radius: 50px
+                overflow: hidden
+                
+                img
+                    width: 100%
+
+                .profile-overlay
+                    position: absolute
+                    top: 0
+                    left: 0
+                    width: 100%
+                    height: 100%
+                    background: rgba(0, 0, 0, 0.5)
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    opacity: 0
+                    transition: opacity 0.3s ease
+
+                    i
+                        color: white
+                        font-size: 1.5rem
+
+                &:hover .profile-overlay
+                    opacity: 1
+
+        .eligibility-btn
+            width: 80%
+
+            span
+                @include mixins.flex-center
+                gap: 0.5rem
+                cursor: pointer
+                @include mixins.transition(all)
+                background: rgb(1,162,140)
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05)
+                border-radius: 50px
+                padding: 1rem 1.6rem
+
+                .eligibility-icon
+                    font-size: 1.2rem
+                    @include mixins.transition(transform)
+
+                &:hover
+                    opacity: 0.8
+                    .eligibility-icon
+                        transform: scale(1.1) rotate(10deg)
+
+        .profile-right
+            width: 60%
+            @include mixins.flexbox
+            @include mixins.flex-direction(column)
+            gap: 24px
+
+            .play-dhukuti-btn
+                width: 100%
+                padding: 1rem 2rem
                 font-size: 1.2rem
-                @include mixins.transition(transform)
+                border: none
+                border-radius: 50px
+                background: linear-gradient(135deg, #6e8efb, #a777e3)
+                color: white
+                cursor: pointer
+                @include mixins.flex-center
+                gap: 0.75rem
+                position: relative
+                overflow: hidden
+                @include mixins.transition(all)
+
+                i
+                    font-size: 1.25rem
+
+                &::before
+                    content: ''
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    width: 100%
+                    height: 100%
+                    background: rgba(255, 255, 255, 0.1)
+                    transform: translate(-50%, -50%) scale(0)
+                    border-radius: 50%
+                    @include mixins.transition(transform)
+
+                &:hover
+                    transform: translateY(-2px)
+                    box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4)
+
+                    &::before
+                        transform: translate(-50%, -50%) scale(2)
+                        opacity: 0
+
+        .tab-buttons
+            @include mixins.flexbox
+
+            .tab-button
+                flex: 1
+                padding: .6rem 1.2rem
+                border: none
+                background: rgba(255, 255, 255, 0.05)
+                color: #808080
+                cursor: pointer
+                @include mixins.transition(all)
+                @include mixins.flex-center
+                gap: 0.5rem
+
+                span
+                    margin-top: 4px
+
+                &:first-child
+                    border-radius: 16px 0 0 16px
+
+                &:last-child
+                    border-radius: 0 16px 16px 0
+
+                i
+                    font-size: 1.2rem
+
+                &.active
+                    background: rgba(255, 255, 255, 0.1)
+                    color: #ffffff
+                    box-shadow: inset 0px 2px 20px 20px rgba(255, 255, 255, 0.1)
+
+        
+        .find-group-btn
+            width: 100%
+            padding: 0.75rem 1.5rem
+            border: 2px solid #6e8efb
+            border-radius: 50px
+            background: transparent
+            color: variables.$white
+            cursor: pointer
+            @include mixins.flex-center
+            gap: 0.75rem
+            @include mixins.transition(all)
+            position: relative
+            overflow: hidden
+
+            i
+                font-size: 1.1rem
 
             &:hover
-                opacity: 0.8
-                .eligibility-icon
-                    transform: scale(1.1) rotate(10deg)
+                background: rgba(110, 142, 251, 0.1)
+                transform: translateY(-2px)
+                box-shadow: 0 5px 15px rgba(110, 142, 251, 0.2)
+                
+                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        .tab-content
+            &.hidden
+                display: none
 
+            .find-group-btn
+                width: 100%
+                padding: 0.75rem
+                border: 2px solid #6e8efb
+                border-radius: 50px
+                background: transparent
+                color: #6e8efb
+                cursor: pointer
+                margin-bottom: 1rem
+
+            .investment-options
+                .frequency-buttons
+                    display: flex
+                    gap: 1rem
+
+                    .frequency-btn
+                        flex: 1
+                        padding: 0.5rem
+                        border: 1px solid #ddd
+                        border-radius: 25px
+                        background: #5965f3
+                        cursor: pointer
+
+                    .monthly-btn
+                        color: #6e8efb
+                        background: transparent
+                        border: 2px solid #6e8efb

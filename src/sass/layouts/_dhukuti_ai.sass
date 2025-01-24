@@ -1,0 +1,225 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.dhukuti-ai
+    padding: 4rem 0
+    background: variables.$dark-bg
+    
+    &__content
+        @include mixins.flex-center
+        @include mixins.flex-direction(column)
+        text-align: center
+        margin-bottom: 3rem
+        
+        h2
+            font-size: 2.5rem
+            color: variables.$white
+            margin-bottom: 1rem
+            text-transform: uppercase
+            font-weight: 700
+            @include mixins.flex-center
+            gap: 0.5rem
+
+            .dhukuti-text
+                @include mixins.flex-center
+                opacity: 0
+                animation: showText 0.5s forwards
+                animation-delay: 0.5s
+                font-family: "Allura", serif
+                letter-spacing: 6px
+                margin-right: 6px
+                //font-weight: 400
+                //font-style: normal
+
+                .letter
+                    display: inline-block
+                    color: variables.$white
+                    position: relative
+                    animation: wavyText 2s ease-in-out infinite
+                    background: linear-gradient(135deg, #fff 0%,rgb(157, 177, 241) 100%)
+                    -webkit-background-clip: text
+                    -webkit-text-fill-color: transparent
+
+                    @for $i from 1 through 7
+                        &:nth-child(#{$i})
+                            animation-delay: #{$i * 0.1}s
+
+            @keyframes showText
+                from
+                    opacity: 0
+                    transform: translateY(20px)
+                to
+                    opacity: 1
+                    transform: translateY(0)
+
+            @keyframes wavyText
+                0%, 100%
+                    transform: translateY(0)
+                25%
+                    transform: translateY(-6px) rotate(3deg)
+                75%
+                    transform: translateY(6px) rotate(-3deg)
+
+            .highlight
+                position: relative
+                opacity: 0
+                color: #6e8efb
+                background: linear-gradient(135deg, #6e8efb, #a777e3)
+                -webkit-background-clip: text
+                -webkit-text-fill-color: transparent
+                cursor: pointer
+                font-size: 5rem
+
+                &.loaded
+                    opacity: 1
+                    animation: initialFall 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards
+
+                &.floating
+                    animation: fallAndBounce 3s ease-in-out infinite
+
+                &:hover
+                    animation: none
+                    
+                    &::before
+                        animation: fallAndBounce 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards
+
+            @keyframes initialFall
+                0%
+                    transform: translateY(-200px) rotate(0deg)
+                    opacity: 0
+                30%
+                    transform: translateY(0) rotate(90deg)
+                    opacity: 1
+                40%
+                    transform: translateY(-30px) rotate(90deg)
+                50%
+                    transform: translateY(0) rotate(45deg)
+                60%
+                    transform: translateY(-15px) rotate(15deg)
+                70%
+                    transform: translateY(0) rotate(5deg)
+                80%
+                    transform: translateY(-5px) rotate(0deg)
+                90%, 100%
+                    transform: translateY(0) rotate(0deg)
+
+
+            @keyframes fallAndBounce
+                0%
+                    transform: translateY(0)
+                60%
+                    transform: translateY(-20%)
+                100%
+                    transform: translateY(0)
+            
+        p
+            color:#c0c0c0
+            margin-bottom: 2rem
+            max-width: 450px
+            line-height: 1.3
+            text-transform: capitalize
+            
+    .ai-button
+        padding: 1rem 2rem
+        border-radius: 50px
+        background: linear-gradient(135deg, #6e8efb, #a777e3)
+        border: none
+        color: variables.$white
+        font-size: 1.1rem
+        cursor: pointer
+        @include mixins.flex-center
+        gap: 0.75rem
+        @include mixins.transition(transform)
+        
+        &:hover
+            transform: translateY(-2px)
+            
+    .feature-card
+        height: 550px
+        border-radius: 16px
+        background-size: cover
+        background-position: center
+        padding: 2rem
+        position: relative
+        overflow: hidden
+        
+        &::before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8))
+            
+        &__icon
+            position: relative
+            z-index: 2
+            width: 50px
+            height: 50px
+            border-radius: 50%
+            background: rgba(255,255,255,0.1)
+            backdrop-filter: blur(10px)
+            @include mixins.flex-center
+            
+            i
+                font-size: 1.5rem
+                color: variables.$white
+                
+        &__content
+            position: absolute
+            bottom: 3rem
+            left: 2rem
+            right: 2rem
+            z-index: 2
+            
+            h3
+                color: variables.$white
+                font-size: 1.5rem
+                margin-bottom: 0.5rem
+                
+            p
+                color: rgba(255,255,255,0.8)
+                font-size: 1rem
+
+// Swiper customization
+.ai-features
+    position: relative
+    padding: 0 50px
+
+    .swiper-pagination
+        position: relative
+        margin-top: -1.2rem
+
+        &-bullet
+            width: 10px
+            height: 10px
+            background: rgba(110, 142, 251, 0.2)
+            opacity: 1
+            @include mixins.transition(all)
+            
+            &-active
+                background: #6e8efb
+                transform: scale(1.5)
+
+    .swiper-button-next,
+    .swiper-button-prev
+        width: 40px
+        height: 40px
+        background: rgba(110, 142, 251, 0.1)
+        border-radius: 50%
+        @include mixins.flex-center
+        @include mixins.transition(all)
+
+        &::after
+            font-size: 1.2rem
+            color: #6e8efb
+            font-weight: bold
+
+        &:hover
+            background: rgba(110, 142, 251, 0.2)
+            transform: scale(1.1)
+
+    .swiper-button-disabled
+        opacity: 0.5
+        cursor: not-allowed

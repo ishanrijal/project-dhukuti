@@ -145,53 +145,6 @@
                     &:hover .profile-overlay
                         opacity: 1
 
-            .profile-right
-                width: 60%
-                @include mixins.flexbox
-                @include mixins.flex-direction(column)
-                gap: 24px
-
-                .play-dhukuti-btn
-                    width: 100%
-                    padding: 1rem
-                    font-size: 1.2rem
-                    border: none
-                    border-radius: 50px
-                    background: linear-gradient(135deg, #6e8efb, #a777e3)
-                    color: white
-                    cursor: pointer
-                    transition: transform 0.3s ease
-
-                    &:hover
-                        transform: translateY(-2px)
-
-                .find-group-btn
-                    width: 100%
-                    padding: 0.75rem
-                    border: 2px solid #6e8efb
-                    border-radius: 50px
-                    background: transparent
-                    color: #6e8efb
-                    cursor: pointer
-                    margin-bottom: 1rem
-
-                .investment-options
-                    .frequency-buttons
-                        display: flex
-                        gap: 1rem
-
-                        .frequency-btn
-                            flex: 1
-                            padding: 0.5rem
-                            border: 1px solid #ddd
-                            border-radius: 25px
-                            background: #5965f3
-                            cursor: pointer
-
-                        .monthly-btn
-                            color: #6e8efb
-                            background: transparent
-                            border: 2px solid #6e8efb
     &__play-button
         width: 80%
         padding: 1.5rem
@@ -212,14 +165,61 @@
         grid-template-columns: repeat(3, 1fr)
         gap: 1.5rem
 
-        .card
-            background: white
-            border-radius: 8px
-            padding: 1.5rem
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1)
-            min-height: 150px
-            @include mixins.flex-center
-            flex-direction: column
+.mini-statement-wrapper
+    //color: #370909f2
+    padding: 24px 36px
+    .card
+        background-color: rgba(255, 255, 255, 0.1)
+        border-radius: 8px
+        padding: 1.5rem
+        box-shadow: inset -8px -3px 20px 20px rgba(255, 255, 255, 0.1)
+        @include mixins.transition(all)
+        
+        &:hover
+            transform: translateY(-2px)
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1)
+
+        &-content
+            @include mixins.flexbox
+            @include mixins.justify-content(space-between)
+            color: variables.$white
+
+        &-balance
+            @include mixins.flexbox
+            @include mixins.flex-direction(column)
+            @include mixins.justify-content(space-between)
+            @include mixins.align-items(flex-end)
+            width: 50%
+            gap: 32px
+
+            .card-menu
+                padding: 0.5rem
+                cursor: pointer
+                @include mixins.transition(opacity)
+                
+                i
+                    font-size: 1.25rem
+                    color: variables.$white
+
+                &:hover
+                    opacity: 0.7
+
+            .balance-info
+                @include mixins.flexbox
+                @include mixins.flex-direction(column)
+                align-items: flex-end
+                gap: 12px
+                letter-spacing: .05rem
+
+                .amount
+                    font-size: 1.3rem
+                    font-weight: 600
+                    color: variables.$white
+
+                .balance-label
+                    font-size: 1rem
+                    color: variables.$white
+                    font-weight: 500
 
     &__activities
         margin-top: 2rem
@@ -351,3 +351,5 @@
             .period
                 font-size: 0.875rem
                 color: #808080
+
+

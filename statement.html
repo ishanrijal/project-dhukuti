@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhukuti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .swiper-statement {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .swiper-statement .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .swiper-statement .feature-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-align: left;
+        }
+
+        .swiper-statement .feature-card__icon {
+            flex-shrink: 0;
+            font-size: 50px;
+            color: white;
+            margin-right: 20px;
+        }
+
+        .swiper-statement .feature-card__content h3 {
+            font-size: 24px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .swiper-statement .feature-card__content p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .swiper-statement .feature-card__price {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .swiper-statement .swiper-pagination-bullet {
+            background: #fff;
+            opacity: 0.7;
+        }
+
+        .swiper-statement .swiper-pagination-bullet-active {
+            background: #00ffcc;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="eligibility-btn">
+            <span>Check your eligibility for Dhukuti here 
+                <i class="fas fa-check-circle eligibility-icon"></i>
+            </span>
+        </header>
+        <div class="statement-page">
+            <!-- Visa Card Section -->
+            <div class="visa-card" style="background-image: url('./assets/images/dhukuti-ai.webp')">
+                <div class="card-background">
+                    <h2 class="card-type">Visa</h2>
+                    <h4 class="card-tier">Platinum</h4>
+                    <div class="card-details">
+                        <p class="card-holder">Ishan Rijal</p>
+                        <div class="card-number">
+                            <span class="number">**** **** **** 0909</span>
+                            <button class="toggle-visibility">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTML -->
+            <div class="swiper-statement">
+                <div class="swiper-wrapper">
+                    <!-- Card 1 -->
+                    <div class="swiper-slide">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-card__content">
+                                <h3>Smart Analysis</h3>
+                                <div class="feature-card__price">$1200.0</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Card 2 -->
+                    <div class="swiper-slide">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="feature-card__content">
+                                <h3>Predictive Planning</h3>
+                                <div class="feature-card__price">$1500.0</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Card 3 -->
+                    <div class="swiper-slide">
+                        <div class="feature-card">
+                            <div class="feature-card__icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-card__content">
+                                <h3>Secure Automation</h3>
+                                <div class="feature-card__price">$1300.0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+
+            <!-- Filter and Statements Section -->
+            <div class="statement-section">       
+                <!-- List of Statements -->
+                <div class="statements">
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Shopping</h4>
+                            <p class="statement-date">Jan 18, 2025</p>
+                        </div>
+                        <div class="statement-amount negative">- $120.75</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Salary</h4>
+                            <p class="statement-date">Jan 15, 2025</p>
+                        </div>
+                        <div class="statement-amount positive">+ $3,000.00</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Shopping</h4>
+                            <p class="statement-date">Jan 18, 2025</p>
+                        </div>
+                        <div class="statement-amount negative">- $120.75</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Salary</h4>
+                            <p class="statement-date">Jan 15, 2025</p>
+                        </div>
+                        <div class="statement-amount positive">+ $3,000.00</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Shopping</h4>
+                            <p class="statement-date">Jan 18, 2025</p>
+                        </div>
+                        <div class="statement-amount negative">- $120.75</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Salary</h4>
+                            <p class="statement-date">Jan 15, 2025</p>
+                        </div>
+                        <div class="statement-amount positive">+ $3,000.00</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Shopping</h4>
+                            <p class="statement-date">Jan 18, 2025</p>
+                        </div>
+                        <div class="statement-amount negative">- $120.75</div>
+                    </div>
+                    <div class="statement-item">
+                        <div class="statement-logo">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="statement-info">
+                            <h4 class="statement-title">Salary</h4>
+                            <p class="statement-date">Jan 15, 2025</p>
+                        </div>
+                        <div class="statement-amount positive">+ $3,000.00</div>
+                    </div>
+                </div>
+        
+                <div class="pagination">
+                    <button class="prev-page">Previous</button>
+                    <div class="page-numbers"></div>
+                    <button class="next-page">Next</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <footer class="mobile-footer">
+        <nav class="mobile-footer__nav">
+            <a href="/" class="mobile-footer__item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="/calendar" class="mobile-footer__item">
+                <i class="fas fa-calendar"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="/pay" class="mobile-footer__item">
+                <div class="pay-icon">
+                    <i class="fas fa-circle-dollar-to-slot"></i>
+                </div>
+                <span>Pay</span>
+            </a>
+            <a href="/groups" class="mobile-footer__item">
+                <i class="fas fa-users"></i>
+                <span>Groups</span>
+            </a>
+            <a href="/payments" class="mobile-footer__item">
+                <i class="fas fa-wallet"></i>
+                <span>Payments</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+
+        <!-- Add in head -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Add before closing body -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Toggle Card Number Visibility
+            const toggleButton = document.querySelector(".toggle-visibility");
+            const cardNumberSpan = document.querySelector(".card-number .number");
+            let isHidden = true; // Initially hidden
+    
+            toggleButton.addEventListener("click", () => {
+                if (isHidden) {
+                    cardNumberSpan.textContent = "1234 5678 9012 0909";
+                    toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+                } else {
+                    cardNumberSpan.textContent = "**** **** **** 0909";
+                    toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+                isHidden = !isHidden; // Toggle state
+            });
+    
+            // Show the selected number of statements
+            const itemsPerPageSelect = document.getElementById("items-per-page");
+            const statements         = document.querySelectorAll(".statement-item");
+            let   itemsPerPage       = parseInt(itemsPerPageSelect.value, 10);        // Default value
+    
+            const showStatements = (startIndex = 0) => {
+                // Hide all statements
+                statements.forEach((statement, index) => {
+                    if (index >= startIndex && index < startIndex + itemsPerPage) {
+                        statement.style.display = "flex";
+                    } else {
+                        statement.style.display = "none";
+                    }
+                });
+            };
+    
+            // Update items per page on selection change
+            itemsPerPageSelect.addEventListener("change", () => {
+                itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
+                showStatements(0); // Reset to the first page
+                currentPage = 0; // Reset pagination
+            });
+    
+            // Pagination
+            const prevButton = document.querySelector(".prev-page");
+            const nextButton = document.querySelector(".next-page");
+            const pageNumbersContainer = document.querySelector(".page-numbers");
+            let currentPage = 0;
+            
+            const updatePagination = () => {
+                const totalPages = Math.ceil(statements.length / itemsPerPage);
+
+                // Enable/disable navigation buttons
+                prevButton.disabled = currentPage === 0;
+                nextButton.disabled = currentPage >= totalPages - 1;
+
+                // Generate page numbers
+                pageNumbersContainer.innerHTML = ""; // Clear existing page numbers
+                for (let i = 0; i < totalPages; i++) {
+                    const pageNumberButton = document.createElement("button");
+                    pageNumberButton.textContent = i + 1;
+                    pageNumberButton.classList.add("page-number");
+                    if (i === currentPage) pageNumberButton.classList.add("active");
+                    pageNumberButton.addEventListener("click", () => {
+                        currentPage = i;
+                        showStatements(currentPage * itemsPerPage);
+                        updatePagination();
+                    });
+                    pageNumbersContainer.appendChild(pageNumberButton);
+                }
+            };
+
+            prevButton.addEventListener("click", () => {
+                if (currentPage > 0) {
+                    currentPage--;
+                    showStatements(currentPage * itemsPerPage);
+                    updatePagination();
+                }
+            });
+
+            nextButton.addEventListener("click", () => {
+                if (currentPage < Math.ceil(statements.length / itemsPerPage) - 1) {
+                    currentPage++;
+                    showStatements(currentPage * itemsPerPage);
+                    updatePagination();
+                }
+            });
+
+            // Initialize with default settings
+            showStatements(0);
+            updatePagination();
+        });
+        const swiper = new Swiper('.swiper-statement', {
+          loop: true,
+          slidesPerView: 1,
+          spaceBetween: 20,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            768: {
+              slidesPerView: 2,
+            },
+          },
+        });
+      </script>
+</body>
+</html>

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const profilePicture = document.querySelector('.profile-picture');
 
     // Verification section toggle
-    verificationBanner.addEventListener('click', () => {
+    verificationBanner?.addEventListener('click', () => {
         verificationSection.classList.toggle('hidden');
         const icon = toggleButton.querySelector('i');
         icon.classList.toggle('fa-chevron-down');
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Balance visibility toggle
     let isBalanceVisible = true;
-    balanceToggle.addEventListener('click', () => {
+    balanceToggle?.addEventListener('click', () => {
         isBalanceVisible = !isBalanceVisible;
         const icon = balanceToggle.querySelector('i');
         
@@ -123,4 +123,27 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(tabId).classList.remove('hidden');
         });
     });
+    
+});
+
+window.addEventListener('load', () => {
+    const dhukutiLetters = document.querySelectorAll('.letter');
+    const aiText = document.getElementById('ai-text');
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                dhukutiLetters.forEach((letter, index) => {
+                    letter.style.animationDelay = `${index * 0.1}s`;
+                });
+                setTimeout(() => {
+                    aiText.classList.add('loaded');
+                    setTimeout(() => aiText.classList.add('floating'), 1500);
+                }, 1000);
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    observer.observe(document.querySelector('.dhukuti-text'));
 });
