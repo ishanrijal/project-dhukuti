@@ -17,7 +17,6 @@
     <style>
         .swiper-statement {
             width: 100%;
-            padding: 20px;
         }
 
         .swiper-statement .swiper-slide {
@@ -31,7 +30,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px;
-            width: 80%;
+            width: 100%;
             max-width: 800px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -80,27 +79,64 @@
 </head>
 <body>
     <div class="dashboard">
-        <header class="eligibility-btn">
-            <span>Check your eligibility for Dhukuti here 
-                <i class="fas fa-check-circle eligibility-icon"></i>
-            </span>
+        <header class="statement-header-wrapper">
+            <div class="header-profile">
+                <span></span>
+            </div>
+            <div class="header-logo">
+                <div class="logo">
+                    <a href="/profile" class="profile-picture">
+                        <img src="assets/images/profile-default.png" alt="Profile Picture">
+                    </a>
+                </div>
+            </div>
         </header>
+        <div class="container">
+            <div class="greetings">
+                <span class="greetings-name">Hi, Ishan</span>
+                <span class="greetings-message">Welcome Back ! </span>
+            </div>
+        </div>
         <div class="statement-page">
             <!-- Visa Card Section -->
-            <div class="visa-card" style="background-image: url('./assets/images/dhukuti-ai.webp')">
+            <div class="visa-card">
                 <div class="card-background">
-                    <h2 class="card-type">Visa</h2>
-                    <h4 class="card-tier">Platinum</h4>
+                    <div class="chip-container">
+                        <i class="fa-regular fa-credit-card"></i>
+                    </div>
+                    <div class="card-number">
+                        <span class="number">**** **** **** 0909</span>
+                        <!-- <span class="number">4565 2322 1232 0909</span> -->
+                        <button class="toggle-visibility">
+                            <i class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
                     <div class="card-details">
-                        <p class="card-holder">Ishan Rijal</p>
-                        <div class="card-number">
-                            <span class="number">**** **** **** 0909</span>
-                            <button class="toggle-visibility">
-                                <i class="fas fa-eye-slash"></i>
-                            </button>
+                        <div class="card-info">
+                            <p class="card-label">Banking Card</p>
+                            <p class="card-holder">Ishan</p>
+                        </div>
+                        <div class="card-type">
+                            <div class="mastercard-logo">
+                                <div class="circle circle-left"></div>
+                                <div class="circle circle-right"></div>
+                                <div class="circle circle-overlay"></div>
+                            </div>
+                            <p>Mastercard</p>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Total Spend Section -->
+            <div class="total-spend">
+                <div class="spend-info">
+                    <p class="label">Total Spent</p>
+                    <h2 class="amount">$1,520.00</h2>
+                </div>
+                <button class="menu-dots">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
             </div>
 
             <!-- HTML -->
@@ -109,12 +145,14 @@
                     <!-- Card 1 -->
                     <div class="swiper-slide">
                         <div class="feature-card">
-                            <div class="feature-card__icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
                             <div class="feature-card__content">
-                                <h3>Smart Analysis</h3>
-                                <div class="feature-card__price">$1200.0</div>
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="text-content">
+                                    <h3>Smart Analysis</h3>
+                                    <div class="feature-card__price">$1200.00</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,12 +160,14 @@
                     <!-- Card 2 -->
                     <div class="swiper-slide">
                         <div class="feature-card">
-                            <div class="feature-card__icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
                             <div class="feature-card__content">
-                                <h3>Predictive Planning</h3>
-                                <div class="feature-card__price">$1500.0</div>
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="text-content">
+                                    <h3>Predictive Planning</h3>
+                                    <div class="feature-card__price">$1500.00</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,12 +175,14 @@
                     <!-- Card 3 -->
                     <div class="swiper-slide">
                         <div class="feature-card">
-                            <div class="feature-card__icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
                             <div class="feature-card__content">
-                                <h3>Secure Automation</h3>
-                                <div class="feature-card__price">$1300.0</div>
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="text-content">
+                                    <h3>Secure Automation</h3>
+                                    <div class="feature-card__price">$1300.00</div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -891,6 +891,256 @@ body {
   border: 2px solid #6e8efb;
 }
 
+.statement-header-wrapper {
+  padding: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+}
+.statement-header-wrapper .header-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  transition: color 0.3s;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  gap: 16px;
+}
+.statement-header-wrapper .header-logo .profile-picture {
+  display: flex;
+  width: 50px;
+  height: 50px;
+}
+.statement-header-wrapper .header-profile {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+.statement-header-wrapper .header-profile::before,
+.statement-header-wrapper .header-profile span {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+.statement-header-wrapper .header-profile::before {
+  transform: translateY(-10px);
+}
+.statement-header-wrapper .header-profile span {
+  width: 20px;
+  left: 0;
+}
+.statement-header-wrapper .header-profile:hover::before {
+  transform: translateY(-12px);
+}
+.statement-header-wrapper .header-profile:hover::after {
+  transform: translateY(12px);
+}
+.statement-header-wrapper .header-profile:hover span {
+  width: 30px;
+  left: auto;
+}
+
+.greetings {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 18px;
+}
+.greetings-name {
+  color: white;
+  font-size: 20px;
+}
+.greetings-message {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+
+.card-type {
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  -moz-align-items: flex-end;
+  align-items: flex-end;
+  gap: 8px;
+}
+.card-type p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.card-type .mastercard-logo {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.card-type .mastercard-logo .circle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.card-type .mastercard-logo .circle-left {
+  left: 0;
+  background: #000000;
+  z-index: 1;
+}
+.card-type .mastercard-logo .circle-right {
+  right: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+.card-type .mastercard-logo .circle-overlay {
+  left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.total-spend {
+  padding: 0 12px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total-spend .spend-info .label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  letter-spacing: 1.2px;
+}
+.total-spend .spend-info .amount {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+.total-spend .menu-dots {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+  padding: 8px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.total-spend .menu-dots:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.swiper-statement {
+  padding: 20px 0;
+}
+.swiper-statement .feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+}
+.swiper-statement .feature-card__content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.swiper-statement .feature-card__content .icon-wrapper {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-statement .feature-card__content .icon-wrapper i {
+  color: white;
+  font-size: 1.2rem;
+}
+.swiper-statement .feature-card__content .text-content h3 {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.swiper-statement .feature-card__content .text-content .feature-card__price {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
 .verification-section {
   background: linear-gradient(358deg, #6e8efb, #a777e3, #a2f7d7, #f7a3c6);
   padding: 2rem;
@@ -1710,66 +1960,10 @@ body {
   margin: 0 auto;
 }
 
-/* Visa Card Section */
-.visa-card {
-  width: 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 8px;
-  color: white;
-  padding: 20px;
-  position: relative;
-  margin-bottom: 30px;
-  box-shadow: inset 0px -1px 20px 20px rgba(0, 0, 0, 0.2);
-  height: 160px;
-  border-radius: 8px;
-  opacity: 0.9;
-}
-
-.card-type {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.card-tier {
-  margin-top: 5px;
-  font-size: 1rem;
-}
-
-.card-details {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  text-align: right;
-}
-
-.card-holder {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.card-number {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-}
-.card-number .toggle-visibility {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
 /* Statement Section */
 .statement-section {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
   border-radius: 8px;
-  box-shadow: inset 20px 0px 20px 20px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1px);
+  margin-bottom: 40px;
   color: white;
 }
 .statement-section .filter-pagination {
@@ -1865,5 +2059,160 @@ body {
 .page-numbers {
   display: flex;
   gap: 0.5rem;
+}
+
+.visa-card {
+  width: 100%;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-shadow: inset 0px -5px 20px 20px rgba(255, 255, 255, 0.2);
+}
+.visa-card .card-background {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.visa-card .card-background .chip-container i {
+  color: white;
+  font-size: 36px;
+}
+.visa-card .card-background .card-number {
+  margin-top: 1.5rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.visa-card .card-background .card-number .number {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: white;
+  font-family: monospace;
+}
+.visa-card .card-background .card-number .toggle-visibility {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+}
+.visa-card .card-background .card-number .toggle-visibility:hover {
+  opacity: 0.8;
+}
+.visa-card .card-background .card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2.6rem;
+  margin-bottom: 1rem;
+}
+.visa-card .card-background .card-details .card-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.visa-card .card-background .card-details .card-info .card-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1.2px;
+}
+.visa-card .card-background .card-details .card-info .card-holder {
+  font-size: 1.2rem;
+  color: white;
+  text-transform: capitalize;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.visa-card .card-background .card-details .card-type {
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.visa-card .card-background .card-details .card-type p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+}
+.visa-card .card-background .card-details .card-type .mastercard-logo {
+  position: relative;
+  width: 60px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.visa-card .card-background .card-details .card-type .mastercard-logo .circle {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.visa-card .card-background .card-details .card-type .mastercard-logo .circle-left {
+  left: 0;
+  background: #000000;
+  z-index: 1;
+}
+.visa-card .card-background .card-details .card-type .mastercard-logo .circle-left-right {
+  right: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+.visa-card .card-background .card-details .card-type .mastercard-logo .circle-left-overlay {
+  left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+.visa-card .card-background .card-details .card-type .card-logo {
+  width: 60px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.statement-logo {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /*# sourceMappingURL=style.css.map */

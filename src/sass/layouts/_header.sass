@@ -240,3 +240,199 @@
                         color: #6e8efb
                         background: transparent
                         border: 2px solid #6e8efb
+
+
+
+
+
+
+
+
+.statement-header-wrapper
+        padding: 20px
+        @include mixins.flex-center
+        @include mixins.justify-content(space-between)
+        
+        .header-logo
+            font-size: 1.5rem
+            font-weight: bold
+            color: variables.$white
+            @include mixins.transition(color)
+            @include mixins.flex-center
+            gap: 16px
+            
+            .profile-picture
+                display: flex
+                width: 50px
+                height: 50px
+                
+        .header-profile
+            width: 50px
+            height: 50px
+            position: relative
+            cursor: pointer
+            @include mixins.flexbox
+            @include mixins.justify-content(flex-start)
+            @include mixins.align-items(center)
+            @include mixins.transition(all)
+
+            // Hamburger middle line
+            &::before,
+            span
+                content: ""
+                position: absolute
+                width: 30px
+                height: 3px
+                background-color: variables.$white
+                border-radius: 3px
+                @include mixins.transition(all)
+
+            // Top line
+            &::before
+                transform: translateY(-10px)
+
+            // Bottom line
+            // &::after
+            //    transform: translateY(10px)
+
+            // Middle line
+            span
+                width: 20px // Shorter middle line
+                left: 0 // Align right with other lines
+
+            &:hover
+                &::before
+                    transform: translateY(-12px)
+                &::after
+                    transform: translateY(12px)
+                span
+                    width: 30px // Expand middle line on hover
+                    left: auto
+
+
+.greetings
+    @include mixins.flexbox
+    @include mixins.flex-direction(column)
+    gap: 4px
+    font-size: 18px
+
+    &-name
+        color: white
+        font-size: 20px
+
+    &-message
+        color: rgba(255,255,255,0.7)
+        font-size: 18px
+
+.card-type
+    text-align: right
+    @include mixins.flexbox
+    @include mixins.flex-direction(column)
+    @include mixins.align-items(flex-end)
+    gap: 8px
+    
+    p
+        font-size: 0.9rem
+        color: rgba(255, 255, 255, 0.8)
+    
+    .mastercard-logo
+        position: relative
+        width: 50px
+        height: 30px
+        display: flex
+        align-items: center
+        
+        .circle
+            position: absolute
+            width: 30px
+            height: 30px
+            border-radius: 50%
+            
+            &-left
+                left: 0
+                background: #000000
+                z-index: 1
+            
+            &-right
+                right: 0
+                background: #ffffff
+                z-index: 1
+            
+            &-overlay
+                left: 10px
+                background: rgba(255, 255, 255, 0.2)
+                z-index: 2
+
+.total-spend
+    padding: 0 12px
+    margin-top: 20px
+    margin-bottom: 20px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    
+    .spend-info
+        .label
+            color: rgba(255, 255, 255, 0.6)
+            font-size: 0.9rem
+            margin-bottom: 5px
+            letter-spacing: 1.2px
+        
+        .amount
+            color: rgba(255, 255, 255, 0.6)
+            font-size: 1.4rem
+            font-weight: 600
+            letter-spacing: 1.2px
+    
+    .menu-dots
+        background: transparent
+        border: none
+        color: rgba(255, 255, 255, 0.6)
+        font-size: 1.2rem
+        padding: 8px
+        cursor: pointer
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        @include mixins.transition(all)
+        
+        &:hover
+            background: rgba(255, 255, 255, 0.1)
+
+// Modified Feature Card Styles
+.swiper-statement
+    padding: 20px 0
+    
+    .feature-card
+        background: rgba(255, 255, 255, 0.1)
+        backdrop-filter: blur(10px)
+        border-radius: 20px
+        padding: 20px
+        
+        &__content
+            display: flex
+            align-items: center
+            gap: 15px
+            
+            .icon-wrapper
+                width: 45px
+                height: 45px
+                background: rgba(255, 255, 255, 0.1)
+                border-radius: 15px
+                display: flex
+                align-items: center
+                justify-content: center
+                
+                i
+                    color: white
+                    font-size: 1.2rem
+            
+            .text-content
+                h3
+                    color: white
+                    font-size: 1.1rem
+                    margin-bottom: 5px
+                
+                .feature-card__price
+                    color: rgba(255, 255, 255, 0.6)
+                    font-size: 1rem
