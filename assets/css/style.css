@@ -2215,4 +2215,191 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.profile-page {
+  background: #2C2B2C;
+  min-height: 100vh;
+  color: #ffffff;
+}
+.profile-header {
+  position: relative;
+  margin-bottom: 40px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+}
+.profile-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.9);
+}
+.profile-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 4px;
+  width: fit-content;
+}
+.profile-rating i {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+.profile-rating span {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-page .quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.profile-page .quick-actions .action-card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.profile-page .quick-actions .action-card i {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+.profile-page .quick-actions .action-card span {
+  font-size: 1rem;
+  color: #ffffff;
+}
+.profile-page .privacy-card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.profile-page .privacy-card .privacy-content {
+  width: 76%;
+}
+.profile-page .privacy-card .privacy-content h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.profile-page .privacy-card .privacy-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+}
+.profile-page .privacy-card .privacy-icon {
+  width: 24%;
+  position: relative;
+}
+.profile-page .privacy-card .privacy-icon i {
+  font-size: 60px;
+  transform: rotate(-30deg);
+  position: absolute;
+  right: -10px;
+  bottom: -48px;
+}
+.profile-page .divider-line {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 24px 0;
+}
+.profile-page .profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.profile-page .profile-menu .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-decoration: none;
+  color: #ffffff;
+  position: relative;
+  padding: 12px 0 12px 12px;
+}
+.profile-page .profile-menu .menu-item i {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  width: 24px;
+}
+.profile-page .profile-menu .menu-item .menu-text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.profile-page .profile-menu .menu-item .menu-text h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.profile-page .profile-menu .menu-item .menu-text p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+.profile-page .profile-menu .menu-item .message-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  width: 100%;
+}
+.profile-page .profile-menu .menu-item .message-wrapper .notification-dot {
+  width: 8px;
+  height: 8px;
+  background: #0066ff;
+  border-radius: 50%;
+}
 /*# sourceMappingURL=style.css.map */

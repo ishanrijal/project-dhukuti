@@ -147,4 +147,39 @@ window.addEventListener('load', () => {
     
     observer.observe(document.querySelector('.dhukuti-text'));
 });
+
+// Initialize the carousel
+document.addEventListener('DOMContentLoaded', () => {
+    const myCarousel = new Carousel('.ai-features', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        autoplay: {
+            enabled: true,
+            delay: 3000,
+            pauseOnHover: true
+        },
+        speed: 800,
+        navigation: {
+            enabled: true,
+            prevEl: '.carousel-prev',
+            nextEl: '.carousel-next'
+        },
+        pagination: {
+            enabled: true,
+            el: '.carousel-pagination',
+            clickable: true
+        }
+    });
+
+    // Add resize handler with debounce
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            myCarousel.calculateDimensions();
+            myCarousel.updateSlidePositions();
+        }, 250);
+    });
+});
 //# sourceMappingURL=main.js.map
