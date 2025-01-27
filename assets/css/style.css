@@ -2404,9 +2404,7 @@ body {
 }
 
 .profile-setup-container {
-  padding: 2rem 0;
-  min-height: 100vh;
-  background: #2C2B2C;
+  position: relative;
 }
 
 .profile-setup-title {
@@ -2418,12 +2416,19 @@ body {
 }
 
 .profile-setup-content {
-  max-width: 600px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.glassmorphic-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .profile-photo-section {
@@ -2439,7 +2444,8 @@ body {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 .profile-photo-section .profile-photo-container:hover {
   transform: scale(1.02);
@@ -2451,6 +2457,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.9);
 }
 .profile-photo-section .photo-overlay {
   position: absolute;
@@ -2538,35 +2545,52 @@ body {
 .profile-setup-form .input-group input {
   flex: 1;
 }
-.profile-setup-form input {
-  padding: 0.8rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+.profile-setup-form .input-wrapper {
+  position: relative;
+  width: 100%;
 }
-.profile-setup-form input:focus {
+.profile-setup-form .input-wrapper i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+}
+.profile-setup-form .input-wrapper input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.profile-setup-form .input-wrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.profile-setup-form .input-wrapper input:focus {
   outline: none;
-  border-color: var(--primary-color, #2c3e50);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 .profile-setup-form .verify-btn {
-  padding: 0.8rem 1.5rem;
-  background: var(--accent-color, #3498db);
+  background: rgba(110, 142, 251, 0.2);
+  border: 1px solid rgba(110, 142, 251, 0.3);
   color: white;
-  border: none;
+  padding: 0.8rem 1.5rem;
   border-radius: 8px;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  max-width: fit-content;
 }
 .profile-setup-form .verify-btn:hover {
-  background: var(--accent-color-dark, #2980b9);
+  background: rgba(110, 142, 251, 0.3);
+  transform: translateY(-1px);
+}
+.profile-setup-form .verify-btn i {
+  margin-right: 0.5rem;
 }
 .profile-setup-form .verification-status {
   display: -webkit-box;
@@ -2587,7 +2611,7 @@ body {
 .profile-setup-form .save-profile-btn {
   margin-top: 1rem;
   padding: 1rem;
-  background: var(--primary-color, #2c3e50);
+  background: #2C2B2C;
   color: white;
   border: none;
   border-radius: 8px;
@@ -2602,17 +2626,14 @@ body {
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(110, 142, 251, 0.2);
 }
 .profile-setup-form .save-profile-btn:hover {
-  background: var(--primary-color-dark, #1a252f);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(110, 142, 251, 0.3);
 }
 
 @media (max-width: 768px) {
-  .profile-setup-content {
-    padding: 1.5rem;
-    margin: 0 1rem;
-  }
   .profile-setup-form .input-group {
     -webkit-box-direction: normal;
     -webkit-box-orient: vertical;
@@ -2624,6 +2645,10 @@ body {
   .profile-setup-form .verify-btn {
     width: 100%;
     justify-content: center;
+  }
+  .glassmorphic-card {
+    margin: 0 1rem;
+    padding: 1.5rem;
   }
 }
 /*# sourceMappingURL=style.css.map */

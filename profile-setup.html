@@ -7,77 +7,82 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/profile-setup.css">
 </head>
 <body>
-
-    <div class="profile-setup-container">
-        <div class="container">
-            <h1 class="profile-setup-title">Complete Your Profile</h1>
-            <div class="profile-setup-content">
-                <div class="profile-photo-section">
-                    <div class="profile-photo-container">
-                        <a href="/profile" class="profile-picture">
-                            <img src="assets/images/avatar-rectangle.png" alt="Profile Picture">
-                            <div class="profile-overlay">
-                                <i class="fas fa-user-edit"></i>
+        <div class="profile-setup-container">
+            <div class="container">
+                <h1 class="profile-setup-title">Complete Your Profile</h1>
+                <div class="profile-setup-content">
+                    <div class="glassmorphic-card">
+                        <div class="profile-photo-section">
+                            <div class="profile-photo-container">
+                                <img src="assets/images/avatar-rectangle.png" alt="Profile Photo" id="profile-preview">
+                                <div class="photo-overlay">
+                                    <label for="profile-upload" class="upload-btn">
+                                        <i class="fas fa-camera"></i>
+                                        <span>Upload Photo</span>
+                                    </label>
+                                    <input type="file" id="profile-upload" accept="image/*" hidden>
+                                </div>
                             </div>
-                        </a>
-                        <div class="photo-overlay">
-                            <label for="profile-upload" class="upload-btn">
-                                <i class="fas fa-camera"></i>
-                                <span>Upload Photo</span>
-                            </label>
-                            <input type="file" id="profile-upload" accept="image/*" hidden>
+                            <p class="photo-hint">Click to upload profile picture</p>
                         </div>
+
+                        <form class="profile-setup-form">
+                            <div class="form-group">
+                                <label for="fullname">Full Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="fullname" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <div class="input-group">
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" id="email" placeholder="Enter your email" required>
+                                    </div>
+                                    <button type="button" class="verify-btn">
+                                        <i class="fas fa-shield-check"></i>
+                                        Verify Now
+                                    </button>
+                                </div>
+                                <span class="verification-status unverified">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    Email not verified
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-group">
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                                    </div>
+                                    <button type="button" class="verify-btn">
+                                        <i class="fas fa-shield-check"></i>
+                                        Verify
+                                    </button>
+                                </div>
+                                <span class="verification-status unverified">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    Phone not verified
+                                </span>
+                            </div>
+
+                            <button type="submit" class="save-profile-btn">
+                                <i class="fas fa-check"></i>
+                                Save Profile
+                            </button>
+                        </form>
                     </div>
-                    <p class="photo-hint">Click to upload profile picture</p>
                 </div>
-
-                <form class="profile-setup-form">
-                    <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input type="text" id="fullname" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <div class="input-group">
-                            <input type="email" id="email" placeholder="Enter your email" required>
-                            <button type="button" class="verify-btn">
-                                <i class="fas fa-envelope"></i>
-                                Verify
-                            </button>
-                        </div>
-                        <span class="verification-status unverified">
-                            <i class="fas fa-exclamation-circle"></i>
-                            Email not verified
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <div class="input-group">
-                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
-                            <button type="button" class="verify-btn">
-                                <i class="fas fa-phone"></i>
-                                Verify
-                            </button>
-                        </div>
-                        <span class="verification-status unverified">
-                            <i class="fas fa-exclamation-circle"></i>
-                            Phone not verified
-                        </span>
-                    </div>
-
-                    <button type="submit" class="save-profile-btn">
-                        <i class="fas fa-check"></i>
-                        Save Profile
-                    </button>
-                </form>
             </div>
         </div>
-    </div>
+    
 
     <script src="assets/js/main.js"></script>
 </body>
