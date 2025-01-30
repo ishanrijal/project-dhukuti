@@ -1,0 +1,160 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.play-dhukuti-container
+    background: #1a1d23
+    min-height: 100vh
+    color: #fff
+    padding: 2rem 1.5rem
+
+.dhukuti-header
+    text-align: center
+    margin-bottom: 3rem
+
+    .title
+        font-size: 2.5rem
+        font-weight: 700
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4)
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+        margin-bottom: 1.5rem
+        font-family: 'Allura', cursive
+
+    .header-description
+        color: rgba(255, 255, 255, 0.8)
+        line-height: 1.6
+
+        .quote
+            font-style: italic
+            color: #4ecdc4
+            margin-top: 0.5rem
+
+.currency-section, .balance-section
+    margin-bottom: 2rem
+
+    h2
+        font-size: 1.2rem
+        color: rgba(255, 255, 255, 0.9)
+        margin-bottom: 1rem
+
+.currency-options
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: 1rem
+    margin-bottom: 1rem
+
+    .currency-btn
+        @include mixins.flexbox
+        @include mixins.align-items(center)
+        gap: 0.5rem
+        background: rgba(255, 255, 255, 0.1)
+        border: 1px solid rgba(255, 255, 255, 0.2)
+        border-radius: 12px
+        padding: 0.8rem
+        color: #fff
+        cursor: pointer
+        transition: all 0.3s ease
+
+        img
+            width: 24px
+            height: 24px
+            border-radius: 50%
+
+        &.active
+            background: linear-gradient(45deg, #4a90e2, #63b3ed)
+            border-color: transparent
+
+        &:hover
+            transform: translateY(-2px)
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
+
+.balance-options
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: 1rem
+
+    .balance-btn
+        background: rgba(255, 255, 255, 0.1)
+        border: 1px solid rgba(255, 255, 255, 0.2)
+        border-radius: 12px
+        padding: 1rem
+        color: #fff
+        cursor: pointer
+        transition: all 0.3s ease
+
+        .amount
+            font-size: 1.2rem
+            font-weight: 600
+
+        &.active
+            background: linear-gradient(45deg, #4a90e2, #63b3ed)
+            border-color: transparent
+
+        &:hover
+            transform: translateY(-2px)
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
+
+.comparison-btn
+    width: 100%
+    background: transparent
+    border: 1px solid rgba(255, 255, 255, 0.2)
+    border-radius: 12px
+    padding: 1rem
+    color: #fff
+    font-size: 1rem
+    cursor: pointer
+    margin-bottom: 2rem
+    transition: all 0.3s ease
+
+    &:hover
+        background: rgba(255, 255, 255, 0.1)
+        transform: translateY(-2px)
+
+.rules-section
+    background: rgba(255, 255, 255, 0.05)
+    border-radius: 16px
+    padding: 1.5rem
+    margin-bottom: 2rem
+
+    h2
+        font-size: 1.2rem
+        color: rgba(255, 255, 255, 0.9)
+        margin-bottom: 1rem
+
+    .rules-content
+        p
+            color: rgba(255, 255, 255, 0.8)
+            line-height: 1.6
+            margin-bottom: 1.5rem
+
+    .rules-navigation
+        @include mixins.flexbox
+        @include mixins.justify-content(center)
+        gap: 0.5rem
+
+        .dot
+            width: 8px
+            height: 8px
+            border-radius: 50%
+            background: rgba(255, 255, 255, 0.3)
+            cursor: pointer
+            transition: background 0.3s ease
+
+            &.active
+                background: #4a90e2
+
+.subscribe-btn
+    width: 100%
+    background: linear-gradient(45deg, #4a90e2, #63b3ed)
+    border: none
+    border-radius: 12px
+    padding: 1rem
+    color: #fff
+    font-size: 1.1rem
+    font-weight: 600
+    cursor: pointer
+    transition: all 0.3s ease
+
+    &:hover
+        transform: translateY(-2px)
+        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3)

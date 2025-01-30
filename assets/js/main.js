@@ -148,6 +148,254 @@ window.addEventListener('load', () => {
     observer.observe(document.querySelector('.dhukuti-text'));
 });
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle new session button
+    const newSessionBtn = document.querySelector('.new-session-btn');
+    newSessionBtn?.addEventListener('click', () => {
+        // Add your new session creation logic here
+        console.log('Creating new session...');
+    });
+
+    // Handle quick idea add buttons
+    const addButtons = document.querySelectorAll('.add-btn');
+    addButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const ideaCard = e.target.closest('.idea-card');
+            const ideaTitle = ideaCard.querySelector('h3').textContent;
+            const ideaTime = ideaCard.querySelector('p').textContent;
+            
+            // Add your logic to add the idea to sessions
+            console.log(`Adding idea: ${ideaTitle} - ${ideaTime}`);
+            
+            // Visual feedback
+            button.textContent = 'Added';
+            button.style.background = '#4CAF50';
+            setTimeout(() => {
+                button.textContent = 'Add';
+                button.style.background = '';
+            }, 2000);
+        });
+    });
+
+    // Handle start blocking session button
+    const startSessionBtn = document.querySelector('.start-session-btn');
+    startSessionBtn?.addEventListener('click', () => {
+        // Add your session starting logic here
+        console.log('Starting blocking session...');
+    });
+
+    // Handle navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+
+    // Add smooth hover effects
+    const allButtons = document.querySelectorAll('button');
+    allButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'translateY(-2px)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0)';
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const topPlayersContainer = document.querySelector('.top-players');
+    const leaderboardList = document.querySelector('.leaderboard-list');
+
+    // Mock data - Replace this with your API call in the future
+    const leaderboardData = {
+        region: [
+            { id: 1, name: 'Eiden', score: 2430, username: '@eiden', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 2, name: 'Jackson', score: 1847, username: '@jackson', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 3, name: 'Emma Aria', score: 1674, username: '@emmaaria', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'offline' },
+            { id: 4, name: 'Sebastian', score: 1124, username: '@sebastian', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 5, name: 'Jason', score: 875, username: '@jason', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'offline' }
+        ],
+        national: [
+            { id: 1, name: 'Anya', score: 2200, username: '@anya', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 2, name: 'David', score: 1950, username: '@david', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'offline' },
+            { id: 3, name: 'Sarah', score: 1700, username: '@sarah', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 4, name: 'Michael', score: 1550, username: '@michael', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 5, name: 'Emily', score: 1300, username: '@emily', avatar: 'path/to/emily.jpg', status: 'offline' }
+        ],
+        global: [
+            { id: 1, name: 'Lin', score: 2700, username: '@lin', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 2, name: 'Kenji', score: 2500, username: '@kenji', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 3, name: 'Sofia', score: 2350, username: '@sofia', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'offline' },
+            { id: 4, name: 'Mateo', score: 2100, username: '@mateo', avatar: 'https://cdn-icons-png.flaticon.com/512/5998/5998953.png', status: 'online' },
+            { id: 5, name: 'Isabella', score: 1800, username: '@isabella', avatar: 'path/to/isabella.jpg', status: 'offline' }
+        ]
+    };
+
+    function renderTopPlayers(players) {
+        const top3 = players.slice(0, 3);
+        const [first, second, third] = [top3[0], top3[1], top3[2]];
+
+        topPlayersContainer.innerHTML = `
+            <div class="player second">
+                <div class="player-avatar">
+                    <img src="${second.avatar}" alt="${second.name}">
+                </div>
+                <div class="player-info">
+                    <span class="player-name">${second.name}</span>
+                    <span class="player-score">${second.score}</span>
+                    <span class="player-username">${second.username}</span>
+                </div>
+            </div>
+
+            <div class="player first">
+                <div class="crown-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="player-avatar">
+                    <img src="${first.avatar}" alt="${first.name}">
+                </div>
+                <div class="player-info">
+                    <span class="player-name">${first.name}</span>
+                    <span class="player-score">${first.score}</span>
+                    <span class="player-username">${first.username}</span>
+                </div>
+            </div>
+
+            <div class="player third">
+                <div class="player-avatar">
+                    <img src="${third.avatar}" alt="${third.name}">
+                </div>
+                <div class="player-info">
+                    <span class="player-name">${third.name}</span>
+                    <span class="player-score">${third.score}</span>
+                    <span class="player-username">${third.username}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderLeaderboardList(players) {
+        // Get players from index 3 onwards (after top 3)
+        const remainingPlayers = players.slice(3);
+        
+        leaderboardList.innerHTML = remainingPlayers.map(player => `
+            <div class="list-item">
+                <span class="rank">${players.indexOf(player) + 1}</span>
+                <img src="${player.avatar}" alt="${player.name}" class="player-avatar">
+                <span class="player-name">${player.name}</span>
+                <span class="player-score">${player.score}</span>
+                <span class="status-dot ${player.status}"></span>
+            </div>
+        `).join('');
+    }
+
+    function loadLeaderboardData(tabId) {
+        // In the future, replace this with an API call
+        const data = leaderboardData[tabId];
+        if (data) {
+            renderTopPlayers(data);
+            renderLeaderboardList(data);
+        }
+    }
+
+    // Tab click handlers
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            tab.classList.add('active');
+
+            // Load data for the selected tab
+            const tabId = tab.dataset.tab;
+            loadLeaderboardData(tabId);
+
+            // Update the indicator position
+            const tabsContainer = document.querySelector('.leaderboard-tabs');
+            const index = Array.from(tabs).indexOf(tab);
+            const width = 100 / tabs.length;
+            tabsContainer.style.setProperty('--indicator-position', `${width * index}%`);
+        });
+    });
+
+    // Load initial data
+    loadLeaderboardData('region');
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // Currency selection
+    const currencyButtons = document.querySelectorAll('.currency-btn');
+    currencyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            currencyButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+    // Balance selection
+    const balanceButtons = document.querySelectorAll('.balance-btn');
+    balanceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            balanceButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+    // Rules navigation
+    const dots = document.querySelectorAll('.rules-navigation .dot');
+    const rulesContent = document.querySelector('.rules-content p');
+    
+    // Sample rules content for different pages
+    const rulesPages = [
+        "10 Participants will contribute 100 each, per week. Every week total sum of 1000 is collected, which will be given to the winner member that specific week. A dhukuti cycle is completed when all 10 members receive their contributed amount back.",
+        "Members can bid for their preferred week. The highest bidder gets the collection for that week. This ensures fair distribution and adds an element of strategy to the game.",
+        "All transactions are secured and monitored. Members must maintain consistent contributions to remain eligible for collections."
+    ];
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            dots.forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
+            rulesContent.textContent = rulesPages[index];
+            
+            // Add fade animation
+            rulesContent.style.opacity = '0';
+            setTimeout(() => {
+                rulesContent.style.opacity = '1';
+            }, 150);
+        });
+    });
+
+    // Quick comparison button
+    const comparisonBtn = document.querySelector('.comparison-btn');
+    comparisonBtn?.addEventListener('click', () => {
+        // Add your comparison logic here
+        console.log('Opening comparison view...');
+    });
+
+    // Subscribe button
+    const subscribeBtn = document.querySelector('.subscribe-btn');
+    subscribeBtn?.addEventListener('click', () => {
+        // Add your subscription logic here
+        console.log('Processing subscription...');
+    });
+
+    // Add hover effects to all buttons
+    const allButtons = document.querySelectorAll('button');
+    allButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'translateY(-2px)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0)';
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
     const profileUpload = document.getElementById('profile-upload');
     const profilePreview = document.getElementById('profile-preview');
     const form = document.querySelector('.profile-setup-form');

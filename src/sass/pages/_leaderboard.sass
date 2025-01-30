@@ -1,0 +1,195 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.leaderboard-container
+    background: #1a1d23
+    min-height: 100vh
+    padding: 1.5rem
+    color: #fff
+
+.leaderboard-header
+    @include mixins.flexbox
+    @include mixins.justify-content(space-between)
+    @include mixins.align-items(center)
+    margin-bottom: 2rem
+
+    .back-button, .menu-button
+        background: none
+        border: none
+        color: rgba(255, 255, 255, 0.7)
+        font-size: 1.2rem
+        cursor: pointer
+
+    .leaderboard-title
+        font-size: 1.2rem
+        font-weight: 500
+
+.leaderboard-tabs
+    @include mixins.flexbox
+    @include mixins.justify-content(center)
+    gap: 3rem
+    margin-bottom: 7.2rem
+    position: relative
+    background: variables.$card-background-color
+    border-radius: 8px
+
+    .tab-button
+        background: none
+        border: none
+        color: rgba(255, 255, 255, 0.7)
+        cursor: pointer
+        font-size: 1.1rem
+        position: relative
+        padding: 1rem 0
+
+        &.active
+            color: #fff
+
+            &::after
+                content: ''
+                position: absolute
+                bottom: 0px
+                left: 0
+                width: 80%
+                height: 4px
+                background: #4a90e2
+                border-radius: 4px
+
+.top-players
+    @include mixins.flexbox
+    @include mixins.justify-content(center)
+    @include mixins.align-items(flex-end)
+    position: relative
+    margin-bottom: 2rem
+
+    .player
+        @include mixins.flexbox
+        @include mixins.flex-direction(column)
+        @include mixins.align-items(center)
+        position: relative
+        transition: all 0.3s ease
+        width: 100%
+
+        .player-avatar
+            width: 60px
+            height: 60px
+            border-radius: 50%
+            overflow: hidden
+            border: 2px solid rgba(255, 255, 255, 0.1)
+            margin-bottom: 0.5rem
+            position: absolute
+            top: -40px
+
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+
+        .player-info
+            text-align: center
+            padding: 40px 0
+            @include mixins.flexbox
+            @include mixins.flex-direction(column)
+            @include mixins.align-items(center)
+            gap: 0.8rem
+
+            .player-name
+                display: block
+                font-weight: 500
+
+            .player-score
+                display: block
+                color: #4a90e2
+                font-weight: 600
+
+            .player-username
+                display: block
+                font-size: 0.8rem
+                color: rgba(255, 255, 255, 0.5)
+
+        &.first
+            //transform: scale(1.2)
+            margin-top: -2rem
+            background: rgba(255, 215, 0, 0.1)
+            padding: 30px 0
+            border-radius: 50px 50px 0 0
+
+            .crown-icon
+                position: absolute
+                top: -65px
+                left: 50%
+                transform: translateX(-50%) scale(1.4)
+                color: #ffd700
+                font-size: 1.2rem
+
+
+            .player-avatar
+                width: 80px
+                height: 80px
+                border: 3px solid #ffd700
+
+            .player-info
+                transform: translateY(-10px)
+
+        &.second, &.third
+            .player-avatar
+                width: 60px
+                height: 60px
+
+        &.second
+            background: rgba(24, 119, 242, 0.1)
+            border-radius: 20px 0 0 20px
+
+        &.third
+            background: rgba(46, 213, 115, 0.1)
+            border-radius: 0 20px 20px 0
+
+.leaderboard-list
+    width: 100%
+    background: variables.$card-background-color
+    border-radius: 40px 40px 0 0
+    position: absolute
+    left: 0
+    padding: 2rem
+    
+    .list-item
+        @include mixins.flexbox
+        @include mixins.align-items(center)
+        padding: 1rem
+        gap: 1rem
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+
+        .rank
+            width: 30px
+            color: rgba(255, 255, 255, 0.7)
+            font-weight: 500
+
+        .player-avatar
+            width: 40px
+            height: 40px
+            border-radius: 50%
+            overflow: hidden
+
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+
+        .player-name
+            flex: 1
+            font-weight: 500
+
+        .player-score
+            color: #4a90e2
+            font-weight: 600
+
+        .status-dot
+            width: 8px
+            height: 8px
+            border-radius: 50%
+
+            &.online
+                background: #4CAF50
+
+            &.offline
+                background: #FF5252
