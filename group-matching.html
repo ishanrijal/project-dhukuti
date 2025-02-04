@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Your Group - Dhukuti</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="group-matching">
+        <div class="group-matching__header">
+            <h1 class="title">Finding Your Group</h1>
+            <p class="subtitle">We're matching you with the perfect group</p>
+        </div>
+
+        <div class="group-matching__status">
+            <h2 class="status-text">Initializing group search...</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-bar__line"></div>
+                <div class="progress-bar__step active"></div>
+                <div class="progress-bar__step"></div>
+                <div class="progress-bar__step"></div>
+                <div class="progress-bar__step"></div>
+            </div>
+
+            <p class="estimated-time">Estimated time: 8 minutes</p>
+        </div>
+
+        <div class="group-matching__animation">
+            <div class="search-circle">
+                <i class="fas fa-users group-icon"></i>
+            </div>
+        </div>
+
+        <div class="group-matching__details">
+            <div class="detail-item">
+                <span class="label">Preferred Amount</span>
+                <span class="value">$1000/month</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Group Size</span>
+                <span class="value">10 members</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Duration</span>
+                <span class="value">12 months</span>
+            </div>
+        </div>
+
+        <button class="group-matching__cancel">
+            <i class="fas fa-times"></i> Cancel Matching
+        </button>
+    </div>
+
+    <script src="src/js/group-matching.js"></script>
+</body>
+</html> 
