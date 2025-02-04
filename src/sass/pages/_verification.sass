@@ -1,0 +1,215 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.verification-page
+    position: relative
+
+.verification-title
+    text-align: center
+    color: rgba(255, 255, 255, 0.7)
+    font-size: 2rem
+    margin-bottom: 2rem
+    font-weight: 600
+
+.verification-content
+    margin: 0 auto
+    
+.verification-section-wrapper
+    margin-top: 2rem
+   
+    .verification-section__title
+        color: white
+        font-size: 1.4rem
+        font-weight: 500
+        margin-bottom: 1.5rem
+        padding-bottom: 0.8rem
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+
+.verification-form
+    .input-group
+        @include mixins.flexbox
+        gap: 1rem
+        margin-bottom: 1.5rem
+        flex-wrap: wrap
+
+        &--col-3
+            .form-control
+                flex: 1
+                min-width: 150px
+
+    .form-control
+        flex: 1
+        min-width: 250px
+
+        label
+            display: block
+            color: rgba(255, 255, 255, 0.7)
+            margin-bottom: 0.5rem
+            font-size: 0.9rem
+
+        input, select
+            width: 100%
+            padding: 0.8rem
+            background: rgba(255, 255, 255, 0.05)
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 8px
+            color: white
+            font-size: 1rem
+            transition: all 0.3s ease
+
+            &::placeholder
+                color: rgba(255, 255, 255, 0.5)
+
+            &:focus
+                outline: none
+                background: rgba(255, 255, 255, 0.15)
+                //border-color: rgba(255, 255, 255, 0.3)
+                //box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1)
+
+        input[type="date"]
+            // Change calendar icon color
+            &::-webkit-calendar-picker-indicator
+                filter: invert(1) brightness(0.8)  // This makes it white with slight transparency
+                cursor: pointer
+                padding: 5px
+                
+                &:hover
+                    opacity: 0.7
+
+            // For Firefox
+            &::-moz-calendar-picker-indicator
+                filter: invert(1) brightness(0.8)
+                cursor: pointer
+                padding: 5px
+                
+                &:hover
+                    opacity: 0.7
+
+    .gender-group
+        @include mixins.flexbox
+        gap: 2rem
+        margin-bottom: 1.5rem
+
+        .gender-option
+            @include mixins.flexbox
+            @include mixins.align-items(center)
+            gap: 0.5rem
+            color: rgba(255, 255, 255, 0.7)
+
+            input[type="radio"]
+                accent-color: #6e8efb
+
+    .document-upload
+        margin-bottom: 1.5rem
+
+        label
+            color: white
+            margin-bottom: 1rem
+
+        .upload-box
+            border: 2px dashed rgba(255, 255, 255, 0.2)
+            border-radius: 12px
+            padding: 2rem
+            text-align: center
+            cursor: pointer
+            transition: all 0.3s ease
+            margin-top: 1rem
+
+            &:hover
+                border-color: #6e8efb
+                background: rgba(110, 142, 251, 0.1)
+
+            i
+                font-size: 2rem
+                color: #6e8efb
+                margin-bottom: 1rem
+
+            p
+                color: rgba(255, 255, 255, 0.7)
+                margin-bottom: 0.5rem
+
+            span
+                color: rgba(255, 255, 255, 0.5)
+                font-size: 0.9rem
+
+            .selected-file
+                @include mixins.flexbox
+                @include mixins.align-items(center)
+                @include mixins.justify-content(center)
+                gap: 1rem
+                margin-top: 1rem
+                padding: 0.5rem
+                background: rgba(255, 255, 255, 0.1)
+                border-radius: 8px
+
+                i
+                    font-size: 1.2rem
+                    color: #6e8efb
+
+                span
+                    color: rgba(255, 255, 255, 0.9)
+                    font-size: 0.9rem
+
+                .remove-file
+                    background: none
+                    border: none
+                    color: rgba(255, 255, 255, 0.7)
+                    cursor: pointer
+                    padding: 0.2rem
+                    
+                    &:hover
+                        color: #ff4757
+
+            &.has-file
+                border-style: solid
+                background: rgba(110, 142, 251, 0.1)
+
+                > i, > p, > span
+                    display: none
+
+.declaration-wrapper
+    margin-bottom: 24px
+    .declaration
+        color: rgba(255, 255, 255, 0.7)
+        line-height: 1.6
+        margin-bottom: 2rem
+    
+        .declaration-input-name
+            display: inline-block
+            padding: 0.3rem 0.5rem 0.3rem 0
+            margin: 0 0.5rem
+            background: none
+            border: none
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7)
+            color: white
+            font-size: 1rem
+
+            &:focus
+                outline: none
+                background: rgba(255, 255, 255, 0.15)
+                border-color: rgba(255, 255, 255, 0.3)
+
+        .signature-pad
+            margin-top: 1rem
+            border: 1px solid rgba(255, 255, 255, 0.2)
+            border-radius: 8px
+            height: 150px
+            background: rgba(255, 255, 255, 0.05)
+
+    .submit-btn
+        width: 100%
+        padding: 1rem
+        background: variables.$background-color
+        color: white
+        border: none
+        border-radius: 8px
+        font-size: 1rem
+        cursor: pointer
+        @include mixins.flexbox
+        @include mixins.align-items(center)
+        @include mixins.justify-content(center)
+        gap: 0.5rem
+        transition: all 0.3s ease
+        
+        &:hover
+            transform: translateY(-2px)

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification - KYC</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="verification-page">
+        <div class="container">
+            <h1 class="verification-title">Identity Verification</h1>
+            
+            <div class="verification-content">
+                <!-- Section 1: Customer Information -->
+                <div class="verification-section-wrapper">
+                    <h2 class="verification-section__title">Customer Information</h2>
+                    <form class="verification-form">
+                        <div class="input-group">
+                            <div class="form-control">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" placeholder="Enter your full name">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="form-control">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob">
+                            </div>
+                        </div>
+
+                        <div class="gender-group">
+                            <div class="gender-option">
+                                <input type="radio" id="male" name="gender" value="male">
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="female" name="gender" value="female">
+                                <label for="female">Female</label>
+                            </div>
+                            <div class="gender-option">
+                                <input type="radio" id="other" name="gender" value="other">
+                                <label for="other">Other</label>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="form-control">
+                                <label for="address">Residential Address</label>
+                                <input type="text" id="address" placeholder="Enter your address">
+                            </div>
+                        </div>
+
+                        <div class="input-group input-group--col-3">
+                            <div class="form-control">
+                                <label for="city">City</label>
+                                <input type="text" id="city" placeholder="Enter city">
+                            </div>
+                            <div class="form-control">
+                                <label for="state">State</label>
+                                <input type="text" id="state" placeholder="Enter state">
+                            </div>
+                            <div class="form-control">
+                                <label for="postcode">Postcode</label>
+                                <input type="text" id="postcode" placeholder="Enter postcode">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="form-control">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="(+61) Enter phone number">
+                            </div>
+                            <div class="form-control">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="Enter email address">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Section 2: Identification Details -->
+                <div class="verification-section-wrapper">
+                    <h2 class="verification-section__title">Identification Details</h2>
+                    <div class="verification-form">
+                        <div class="document-upload">
+                            <label>Bank Statements</label>
+                            <div class="upload-box">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag and drop your bank statement here</p>
+                                <span>or click to browse files</span>
+                                <input type="file" class="file-input" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                            </div>
+                        </div>
+
+                        <div class="document-upload">
+                            <label>Recent Payslip</label>
+                            <div class="upload-box">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag and drop your recent payslip here</p>
+                                <span>or click to browse files</span>
+                                <input type="file" class="file-input" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                            </div>
+                        </div>
+
+                        <div class="document-upload">
+                            <label>Confirmation of Enrollment (COE)</label>
+                            <div class="upload-box">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag and drop your COE here</p>
+                                <span>or click to browse files</span>
+                                <input type="file" class="file-input" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Declaration & Consent -->
+                <div class="verification-section-wrapper declaration-wrapper">
+                    <h2 class="verification-section__title">Declaration & Consent</h2>
+                    <div class="verification-form">
+                        <div class="declaration">
+                            <p>I, <input type="text" class="declaration-input-name" placeholder="Your Full Name">, declare that the information provided is true and correct. I authorize [Company Name] to verify my identity through external databases and acknowledge that my details may be shared for compliance purposes.</p>
+                            
+                            <div class="signature-pad">
+                                <!-- Signature pad -->
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="form-control">
+                                <label for="declarationDate">Date</label>
+                                <input type="date" id="declarationDate">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-check-circle"></i>
+                            Submit Verification
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="src/js/verification-page.js"></script>
+</body>
+</html> 
