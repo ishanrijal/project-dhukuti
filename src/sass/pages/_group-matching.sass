@@ -12,16 +12,20 @@
         margin-bottom: 3rem
 
         .title
-            font-size: 2rem
-            font-weight: 600
-            margin-bottom: 1rem
+            font-size: 2.5rem
+            font-weight: 700
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4)
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+            margin-bottom: 1.5rem
+            font-family: "Allura", cursive
 
         .subtitle
             color: rgba(255, 255, 255, 0.7)
             font-size: 1.1rem
 
     &__status
-        background: rgba(255, 255, 255, 0.05)
+        background: variables.$card-background-color
         border-radius: 16px
         padding: 2rem
         margin-bottom: 2rem
@@ -51,16 +55,16 @@
                 transition: background 0.3s ease
 
                 &.active
-                    background: #01a28c
+                    background: variables.$profile-border-color
                     box-shadow: 0 0 10px rgba(1, 162, 140, 0.5)
 
                 &.completed
-                    background: #01a28c
+                    background: variables.$profile-border-color
 
             &__line
                 position: absolute
                 height: 100%
-                background: #01a28c
+                background: variables.$profile-border-color
                 transition: width 0.5s ease
                 border-radius: 2px
 
@@ -85,14 +89,14 @@
             &::before
                 content: ''
                 position: absolute
-                top: 50%
+                top: 0%
                 left: 50%
                 transform: translate(-50%, -50%)
-                width: 80%
-                height: 80%
+                width: 40%
+                height: 40%
                 border: 3px solid rgba(1, 162, 140, 0.5)
                 border-radius: 50%
-                animation: pulse 2s infinite 0.5s
+                animation: searchLookAround 5s linear infinite
 
             .group-icon
                 position: absolute
@@ -181,3 +185,13 @@
     to
         opacity: 1
         transform: translateY(0) 
+
+@keyframes searchLookAround
+
+    0%
+
+        transform: translate(-50%, 0) rotate(0deg) translateY(-95px)
+
+    100%
+
+        transform: translate(-50%, 0) rotate(360deg) translateY(-95px)
