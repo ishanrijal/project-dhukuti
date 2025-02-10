@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhukuti Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #2C2B2C;
+        }
+
+        .tab-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #2C2B2C;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-header {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .tab-button.active {
+            color: white;
+        }
+
+        .tab-button i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .tab-indicator {
+            height: 5px;
+            width: 50%;
+            background: white;
+            position: absolute;
+            bottom: -1px;
+            transition: transform 0.3s;
+        }
+
+        .search-container {
+            padding: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .search-box i {
+            color: #666;
+            margin-right: 12px;
+        }
+
+        .search-box input {
+            border: none;
+            background: none;
+            flex: 1;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .recent-locations {
+            padding: 0 16px;
+        }
+
+        .location-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: white;
+            animation: slideIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 8px;
+        }
+
+        .location-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover .location-icon {
+            transform: scale(1.1);
+            background: #FFD700;
+        }
+
+        .location-icon i {
+            color: #666;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover .location-icon i {
+            color: #2C2B2C;
+        }
+
+        .location-details {
+            flex: 1;
+        }
+
+        .location-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .location-address {
+            color: #c7c1c1;
+            font-size: 14px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .search-box {
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .tab-button:active::after {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 1;
+            transition: all 0s;
+        }
+
+        .location-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .location-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .location-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .location-item:hover .location-name {
+            color: #FFD700;
+            transition: color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-header">
+            <button class="tab-button active" onclick="switchTab(0)">
+                <i class="fas fa-coins"></i>
+                Dhukuti
+            </button>
+            <button class="tab-button" onclick="switchTab(1)">
+                <i class="fas fa-robot"></i>
+                Dhukuti AI
+            </button>
+            <div class="tab-indicator"></div>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for services...">
+            </div>
+        </div>
+
+        <div class="recent-locations">
+            <div class="location-item">
+                <div class="location-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="location-details">
+                    <div class="location-name">Join Active Dhukuti</div>
+                    <div class="location-address">5 groups available</div>
+                </div>
+            </div>
+            <div class="location-item">
+                <div class="location-icon">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="location-details">
+                    <div class="location-name">Create New Dhukuti</div>
+                    <div class="location-address">Start your own group</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const buttons = document.querySelectorAll('.tab-button');
+            const indicator = document.querySelector('.tab-indicator');
+            
+            buttons.forEach(button => button.classList.remove('active'));
+            buttons[index].classList.add('active');
+            
+            // Move the indicator with smooth animation
+            indicator.style.transform = `translateX(${index * 100}%)`;
+            
+            // Update content with animations
+            const searchInput = document.querySelector('.search-box input');
+            const locationItems = document.querySelector('.recent-locations');
+            
+            // Fade out current content
+            locationItems.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (index === 0) {
+                    searchInput.placeholder = "Search for Dhukuti groups...";
+                    locationItems.innerHTML = `
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="location-details">
+                                <div class="location-name">Join Active Dhukuti</div>
+                                <div class="location-address">5 groups available</div>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <div class="location-details">
+                                <div class="location-name">Create New Dhukuti</div>
+                                <div class="location-address">Start your own group</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    searchInput.placeholder = "Search AI services...";
+                    locationItems.innerHTML = `
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="location-details">
+                                <div class="location-name">Job Finding Assistant</div>
+                                <div class="location-address">AI-powered job search</div>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="location-details">
+                                <div class="location-name">Education Consultant</div>
+                                <div class="location-address">Career guidance & planning</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Fade in new content
+                locationItems.style.opacity = '1';
+            }, 300);
+        }
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                
+                const rect = button.getBoundingClientRect();
+                ripple.style.left = `${e.clientX - rect.left}px`;
+                ripple.style.top = `${e.clientY - rect.top}px`;
+                
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+    </script>
+</body>
+</html> 

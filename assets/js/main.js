@@ -210,11 +210,14 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Sample member data - replace with actual data from your backend
     const members = [
-        { rank: 1, name: "John Doe", bids: 5, eligible: true },
-        { rank: 2, name: "Jane Smith", bids: 4, eligible: true },
-        { rank: 3, name: "Mike Johnson", bids: 3, eligible: false },
-        { rank: 4, name: "Sarah Williams", bids: 3, eligible: true },
-        { rank: 5, name: "David Brown", bids: 2, eligible: false }
+        { rank: 1, name: "Where's The New Update", stars: 230, points: 7491, icon: "🏰" },
+        { rank: 2, name: "Goblin Builder Fanclub", stars: 229, points: 7568, icon: "👾" },
+        { rank: 3, name: "SoupCell", stars: 195, points: 6808, icon: "🍜" },
+        { rank: 4, name: "Home_village_wreckers", stars: 195, points: 6511, icon: "🏠" },
+        { rank: 5, name: "NoMoreOresPlease", stars: 185, points: 6717, icon: "⛏️" },
+        { rank: 6, name: "MOAR ORES", stars: 145, points: 5303, icon: "💎" },
+        { rank: 7, name: "Clash Bros", stars: 132, points: 4337, icon: "⚔️" },
+        { rank: 8, name: "NoDragNoWin", stars: 123, points: 4652, icon: "🐉" }
     ];
 
     // Populate members list
@@ -224,21 +227,73 @@ document.addEventListener('DOMContentLoaded', () => {
         memberRow.className = 'member-row';
         memberRow.style.animationDelay = `${index * 0.1}s`;
         
+        const rankIcon = index < 3 ? `<img src="assets/images/rank-${index + 1}.png" class="rank-icon" alt="Rank ${index + 1}">` : '';
+        
         memberRow.innerHTML = `
-            <span class="rank">#${member.rank}</span>
-            <span class="name">${member.name}</span>
-            <span class="bids">${member.bids}</span>
-            <span class="eligibility ${member.eligible ? 'eligible' : 'not-eligible'}">
-                ${member.eligible ? 'Eligible' : 'Not Eligible'}
-            </span>
-            <span class="actions">
-                <button class="view-profile" data-member="${member.name}">
-                    <i class="fas fa-user"></i>
+            <div class="position">
+                ${rankIcon}
+                <span>${member.rank}</span>
+            </div>
+            <div class="member-info">
+                <div class="member-icon">
+                    <span>${member.icon}</span>
+                </div>
+                <span class="name">${member.name}</span>
+            </div>
+            <div class="stars">
+                <i class="fas fa-star" style="color: #FFD700"></i>
+                ${member.stars}
+            </div>
+            <div class="points">${member.points}</div>
+            <div class="actions">
+                <button class="more-btn">
+                    <i class="fas fa-ellipsis-h"></i>
                 </button>
-            </span>
+            </div>
         `;
         
         membersList.appendChild(memberRow);
+    });
+
+    // Add hover animations for member rows
+    document.querySelectorAll('.member-row').forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            row.style.transform = 'scale(1.01)';
+        });
+
+        row.addEventListener('mouseleave', () => {
+            row.style.transform = 'scale(1)';
+        });
+    });
+
+    // Trophy rotation animation
+    const trophy = document.querySelector('.trophy-image');
+    let isHovered = false;
+
+    trophy.addEventListener('mouseenter', () => {
+        isHovered = true;
+        rotateTrophy();
+    });
+
+    trophy.addEventListener('mouseleave', () => {
+        isHovered = false;
+    });
+
+    function rotateTrophy() {
+        if (!isHovered) return;
+        trophy.style.transform = `rotate(${Math.sin(Date.now() / 1000) * 10}deg)`;
+        requestAnimationFrame(rotateTrophy);
+    }
+
+    // Pause button functionality
+    const pauseButton = document.querySelector('.pause-button');
+    let isPaused = false;
+
+    pauseButton.addEventListener('click', () => {
+        isPaused = !isPaused;
+        pauseButton.innerHTML = isPaused ? 
+            '<i class="fas fa-play"></i>' : 
+            '<i class="fas fa-pause"></i>';
     });
 
     // Animate counters
@@ -297,15 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Trophy animation
-    const trophy = document.querySelector('.trophy-icon');
-    let rotation = 0;
-    
-    setInterval(() => {
-        rotation += 1;
-        trophy.style.transform = `rotateY(${rotation}deg)`;
-    }, 50);
 
     // View profile button handlers
     document.querySelectorAll('.view-profile').forEach(button => {

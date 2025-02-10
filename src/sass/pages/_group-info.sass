@@ -1,35 +1,125 @@
 @use '../utils/variables' as variables
 
 .group-info
-    background: variables.$dark-bg
+    background: #2B1810
     color: variables.$white
-    padding: 2rem
-    border-radius: 16px
-    max-width: 600px
+    max-width: 800px
     margin: 2rem auto
+    border-radius: 12px
+    overflow: hidden
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3)
 
-    &__title
-        font-size: 2.5rem
-        font-weight: 700
+    &__header
+        background: linear-gradient(to right, #4A2410, #6B3015)
+        padding: 1rem
+        position: relative
         text-align: center
-        margin-bottom: 1.5rem
 
-    &__details
-        display: flex
-        flex-direction: column
-        gap: 1rem
+        .current-round
+            position: absolute
+            left: 1rem
+            top: 1rem
+            background: rgba(0, 0, 0, 0.3)
+            padding: 0.5rem 1rem
+            border-radius: 20px
+            font-size: 0.9rem
 
-        .detail-item
-            display: flex
-            justify-content: space-between
+        .trophy-container
+            position: relative
+            height: 120px
+
+            .trophy-image
+                height: 100%
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))
+
+            .pause-button
+                position: absolute
+                right: 1rem
+                top: 1rem
+                background: rgba(255, 255, 255, 0.2)
+                padding: 0.5rem
+                border-radius: 50%
+                cursor: pointer
+                transition: all 0.3s ease
+
+                &:hover
+                    background: rgba(255, 255, 255, 0.3)
+
+        .league-title
+            font-size: 1.8rem
+            margin-top: 1rem
+            color: #FFD700
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
+
+.members-table
+    .table-header
+        display: grid
+        grid-template-columns: 80px 1fr 100px 100px 60px
+        padding: 1rem
+        background: #3D2213
+        color: #A67D52
+        font-size: 0.9rem
+
+    .members-list
+        .member-row
+            display: grid
+            grid-template-columns: 80px 1fr 100px 100px 60px
             padding: 1rem
-            background: rgba(255, 255, 255, 0.1)
-            border-radius: 8px
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+            align-items: center
+            transition: all 0.3s ease
+            animation: slideIn 0.5s ease forwards
+            opacity: 0
 
-            .label
-                font-weight: 500
-                color: rgba(255, 255, 255, 0.8)
+            &:hover
+                background: rgba(255, 255, 255, 0.05)
 
-            .value
+            .position
+                display: flex
+                align-items: center
+                gap: 0.5rem
+
+                .rank-icon
+                    width: 24px
+                    height: 24px
+
+            .member-info
+                display: flex
+                align-items: center
+                gap: 1rem
+
+                .member-icon
+                    width: 40px
+                    height: 40px
+                    border-radius: 50%
+                    background: #4A2410
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    
+                    i
+                        color: #FFD700
+                        font-size: 1.2rem
+
+            .stars, .points
                 font-weight: 600
-                color: variables.$white 
+                color: #FFD700
+
+            .actions
+                .more-btn
+                    background: none
+                    border: none
+                    color: #A67D52
+                    cursor: pointer
+                    transition: all 0.3s ease
+
+                    &:hover
+                        color: #FFD700
+
+@keyframes slideIn
+    from
+        transform: translateX(-20px)
+        opacity: 0
+    to
+        transform: translateX(0)
+        opacity: 1 
