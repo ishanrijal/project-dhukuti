@@ -3,57 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finding Your Group - Dhukuti</title>
+    <title>Dhukuti Group Information</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="group-matching">
-        <div class="group-matching__header">
-            <h1 class="title">Finding Your Group</h1>
-            <p class="subtitle">We're matching you with the perfect group</p>
+    <div class="group-info">
+        <div class="group-info__header">
+            <div class="trophy-container">
+                <div class="trophy-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+            </div>
+            <h1 class="title">Dhukuti Group</h1>
+            <p class="subtitle">Round 3/12</p>
         </div>
 
-        <div class="group-matching__status">
-            <h2 class="status-text">Initializing group search...</h2>
-            
-            <div class="progress-bar">
-                <div class="progress-bar__line"></div>
-                <div class="progress-bar__step active"></div>
-                <div class="progress-bar__step"></div>
-                <div class="progress-bar__step"></div>
-                <div class="progress-bar__step"></div>
+        <div class="group-info__stats">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <div class="stat-content">
+                    <h3>Total Members</h3>
+                    <p class="counter" data-target="12">0</p>
+                </div>
             </div>
-
-            <p class="estimated-time">Estimated time: 8 minutes</p>
-        </div>
-
-        <div class="group-matching__animation">
-            <div class="search-circle">
-                <i class="fas fa-users group-icon"></i>
+            <div class="stat-card">
+                <i class="fas fa-coins"></i>
+                <div class="stat-content">
+                    <h3>Pool Amount</h3>
+                    <p class="counter" data-target="120000">0</p>
+                </div>
             </div>
-        </div>
-
-        <div class="group-matching__details">
-            <div class="detail-item">
-                <span class="label">Preferred Amount</span>
-                <span class="value">$100/month</span>
-            </div>
-            <div class="detail-item">
-                <span class="label">Group Size</span>
-                <span class="value">10 members</span>
-            </div>
-            <div class="detail-item">
-                <span class="label">Duration</span>
-                <span class="value">15 Days</span>
+            <div class="stat-card">
+                <i class="fas fa-gavel"></i>
+                <div class="stat-content">
+                    <h3>Total Bids</h3>
+                    <p class="counter" data-target="36">0</p>
+                </div>
             </div>
         </div>
 
-        <button class="group-matching__cancel">
-            <i class="fas fa-times"></i> Cancel Matching
-        </button>
+        <div class="group-info__members">
+            <div class="table-header">
+                <span class="rank">Rank</span>
+                <span class="name">Member Name</span>
+                <span class="bids">Bids</span>
+                <span class="eligibility">Eligibility</span>
+                <span class="actions">Actions</span>
+            </div>
+            <div class="members-list">
+                <!-- Members will be populated via JavaScript -->
+            </div>
+        </div>
+
+        <div class="group-info__footer">
+            <button class="action-button primary">
+                <i class="fas fa-gavel"></i> Place Bid
+            </button>
+            <button class="action-button secondary">
+                <i class="fas fa-history"></i> Bid History
+            </button>
+        </div>
     </div>
 
-    <script src="src/js/group-matching.js"></script>
+    <!-- Bid Modal -->
+    <div class="modal" id="bidModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Place Your Bid</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="bid-info">
+                    <div class="info-item">
+                        <span class="label">Current Pool Amount</span>
+                        <span class="value">₹120,000</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Minimum Bid</span>
+                        <span class="value">₹1,000</span>
+                    </div>
+                </div>
+                <form id="bidForm" class="bid-form">
+                    <div class="form-group">
+                        <label for="bidAmount">Your Bid Amount (₹)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-rupee-sign"></i>
+                            <input type="number" id="bidAmount" name="bidAmount" min="1000" step="100" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bidMessage">Message (Optional)</label>
+                        <textarea id="bidMessage" name="bidMessage" rows="3" placeholder="Add a note with your bid..."></textarea>
+                    </div>
+                    <div class="bid-summary">
+                        <p>You will receive: <span class="receive-amount">₹0</span></p>
+                        <p>Service fee (1%): <span class="service-fee">₹0</span></p>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-gavel"></i>
+                            Confirm Bid
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/group-info.js"></script>
 </body>
 </html> 
