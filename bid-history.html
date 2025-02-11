@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bid History</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bid-info">
+        <div class="bid-info__header">
+            <h1 class="title">Bid History + Group Member</h1>
+            <p class="subtitle">Group Information Dashboard</p>
+        </div>
+
+        <div class="bid-info__stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Members</h3>
+                    <span class="stat-value">12</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Pool Amount</h3>
+                    <span class="stat-value">$12,000</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Bids</h3>
+                    <span class="stat-value">24</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Bidding Status</h3>
+                    <span class="stat-value">Eligible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bid-info__members">
+            <h2 class="section-title">Members Information</h2>
+            <div class="members-grid">
+                <div class="member-card">
+                    <div class="member-avatar">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="Member Avatar">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <div class="member-info">
+                        <h3>John Doe</h3>
+                        <p class="member-role">Group Leader</p>
+                        <div class="member-stats">
+                            <span><i class="fas fa-gavel"></i> 3 Bids</span>
+                            <span><i class="fas fa-trophy"></i> 1 Win</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-avatar">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="Member Avatar">
+                        <span class="status-indicator offline"></span>
+                    </div>
+                    <div class="member-info">
+                        <h3>Jane Smith</h3>
+                        <p class="member-role">Member</p>
+                        <div class="member-stats">
+                            <span><i class="fas fa-gavel"></i> 2 Bids</span>
+                            <span><i class="fas fa-trophy"></i> 0 Wins</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more member cards as needed -->
+            </div>
+        </div>
+
+        <div class="bid-info__activity">
+            <h2 class="section-title">Recent Activity</h2>
+            <div class="activity-timeline">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p class="activity-text">New bid placed by John Doe</p>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p class="activity-text">New member joined: Sarah Connor</p>
+                        <span class="activity-time">1 day ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/bid-history.js"></script>
+</body>
+</html> 
