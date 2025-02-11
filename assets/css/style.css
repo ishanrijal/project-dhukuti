@@ -3875,55 +3875,79 @@ body {
   }
 }
 .group-info {
-  background: #2B1810;
-  color: #ffffff;
-  max-width: 800px;
-  margin: 2rem auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: #1E1E1E;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #fff;
+  font-family: "Inter", sans-serif;
 }
 .group-info__header {
-  background: linear-gradient(to right, #4A2410, #6B3015);
-  padding: 1rem;
-  position: relative;
   text-align: center;
+  margin-bottom: 3rem;
 }
-.group-info__header .current-round {
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-}
-.group-info__header .trophy-container {
-  position: relative;
-  height: 120px;
-}
-.group-info__header .trophy-container .trophy-image {
-  height: 100%;
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
-}
-.group-info__header .trophy-container .pause-button {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem;
+.group-info__header .group-icon {
+  width: 80px;
+  height: 80px;
+  background: #FFB800;
   border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.group-info__header .trophy-container .pause-button:hover {
-  background: rgba(255, 255, 255, 0.3);
+.group-info__header .group-icon i {
+  font-size: 2.5rem;
+  color: #1E1E1E;
 }
-.group-info__header .league-title {
-  font-size: 1.8rem;
-  margin-top: 1rem;
-  color: #FFD700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.group-info__header .title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.group-info__header .subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+.group-info__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.group-info__stats .stat-card {
+  background: #252729;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+.group-info__stats .stat-card:hover {
+  transform: translateY(-5px);
+}
+.group-info__stats .stat-card .stat-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 184, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.group-info__stats .stat-card .stat-icon i {
+  font-size: 1.5rem;
+  color: #FFB800;
+}
+.group-info__stats .stat-card .stat-content .label {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+.group-info__stats .stat-card .stat-content .value {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .members-table .table-header {
@@ -3989,6 +4013,41 @@ body {
   color: #FFD700;
 }
 
+.group-info_action_btn_wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.group-info_action_btn_wrapper .action-btn {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.group-info_action_btn_wrapper .action-btn.primary {
+  background: #FFB800;
+  color: #1E1E1E;
+}
+.group-info_action_btn_wrapper .action-btn.primary:hover {
+  background: #FFB800;
+  transform: translateY(-2px);
+}
+.group-info_action_btn_wrapper .action-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.group-info_action_btn_wrapper .action-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 @keyframes slideIn {
   from {
     transform: translateX(-20px);
@@ -3997,6 +4056,193 @@ body {
   to {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.modal .modal-content {
+  background: #1E1E1E;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+.modal .modal-content .modal-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal .modal-content .modal-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #FFB800;
+  font-weight: 500;
+}
+.modal .modal-content .modal-header .close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+.modal .modal-content .modal-header .close-btn:hover {
+  color: #fff;
+}
+.modal .modal-content .modal-body {
+  padding: 1.5rem;
+}
+.modal .modal-content .modal-body .bid-information {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.modal .modal-content .modal-body .bid-information .info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.modal .modal-content .modal-body .bid-information .info-row:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.modal .modal-content .modal-body .bid-information .info-row .label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+.modal .modal-content .modal-body .bid-information .info-row .value {
+  color: #FFB800;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.modal .modal-content .modal-body .form-group {
+  margin-bottom: 1.5rem;
+}
+.modal .modal-content .modal-body .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+.modal .modal-content .modal-body .form-group input, .modal .modal-content .modal-body .form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+}
+.modal .modal-content .modal-body .form-group input::placeholder, .modal .modal-content .modal-body .form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.modal .modal-content .modal-body .form-group input:focus, .modal .modal-content .modal-body .form-group textarea:focus {
+  outline: none;
+  border-color: #FFB800;
+}
+.modal .modal-content .modal-body .form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+.modal .modal-content .modal-body .bid-summary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.modal .modal-content .modal-body .bid-summary .summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+.modal .modal-content .modal-body .bid-summary .summary-item:last-child {
+  margin-bottom: 0;
+}
+.modal .modal-content .modal-body .bid-summary .summary-item span:last-child {
+  color: #fff;
+  font-weight: 500;
+}
+.modal .modal-content .modal-body .form-actions {
+  display: flex;
+  gap: 1rem;
+}
+.modal .modal-content .modal-body .form-actions button {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-align: center;
+}
+.modal .modal-content .modal-body .form-actions button.btn-cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.modal .modal-content .modal-body .form-actions button.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.modal .modal-content .modal-body .form-actions button.btn-submit {
+  background: #FFB800;
+  color: #1E1E1E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.modal .modal-content .modal-body .form-actions button.btn-submit:hover {
+  background: #FFB800;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 .bid-info {

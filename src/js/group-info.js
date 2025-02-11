@@ -48,137 +48,39 @@ document.addEventListener('DOMContentLoaded', () => {
         membersList.appendChild(memberRow);
     });
 
-    // Add hover animations for member rows
-    document.querySelectorAll('.member-row').forEach(row => {
-        row.addEventListener('mouseenter', () => {
-            row.style.transform = 'scale(1.01)';
-        });
-
-        row.addEventListener('mouseleave', () => {
-            row.style.transform = 'scale(1)';
-        });
-    });
-
-    // Trophy rotation animation
-    const trophy = document.querySelector('.trophy-image');
-    let isHovered = false;
-
-    trophy.addEventListener('mouseenter', () => {
-        isHovered = true;
-        rotateTrophy();
-    });
-
-    trophy.addEventListener('mouseleave', () => {
-        isHovered = false;
-    });
-
-    function rotateTrophy() {
-        if (!isHovered) return;
-        trophy.style.transform = `rotate(${Math.sin(Date.now() / 1000) * 10}deg)`;
-        requestAnimationFrame(rotateTrophy);
-    }
-
-    // Pause button functionality
-    const pauseButton = document.querySelector('.pause-button');
-    let isPaused = false;
-
-    pauseButton.addEventListener('click', () => {
-        isPaused = !isPaused;
-        pauseButton.innerHTML = isPaused ? 
-            '<i class="fas fa-play"></i>' : 
-            '<i class="fas fa-pause"></i>';
-    });
-
-    // Animate counters
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const step = target / (duration / 16); // 60fps
-        let current = 0;
-
-        const updateCounter = () => {
-            current += step;
-            if (current < target) {
-                counter.textContent = Math.floor(current).toLocaleString();
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target.toLocaleString();
-            }
-        };
-
-        updateCounter();
-    });
-
-    // Add hover effects to stat cards
-    const statCards = document.querySelectorAll('.stat-card');
-    statCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-5px)';
-            card.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
-            card.style.boxShadow = 'none';
-        });
-    });
-
-    // Add click handlers for action buttons
-    const actionButtons = document.querySelectorAll('.action-button');
-    actionButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            const isPlaceBid = button.classList.contains('primary');
-            
-            // Add click animation
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = 'scale(1)';
-            }, 100);
-
-            if (isPlaceBid) {
-                console.log('Opening bid placement modal...');
-                // Implement bid placement logic
-            } else {
-                console.log('Opening bid history...');
-                // Implement bid history view
-            }
-        });
-    });
-
-    // View profile button handlers
-    document.querySelectorAll('.view-profile').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const memberName = button.getAttribute('data-member');
-            console.log(`Viewing profile of ${memberName}`);
-            // Implement profile view logic
-        });
-    });
-
     // Modal functionality
     const modal = document.getElementById('bidModal');
-    const openModalBtn = document.querySelector('.action-button.primary');
-    const closeModalBtn = document.querySelector('.close-modal');
+    const placeBidBtn = document.getElementById('placeBidBtn');
+    const closeBtn = document.querySelector('.close-btn');
     const cancelBtn = document.querySelector('.btn-cancel');
     const bidForm = document.getElementById('bidForm');
     const bidAmountInput = document.getElementById('bidAmount');
     const receiveAmount = document.querySelector('.receive-amount');
     const serviceFee = document.querySelector('.service-fee');
 
-    const openModal = () => {
+    // Open modal
+    placeBidBtn.addEventListener('click', () => {
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
         bidAmountInput.focus();
-    };
+    });
 
+    // Close modal functions
     const closeModal = () => {
         modal.classList.remove('show');
         document.body.style.overflow = '';
         bidForm.reset();
+        updateBidCalculations(0);
     };
 
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
     // Calculate bid amounts
-    const calculateBidAmounts = (amount) => {
+    const updateBidCalculations = (amount) => {
         const fee = Math.round(amount * 0.01); // 1% service fee
         const receive = amount - fee;
         
@@ -186,57 +88,101 @@ document.addEventListener('DOMContentLoaded', () => {
         serviceFee.textContent = `₹${fee.toLocaleString()}`;
     };
 
-    // Event Listeners
-    openModalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) {
-            closeModal();
-        }
-    });
-
-    // Handle bid amount changes
+    // Handle bid amount input
     bidAmountInput.addEventListener('input', (e) => {
         const amount = parseInt(e.target.value) || 0;
-        calculateBidAmounts(amount);
+        updateBidCalculations(amount);
     });
 
     // Handle form submission
-    bidForm.addEventListener('submit', (e) => {
+    bidForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const formData = new FormData(bidForm);
-        const bidData = {
-            amount: parseInt(formData.get('bidAmount')),
-            message: formData.get('bidMessage')
-        };
-
-        // Add loading state
         const submitBtn = bidForm.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
+        
+        // Add loading state
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
         submitBtn.disabled = true;
 
-        // Simulate API call
-        setTimeout(() => {
-            console.log('Bid placed:', bidData);
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Bid Placed!';
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
             
+            // Show success state
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Bid Placed!';
+            submitBtn.style.background = '#4CAF50';
+            
+            // Close modal after delay
             setTimeout(() => {
                 closeModal();
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                submitBtn.style.background = '';
             }, 1500);
-        }, 2000);
+
+        } catch (error) {
+            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error';
+            submitBtn.style.background = '#F44336';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.background = '';
+            }, 3000);
+        }
+    });
+
+    // Animate stats on load
+    const animateValue = (element, start, end, duration) => {
+        const range = end - start;
+        const increment = range / (duration / 16);
+        let current = start;
+        
+        const animate = () => {
+            current += increment;
+            if (current < end) {
+                element.textContent = Math.floor(current).toLocaleString();
+                requestAnimationFrame(animate);
+            } else {
+                element.textContent = end.toLocaleString();
+            }
+        };
+        
+        animate();
+    };
+
+    // Animate all stat values
+    document.querySelectorAll('.stat-card .value').forEach(stat => {
+        const value = parseInt(stat.textContent.replace(/,/g, ''));
+        stat.textContent = '0';
+        animateValue(stat, 0, value, 2000);
+    });
+
+    // Add hover effects
+    document.querySelectorAll('.member-row').forEach(row => {
+        row.addEventListener('mouseenter', () => {
+            row.style.transform = 'translateX(5px)';
+        });
+
+        row.addEventListener('mouseleave', () => {
+            row.style.transform = 'translateX(0)';
+        });
+    });
+
+    // Handle bid history button
+    const bidHistoryBtn = document.getElementById('bidHistoryBtn');
+    bidHistoryBtn.addEventListener('click', () => {
+        // Implement bid history view
+        console.log('Opening bid history...');
+    });
+
+    // Handle member info buttons
+    document.querySelectorAll('.action-icon').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const memberName = e.currentTarget.dataset.member;
+            console.log(`Viewing info for ${memberName}`);
+            // Implement member info view
+        });
     });
 }); 
