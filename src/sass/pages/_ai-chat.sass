@@ -1,0 +1,323 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.chat-container
+    margin: 0 auto
+    height: 100vh
+    background: url('/assets/images/chat-bg.png') #0D1418
+    position: relative
+    display: flex
+    flex-direction: column
+
+// Chat Header
+.chat-header
+    background: #1F2C34
+    padding: 0.6rem
+    @include mixins.flexbox
+    align-items: center
+    position: sticky
+    top: 0
+    z-index: 100
+
+    .header-content
+        @include mixins.flexbox
+        @include mixins.justify-content(space-between)
+        align-items: center
+        width: 100%
+
+        .left-section
+            @include mixins.flexbox
+            align-items: center
+            gap: 1rem
+
+            .back-button
+                color: #8696A0
+                font-size: 1.2rem
+                text-decoration: none
+
+            .profile-info
+                @include mixins.flexbox
+                align-items: center
+                gap: 0.8rem
+
+                .profile-image
+                    width: 40px
+                    height: 40px
+                    background: #00A884
+                    border-radius: 50%
+                    @include mixins.flex-center
+
+                    i
+                        color: #fff
+                        font-size: 1.4rem
+
+                .profile-details
+                    h2
+                        color: #E9EDEF
+                        font-size: 1rem
+                        font-weight: 500
+
+                    .status
+                        color: #8696A0
+                        font-size: 0.8rem
+
+        .right-section
+            @include mixins.flexbox
+            gap: 1.5rem
+
+            .header-icon
+                background: none
+                border: none
+                color: #8696A0
+                font-size: 1.2rem
+                cursor: pointer
+                position: relative
+
+            .dropdown
+                position: relative
+
+                .dropdown-menu
+                    display: none
+                    position: absolute
+                    top: 100%
+                    right: 0
+                    background: #1F2C34
+                    border-radius: 8px
+                    min-width: 200px
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3)
+                    z-index: 1000
+                    margin-top: 0.5rem
+
+                    &.show
+                        display: block
+                        animation: fadeIn 0.2s ease
+
+                .dropdown-item
+                    display: flex
+                    align-items: center
+                    gap: 0.8rem
+                    padding: 0.8rem 1rem
+                    color: #E9EDEF
+                    text-decoration: none
+                    transition: background 0.2s ease
+
+                    i
+                        font-size: 1.1rem
+                        width: 20px
+                        text-align: center
+
+                    &:hover
+                        background: rgba(134, 150, 160, 0.1)
+
+                    &.text-danger
+                        color: #FF4D4D
+
+                .dropdown-divider
+                    height: 1px
+                    background: rgba(134, 150, 160, 0.1)
+                    margin: 0.5rem 0
+
+// Chat Messages
+.chat-messages
+    flex: 1
+    padding: 1rem
+    overflow-y: auto
+
+    .message-date
+        text-align: center
+        color: #8696A0
+        font-size: 0.8rem
+        margin: 1rem 0
+        text-transform: uppercase
+
+    .message
+        margin-bottom: 0.8rem
+        @include mixins.flexbox
+        max-width: 85%
+
+        &.user-message
+            margin-left: auto
+            justify-content: flex-end
+
+            .message-content
+                background: #005C4B
+                border-radius: 8px 0 8px 8px
+
+        &.ai-message
+            margin-right: auto
+            justify-content: flex-start
+
+            .message-content
+                background: #1F2C34
+                border-radius: 0 8px 8px 8px
+
+        .message-content
+            padding: 0.6rem 1rem
+            color: #E9EDEF
+            position: relative
+
+            p
+                margin-bottom: 0.4rem
+                line-height: 1.4
+
+            .message-time
+                font-size: 0.7rem
+                color: #8696A0
+                display: block
+                text-align: right
+                margin-top: 0.2rem
+
+            &.voice-message
+                @include mixins.flexbox
+                align-items: center
+                gap: 1rem
+                min-width: 180px
+
+                .fa-play
+                    color: #00A884
+                    cursor: pointer
+
+                .voice-wave
+                    flex: 1
+                    height: 20px
+                    background: linear-gradient(#8696A0 50%, transparent 50%)
+                    background-size: 4px 4px
+                    opacity: 0.5
+
+                .voice-duration
+                    color: #8696A0
+                    font-size: 0.8rem
+
+            &.document-message
+                @include mixins.flexbox
+                align-items: center
+                gap: 1rem
+                min-width: 200px
+
+                .fa-file-pdf
+                    color: #00A884
+                    font-size: 1.5rem
+
+                .document-info
+                    @include mixins.flexbox
+                    flex-direction: column
+
+                    .document-name
+                        font-size: 0.9rem
+
+                    .document-size
+                        font-size: 0.8rem
+                        color: #8696A0
+
+            .options-list
+                list-style: none
+                margin: 0.8rem 0
+
+                li
+                    background: rgba(134, 150, 160, 0.1)
+                    padding: 0.5rem 1rem
+                    border-radius: 4px
+                    margin-bottom: 0.5rem
+                    cursor: pointer
+                    transition: background 0.3s ease
+
+                    &:hover
+                        background: rgba(134, 150, 160, 0.2)
+
+// Chat Input
+.chat-input
+    background: #1F2C34
+    padding: 0.8rem
+    position: sticky
+    bottom: 0
+
+    .input-container
+        @include mixins.flexbox
+        align-items: center
+        gap: 0.8rem
+
+        .attachment-btn, .voice-btn, .emoji-btn
+            background: none
+            border: none
+            color: #8696A0
+            font-size: 1.4rem
+            cursor: pointer
+            padding: 0.5rem
+
+        .input-wrapper
+            flex: 1
+            background: #2A3942
+            border-radius: 8px
+            @include mixins.flexbox
+            align-items: center
+            padding: 0 1rem
+
+            .message-input
+                flex: 1
+                background: none
+                border: none
+                color: #E9EDEF
+                padding: 0.8rem 0
+                outline: none
+
+                &::placeholder
+                    color: #8696A0
+
+// Upload Modal
+.upload-modal
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    background: #1F2C34
+    border-radius: 20px 20px 0 0
+    padding: 1.5rem
+    z-index: 1000
+    max-width: 480px
+    margin: 0 auto
+    transform: translateY(100%)
+    transition: transform 0.3s ease
+
+    &.show
+        transform: translateY(0)
+
+    .upload-options
+        display: grid
+        grid-template-columns: repeat(4, 1fr)
+        gap: 1rem
+        text-align: center
+
+        .upload-option
+            background: none
+            border: none
+            color: #E9EDEF
+            cursor: pointer
+
+            i
+                font-size: 1.5rem
+                color: #00A884
+                margin-bottom: 0.5rem
+                display: block
+
+            span
+                font-size: 0.8rem
+
+// Animations
+@keyframes slideIn
+    from
+        opacity: 0
+        transform: translateY(20px)
+    to
+        opacity: 1
+        transform: translateY(0)
+
+@keyframes fadeIn
+    from
+        opacity: 0
+        transform: translateY(-10px)
+    to
+        opacity: 1
+        transform: translateY(0)
+
+.message
+    animation: slideIn 0.3s ease forwards 

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhukuti AI PTE Help</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="left-section">
+                    <a href="tab-control.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div class="profile-info">
+                        <div class="profile-image">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="profile-details">
+                            <h2>Dhukuti AI PTE Help</h2>
+                            <span class="status">Online</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-section">
+                    <button class="header-icon">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="header-icon">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <div class="header-icon dropdown">
+                        <button class="header-icon dropdown-toggle">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-bell"></i>
+                                Notifications
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-palette"></i>
+                                Theme
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item text-danger">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages">
+            <div class="message-date">Today</div>
+
+            <!-- AI Welcome Message -->
+            <div class="message ai-message">
+                <div class="message-content">
+                    <p>Hello! I'm your Dhukuti AI PTE tutor. How can I help you today?</p>
+                    <span class="message-time">2:45 PM</span>
+                </div>
+            </div>
+
+            <!-- User Message -->
+            <div class="message user-message">
+                <div class="message-content">
+                    <p>Hi, I need help with PTE speaking section</p>
+                    <span class="message-time">2:46 PM</span>
+                </div>
+            </div>
+
+            <!-- AI Response -->
+            <div class="message ai-message">
+                <div class="message-content">
+                    <p>I'll be happy to help you with PTE speaking. Would you like to:</p>
+                    <ul class="options-list">
+                        <li>Practice Read Aloud</li>
+                        <li>Work on Repeat Sentence</li>
+                        <li>Improve Describe Image</li>
+                        <li>Practice Retell Lecture</li>
+                    </ul>
+                    <span class="message-time">2:46 PM</span>
+                </div>
+            </div>
+
+            <!-- Voice Message -->
+            <div class="message user-message">
+                <div class="message-content voice-message">
+                    <i class="fas fa-play"></i>
+                    <div class="voice-wave"></div>
+                    <span class="voice-duration">0:14</span>
+                    <span class="message-time">2:50 PM</span>
+                </div>
+            </div>
+
+            <!-- Document Message -->
+            <div class="message user-message">
+                <div class="message-content document-message">
+                    <i class="fas fa-file-pdf"></i>
+                    <div class="document-info">
+                        <span class="document-name">PTE_Practice_1.pdf</span>
+                        <span class="document-size">2.4 MB</span>
+                    </div>
+                    <span class="message-time">2:51 PM</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input">
+            <div class="input-container">
+                <button class="attachment-btn">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Type a message" class="message-input">
+                    <button class="emoji-btn">
+                        <i class="far fa-smile"></i>
+                    </button>
+                </div>
+                <button class="voice-btn">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- File Upload Modal -->
+        <div class="upload-modal" style="display: none;">
+            <div class="upload-options">
+                <button class="upload-option">
+                    <i class="fas fa-camera"></i>
+                    <span>Camera</span>
+                </button>
+                <button class="upload-option">
+                    <i class="fas fa-image"></i>
+                    <span>Gallery</span>
+                </button>
+                <button class="upload-option">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document</span>
+                </button>
+                <button class="upload-option">
+                    <i class="fas fa-headphones"></i>
+                    <span>Audio</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/ai-chat.js"></script>
+</body>
+</html> 

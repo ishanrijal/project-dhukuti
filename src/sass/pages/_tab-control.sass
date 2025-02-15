@@ -1,0 +1,172 @@
+@use '../utils/mixins' as mixins
+@use '../utils/variables' as variables
+
+.tab-container-wrapper
+    max-width: 480px
+    margin: 0 auto
+    background: variables.$background-color
+    min-height: 100vh
+    position: relative
+
+// Main Navigation
+.main-nav
+    display: flex
+    padding: 1rem
+    gap: 1rem
+    background: #121212
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+
+    .nav-item
+        flex: 1
+        display: flex
+        align-items: center
+        justify-content: center
+        gap: 0.5rem
+        padding: 0.8rem
+        border-radius: 2rem
+        cursor: pointer
+        transition: all 0.3s ease
+        color: rgba(255, 255, 255, 0.7)
+
+        &.active
+            background: #fff
+            color: #000
+
+        i
+            font-size: 1.2rem
+
+// Search Section
+.search-section
+    padding: 1rem
+    background: #121212
+
+    .search-bar
+        display: flex
+        align-items: center
+        background: #242424
+        padding: 0.8rem 1rem
+        border-radius: 0.5rem
+        gap: 1rem
+
+        i
+            color: rgba(255, 255, 255, 0.5)
+
+        .search-input
+            flex: 1
+            background: none
+            border: none
+            color: #fff
+            font-size: 1rem
+            outline: none
+
+            &::placeholder
+                color: rgba(255, 255, 255, 0.5)
+
+        .cta-button
+            background: #2d6e00
+            color: #fff
+            border: none
+            padding: 0.5rem 1rem
+            border-radius: 1.5rem
+            font-weight: 500
+            cursor: pointer
+            transition: all 0.3s ease
+
+            &:hover
+                background: #368600
+                transform: translateY(-1px)
+
+// Services Section
+.services-container
+    padding: 1rem
+
+.service-list
+    .service-item
+        display: flex
+        align-items: center
+        gap: 1rem
+        padding: 1rem
+        background: #242424
+        margin-bottom: 1rem
+        border-radius: 0.8rem
+        cursor: pointer
+        transition: all 0.3s ease
+        animation: slideIn 0.3s ease forwards
+        opacity: 0
+
+        &:hover
+            transform: translateX(5px)
+            background: #2a2a2a
+
+        .service-icon
+            width: 48px
+            height: 48px
+            background: rgba(255, 255, 255, 0.1)
+            border-radius: 50%
+            display: flex
+            align-items: center
+            justify-content: center
+
+            i
+                font-size: 1.5rem
+                color: #fff
+
+        .service-details
+            flex: 1
+
+            h3
+                font-size: 1.1rem
+                margin-bottom: 0.3rem
+                color: #fff
+
+            p
+                color: rgba(255, 255, 255, 0.6)
+                font-size: 0.9rem
+                line-height: 1.4
+
+        .fa-chevron-right
+            color: rgba(255, 255, 255, 0.3)
+
+// Bottom Navigation
+.bottom-nav
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    background: #1a1a1a
+    display: flex
+    justify-content: space-around
+    padding: 0.8rem 0
+    border-top: 1px solid rgba(255, 255, 255, 0.1)
+    max-width: 480px
+    margin: 0 auto
+
+    .nav-item
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 0.3rem
+        color: rgba(255, 255, 255, 0.5)
+        font-size: 0.8rem
+        cursor: pointer
+        transition: all 0.3s ease
+
+        &.active
+            color: #fff
+
+        i
+            font-size: 1.2rem
+
+// Animations
+@keyframes slideIn
+    from
+        opacity: 0
+        transform: translateX(-20px)
+    to
+        opacity: 1
+        transform: translateX(0)
+
+// Generate animation delays for service items
+@for $i from 1 through 5
+    .service-item:nth-child(#{$i})
+        animation-delay: #{$i * 0.1}s 
