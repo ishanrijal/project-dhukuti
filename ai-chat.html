@@ -72,45 +72,33 @@
             <!-- AI Welcome Message -->
             <div class="message ai-message">
                 <div class="message-content">
-                    <p>Hello! I'm your Dhukuti AI PTE tutor. How can I help you today?</p>
+                    <p>Hello! I'm your Dhukuti AI PTE tutor. Let's start by understanding your goals.</p>
+                    <button class="start-assessment-btn">
+                        <i class="fas fa-rocket"></i> Let's Start
+                    </button>
                     <span class="message-time">2:45 PM</span>
                 </div>
             </div>
 
             <!-- User Message -->
-            <div class="message user-message">
+            <!-- <div class="message user-message">
                 <div class="message-content">
                     <p>Hi, I need help with PTE speaking section</p>
                     <span class="message-time">2:46 PM</span>
                 </div>
-            </div>
-
-            <!-- AI Response -->
-            <div class="message ai-message">
-                <div class="message-content">
-                    <p>I'll be happy to help you with PTE speaking. Would you like to:</p>
-                    <ul class="options-list">
-                        <li>Practice Read Aloud</li>
-                        <li>Work on Repeat Sentence</li>
-                        <li>Improve Describe Image</li>
-                        <li>Practice Retell Lecture</li>
-                    </ul>
-                    <span class="message-time">2:46 PM</span>
-                </div>
-            </div>
-
+            </div> -->
             <!-- Voice Message -->
-            <div class="message user-message">
+            <!-- <div class="message user-message">
                 <div class="message-content voice-message">
                     <i class="fas fa-play"></i>
                     <div class="voice-wave"></div>
                     <span class="voice-duration">0:14</span>
                     <span class="message-time">2:50 PM</span>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Document Message -->
-            <div class="message user-message">
+            <!-- <div class="message user-message">
                 <div class="message-content document-message">
                     <i class="fas fa-file-pdf"></i>
                     <div class="document-info">
@@ -118,6 +106,77 @@
                         <span class="document-size">2.4 MB</span>
                     </div>
                     <span class="message-time">2:51 PM</span>
+                </div>
+            </div> -->
+        </div>
+        <!-- Onboarding Modal -->
+        <div class="onboarding-modal">
+            <div class="onboarding-content">
+                <!-- Step 1: English Fluency -->
+                <div class="onboarding-step" data-step="1">
+                    <h2>What's your current English Fluency?</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" data-value="beginner">
+                            <i class="fas fa-seedling"></i>
+                            <span>Just Starting</span>
+                        </button>
+                        <button class="option-btn" data-value="fluent">
+                            <i class="fas fa-comments"></i>
+                            <span>Fluent</span>
+                        </button>
+                        <button class="option-btn" data-value="excellent">
+                            <i class="fas fa-star"></i>
+                            <span>Excellent</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: PTE Goal -->
+                <div class="onboarding-step" data-step="2" style="display: none;">
+                    <h2>What's your PTE goal?</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" data-value="50">
+                            <span class="score">50+</span>
+                            <span class="label">Basic</span>
+                        </button>
+                        <button class="option-btn" data-value="65">
+                            <span class="score">65+</span>
+                            <span class="label">Intermediate</span>
+                        </button>
+                        <button class="option-btn" data-value="80">
+                            <span class="score">80+</span>
+                            <span class="label">Advanced</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Skills Focus -->
+                <div class="onboarding-step" data-step="3" style="display: none;">
+                    <h2>Which skill would you like to focus on?</h2>
+                    <div class="options-grid skills-grid">
+                        <button class="option-btn" data-value="reading">
+                            <i class="fas fa-book-reader"></i>
+                            <span>Reading</span>
+                        </button>
+                        <button class="option-btn" data-value="listening">
+                            <i class="fas fa-headphones"></i>
+                            <span>Listening</span>
+                        </button>
+                        <button class="option-btn" data-value="speaking">
+                            <i class="fas fa-microphone"></i>
+                            <span>Speaking</span>
+                        </button>
+                        <button class="option-btn" data-value="writing">
+                            <i class="fas fa-pen"></i>
+                            <span>Writing</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
         </div>

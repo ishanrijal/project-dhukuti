@@ -6,6 +6,110 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadModal = document.querySelector('.upload-modal');
     const voiceBtn = document.querySelector('.voice-btn');
     const emojiBtn = document.querySelector('.emoji-btn');
+    const startAssessmentBtn = document.querySelector('.start-assessment-btn');
+    const onboardingModal = document.querySelector('.onboarding-modal');
+    const onboardingSteps = document.querySelectorAll('.onboarding-step');
+    const progressDots = document.querySelectorAll('.progress-dots .dot');
+
+    // @todo: Replace with API - User assessment data storage
+    let userAssessment = {
+        fluency: null,
+        pteGoal: null,
+        focusSkill: null
+    };
+
+    // Handle start assessment button
+    startAssessmentBtn?.addEventListener('click', () => {
+        onboardingModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Handle option selection
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const step = btn.closest('.onboarding-step');
+            const currentStepNum = parseInt(step.dataset.step);
+            const value = btn.dataset.value;
+
+            // Remove previous selection in current step
+            step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            // Store the selection
+            switch(currentStepNum) {
+                case 1:
+                    userAssessment.fluency = value;
+                    break;
+                case 2:
+                    userAssessment.pteGoal = value;
+                    break;
+                case 3:
+                    userAssessment.focusSkill = value;
+                    break;
+            }
+
+            // Move to next step after a short delay
+            setTimeout(() => {
+                if (currentStepNum < 3) {
+                    moveToStep(currentStepNum + 1);
+                } else {
+                    completeOnboarding();
+                }
+            }, 300);
+        });
+    });
+
+    // Function to move between steps
+    function moveToStep(stepNumber) {
+        onboardingSteps.forEach(step => {
+            step.style.display = 'none';
+        });
+        progressDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index + 1 === stepNumber);
+        });
+        const nextStep = document.querySelector(`[data-step="${stepNumber}"]`);
+        nextStep.style.display = 'block';
+        nextStep.style.animation = 'slideUp 0.3s ease forwards';
+    }
+
+    // Function to complete onboarding
+    function completeOnboarding() {
+        // @todo: Replace with API - Send assessment data to backend
+        console.log('User Assessment:', userAssessment);
+
+        // Close modal
+        onboardingModal.classList.remove('show');
+        document.body.style.overflow = '';
+
+        // Add AI response based on user selections
+        const response = generateInitialResponse(userAssessment);
+        addMessage(response, 'ai');
+    }
+
+    // Generate initial AI response based on user selections
+    function generateInitialResponse(assessment) {
+        // @todo: Replace with API - Get personalized response from backend
+        const skillMap = {
+            reading: 'Reading',
+            listening: 'Listening',
+            speaking: 'Speaking',
+            writing: 'Writing'
+        };
+
+        const fluencyMap = {
+            beginner: 'starting your English journey',
+            fluent: 'already fluent in English',
+            excellent: 'having excellent English skills'
+        };
+
+        return `Great! I see you're ${fluencyMap[assessment.fluency]} and aiming for a score of ${assessment.pteGoal}+. Let's focus on improving your ${skillMap[assessment.focusSkill]} skills.
+
+Would you like to:
+1. Take a practice test
+2. Learn test strategies
+3. Get study materials
+4. Schedule a mock test`;
+    }
 
     // Dropdown functionality
     const dropdownToggle = document.querySelector('.dropdown-toggle');
