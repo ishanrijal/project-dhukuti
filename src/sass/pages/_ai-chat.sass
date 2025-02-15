@@ -340,17 +340,27 @@
         opacity: 1
 
     .onboarding-content
-        background: #1F2C34
-        border-radius: 16px
+        background: #1A1D21
+        border-radius: 24px
         width: 90%
-        max-width: 480px
-        padding: 2rem
-        transform: translateY(20px)
-        transition: transform 0.3s ease
+        max-width: 380px
+        height: 400px
+        padding: 2rem 1.5rem
         position: relative
+        overflow: hidden
 
         .onboarding-step
             text-align: center
+            position: absolute
+            width: calc(100% - 3rem)
+            left: 1.5rem
+            top: 2rem
+            padding: 0
+            transform: translateX(100%)
+            opacity: 0
+            visibility: hidden
+            display: block
+            transition: all 0.3s ease
 
             h2
                 color: #E9EDEF
@@ -362,13 +372,8 @@
                 display: grid
                 gap: 1rem
                 margin-bottom: 2rem
-
-                &:not(.skills-grid)
-                    grid-template-columns: repeat(3, 1fr)
-
-                &.skills-grid
-                    grid-template-columns: repeat(2, 1fr)
-                    gap: 1.5rem
+                grid-template-columns: repeat(2, 2fr)
+                gap: 1.5rem
 
                 .option-btn
                     background: #2A3942
@@ -409,22 +414,49 @@
                         .label
                             color: rgba(255, 255, 255, 0.9)
 
+            &.active
+                transform: translateX(0)
+                opacity: 1
+                visibility: visible
+                display: block
+
         .progress-dots
+            position: absolute
+            bottom: 2rem
+            left: 0
+            right: 0
             display: flex
             justify-content: center
-            gap: 0.5rem
+            gap: 1rem
             margin-top: 1rem
 
             .dot
-                width: 8px
-                height: 8px
+                width: 12px
+                height: 12px
                 border-radius: 50%
-                background: rgba(233, 237, 239, 0.3)
+                background: rgba(233, 237, 239, 0.1)
                 transition: all 0.3s ease
+                cursor: default
+                opacity: 0.5
 
                 &.active
                     background: #00A884
                     transform: scale(1.2)
+                    opacity: 1
+                    cursor: pointer
+
+                &.completed
+                    background: #007d63
+                    opacity: 0.9
+                    cursor: pointer
+
+                &:hover
+                    transform: scale(1.1)
+                    opacity: 0.8
+                    &:not(.active):not(.completed)
+                        opacity: 0.3
+                        transform: none
+                        cursor: not-allowed
 
 @keyframes slideNext
     from
@@ -437,6 +469,18 @@
         transform: translateX(-100%)
     to
         transform: translateX(0)
+
+@keyframes slideOutNext
+    from
+        transform: translateX(0)
+    to
+        transform: translateX(-100%)
+
+@keyframes slideOutPrev
+    from
+        transform: translateX(0)
+    to
+        transform: translateX(100%)
 
 @keyframes slideIn
     from

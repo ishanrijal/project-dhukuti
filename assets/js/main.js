@@ -18,17 +18,39 @@ document.addEventListener('DOMContentLoaded', () => {
         focusSkill: null
     };
 
+    let currentStep = 1;
+    let maxStepReached = 1;
+
     // Handle start assessment button
     startAssessmentBtn?.addEventListener('click', () => {
         onboardingModal.classList.add('show');
         document.body.style.overflow = 'hidden';
+        // Hide the initial welcome message
+        const welcomeMessage = startAssessmentBtn.closest('.message');
+        if (welcomeMessage) {
+            welcomeMessage.style.display = 'none';
+        }
+        initializeOnboarding();
     });
+
+    // Initialize onboarding
+    function initializeOnboarding() {
+        currentStep = 1;
+        maxStepReached = 1;
+        onboardingSteps.forEach((step, index) => {
+            step.classList.remove('active');
+            if (index === 0) {
+                step.classList.add('active');
+            }
+        });
+        updateProgressDots();
+    }
 
     // Handle option selection
     document.querySelectorAll('.option-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const step = btn.closest('.onboarding-step');
-            const currentStepNum = parseInt(step.dataset.step);
+            const stepNum = parseInt(step.dataset.step);
             const value = btn.dataset.value;
 
             // Remove previous selection in current step
@@ -36,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('selected');
 
             // Store the selection
-            switch(currentStepNum) {
+            switch(stepNum) {
                 case 1:
                     userAssessment.fluency = value;
                     break;
@@ -48,28 +70,85 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
             }
 
+            // Update max step reached
+            maxStepReached = Math.max(maxStepReached, stepNum + 1);
+
             // Move to next step after a short delay
-            setTimeout(() => {
-                if (currentStepNum < 3) {
-                    moveToStep(currentStepNum + 1);
-                } else {
-                    completeOnboarding();
-                }
-            }, 300);
+            if (stepNum < 3) {
+                setTimeout(() => {
+                    navigateToStep(stepNum + 1);
+                }, 300);
+            } else {
+                completeOnboarding();
+            }
         });
     });
 
-    // Function to move between steps
-    function moveToStep(stepNumber) {
+    // Handle progress dot clicks
+    progressDots.forEach((dot, index) => {
+        const stepNumber = index + 1;
+        dot.dataset.step = stepNumber;
+        
+        dot.addEventListener('click', () => {
+            if (stepNumber <= maxStepReached) {
+                navigateToStep(stepNumber);
+            }
+        });
+    });
+
+    // Function to navigate to a specific step
+    function navigateToStep(stepNumber) {
+        if (stepNumber < 1 || stepNumber > 3) return;
+        
+        const direction = stepNumber > currentStep ? 'Next' : 'Prev';
+        const currentStepEl = document.querySelector(`.onboarding-step[data-step="${currentStep}"]`);
+        const nextStepEl = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+
+        // Remove active class from all steps
         onboardingSteps.forEach(step => {
-            step.style.display = 'none';
+            step.classList.remove('active');
+            step.style.transform = direction === 'Next' ? 'translateX(100%)' : 'translateX(-100%)';
+            step.style.opacity = '0';
+            step.style.visibility = 'hidden';
         });
+
+        // Animate the target step
+        requestAnimationFrame(() => {
+            nextStepEl.classList.add('active');
+            nextStepEl.style.transform = 'translateX(0)';
+            nextStepEl.style.opacity = '1';
+            nextStepEl.style.visibility = 'visible';
+        });
+
+        // Update current step and progress dots
+        currentStep = stepNumber;
+        updateProgressDots();
+        
+        // Restore previous selection if exists
+        restorePreviousSelection(stepNumber);
+    }
+
+    // Function to update progress dots
+    function updateProgressDots() {
         progressDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index + 1 === stepNumber);
+            const stepNum = index + 1;
+            dot.classList.toggle('active', stepNum === currentStep);
+            dot.classList.toggle('completed', stepNum < currentStep);
         });
-        const nextStep = document.querySelector(`[data-step="${stepNumber}"]`);
-        nextStep.style.display = 'block';
-        nextStep.style.animation = 'slideUp 0.3s ease forwards';
+    }
+
+    // Function to restore previous selection
+    function restorePreviousSelection(stepNumber) {
+        const stepKey = stepNumber === 1 ? 'fluency' : 
+                       stepNumber === 2 ? 'pteGoal' : 'focusSkill';
+        
+        if (userAssessment[stepKey]) {
+            const step = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+            const selectedOption = step.querySelector(`[data-value="${userAssessment[stepKey]}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+        }
     }
 
     // Function to complete onboarding
@@ -77,13 +156,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // @todo: Replace with API - Send assessment data to backend
         console.log('User Assessment:', userAssessment);
 
-        // Close modal
-        onboardingModal.classList.remove('show');
-        document.body.style.overflow = '';
-
-        // Add AI response based on user selections
-        const response = generateInitialResponse(userAssessment);
-        addMessage(response, 'ai');
+        // Close modal with fade out
+        onboardingModal.style.opacity = '0';
+        setTimeout(() => {
+            onboardingModal.classList.remove('show');
+            document.body.style.overflow = '';
+            onboardingModal.style.opacity = '';
+            
+            // Generate and add the AI response
+            const response = generateInitialResponse(userAssessment);
+            addMessage(response, 'ai');
+        }, 300);
     }
 
     // Generate initial AI response based on user selections
