@@ -75,6 +75,195 @@
             background: #00ffcc;
             opacity: 1;
         }
+
+        .total-spend {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .spend-info {
+            flex: 1;
+        }
+
+        .contribution-section,
+        .money-owed-section {
+            margin-bottom: 15px;
+        }
+
+        .money-owed-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .amount {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .amount.money-owed {
+            color: #00ffcc;
+        }
+
+        .calculation-note {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .menu-dots {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-dots:hover {
+            color: #fff;
+        }
+
+        /* Update card styles */
+        .card-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+
+        .mastercard-logo {
+            opacity: 0.7;
+        }
+
+        /* Feature cards update */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card__content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-wrapper i {
+            font-size: 24px;
+            color: #00ffcc;
+        }
+
+        .text-content {
+            flex: 1;
+        }
+
+        .feature-card__price {
+            color: #00ffcc;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .statement-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .statement-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .statement-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .statement-logo i {
+            font-size: 18px;
+            color: #00ffcc;
+        }
+
+        .statement-info {
+            flex: 1;
+        }
+
+        .statement-title {
+            font-size: 16px;
+            color: #fff;
+            margin: 0 0 5px 0;
+        }
+
+        .statement-date {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+
+        .statement-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 2px 0 0 0;
+        }
+
+        .statement-amount {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .statement-amount.positive {
+            color: #00ffcc;
+        }
+
+        .statement-amount.negative {
+            color: #ff4d4d;
+        }
+
+        .statement-amount.neutral {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        /* Icon colors */
+        .fa-arrow-down {
+            color: #ff4d4d !important;
+        }
+
+        .fa-trophy {
+            color: #ffd700 !important;
+        }
+
+        .fa-users {
+            color: #00ffcc !important;
+        }
     </style>
 </head>
 <body>
@@ -98,7 +287,7 @@
             </div>
         </div>
         <div class="statement-page">
-            <!-- Visa Card Section -->
+            <!-- Dhukuti Card Section -->
             <div class="visa-card">
                 <div class="card-background">
                     <div class="chip-container">
@@ -106,14 +295,13 @@
                     </div>
                     <div class="card-number">
                         <span class="number">**** **** **** 0909</span>
-                        <!-- <span class="number">4565 2322 1232 0909</span> -->
                         <button class="toggle-visibility">
                             <i class="fas fa-eye-slash"></i>
                         </button>
                     </div>
                     <div class="card-details">
                         <div class="card-info">
-                            <p class="card-label">Dhukuti Scorecard</p>
+                            <p class="card-label">Dhukuti Card</p>
                             <p class="card-holder">Ishan</p>
                         </div>
                         <div class="card-type">
@@ -122,24 +310,31 @@
                                 <div class="circle circle-right"></div>
                                 <div class="circle circle-overlay"></div>
                             </div>
-                            <p>Mastercard</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Total Spend Section -->
+            <!-- Dhukuti Wallet Section -->
             <div class="total-spend">
-                <div class="spend-info">
-                    <p class="label">Total Individual Contribution</p>
-                    <h2 class="amount">$1,520.00</h2>
+                <div class="spend-info" id="walletInfo">
+                    <!-- This section will be dynamically updated based on user's status -->
+                    <div class="contribution-section">
+                        <p class="label">Total Individual Contribution</p>
+                        <h2 class="amount">$1,520.00</h2>
+                    </div>
+                    <div class="money-owed-section" style="display: none;">
+                        <p class="label">Money Owed</p>
+                        <h2 class="amount money-owed">$3,480.00</h2>
+                        <p class="calculation-note">Dhukuti Winnings ($5,000) - Contributions ($1,520)</p>
+                    </div>
                 </div>
                 <button class="menu-dots">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
             </div>
 
-            <!-- HTML -->
+            <!-- Feature Cards Section -->
             <div class="swiper-statement">
                 <div class="swiper-wrapper">
                     <!-- Card 1 -->
@@ -150,8 +345,8 @@
                                     <i class="fas fa-chart-line"></i>
                                 </div>
                                 <div class="text-content">
-                                    <h3>Dhukuti Profits</h3>
-                                    <div class="feature-card__price">$1200.00</div>
+                                    <h3>Dhukuti Status</h3>
+                                    <div class="feature-card__price">Round 4/10</div>
                                 </div>
                             </div>
                         </div>
@@ -162,11 +357,11 @@
                         <div class="feature-card">
                             <div class="feature-card__content">
                                 <div class="icon-wrapper">
-                                    <i class="fas fa-brain"></i>
+                                    <i class="fas fa-trophy"></i>
                                 </div>
                                 <div class="text-content">
-                                    <h3>Predictive Planning</h3>
-                                    <div class="feature-card__price">$1500.00</div>
+                                    <h3>Dhukuti Winnings</h3>
+                                    <div class="feature-card__price">$5,000.00</div>
                                 </div>
                             </div>
                         </div>
@@ -177,11 +372,11 @@
                         <div class="feature-card">
                             <div class="feature-card__content">
                                 <div class="icon-wrapper">
-                                    <i class="fas fa-shield-alt"></i>
+                                    <i class="fas fa-coins"></i>
                                 </div>
                                 <div class="text-content">
-                                    <h3>Secure Automation</h3>
-                                    <div class="feature-card__price">$1300.00</div>
+                                    <h3>Next Contribution</h3>
+                                    <div class="feature-card__price">$500.00</div>
                                 </div>
                             </div>
                         </div>
@@ -197,83 +392,69 @@
                 <div class="statements">
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-arrow-down"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Shopping</h4>
-                            <p class="statement-date">Jan 18, 2025</p>
+                            <h4 class="statement-title">Dhukuti Contribution</h4>
+                            <p class="statement-date">Feb 15, 2024</p>
+                            <p class="statement-subtitle">Round 4/10</p>
                         </div>
-                        <div class="statement-amount negative">- $120.75</div>
+                        <div class="statement-amount negative">- $500.00</div>
                     </div>
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fas fa-trophy"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Salary</h4>
-                            <p class="statement-date">Jan 15, 2025</p>
+                            <h4 class="statement-title">Dhukuti Winning Received</h4>
+                            <p class="statement-date">Feb 1, 2024</p>
+                            <p class="statement-subtitle">Deposited to account ending in 0909</p>
                         </div>
-                        <div class="statement-amount positive">+ $3,000.00</div>
+                        <div class="statement-amount positive">+ $5,000.00</div>
                     </div>
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-arrow-down"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Shopping</h4>
-                            <p class="statement-date">Jan 18, 2025</p>
+                            <h4 class="statement-title">Dhukuti Contribution</h4>
+                            <p class="statement-date">Jan 30, 2024</p>
+                            <p class="statement-subtitle">Round 3/10</p>
                         </div>
-                        <div class="statement-amount negative">- $120.75</div>
+                        <div class="statement-amount negative">- $500.00</div>
                     </div>
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Salary</h4>
-                            <p class="statement-date">Jan 15, 2025</p>
+                            <h4 class="statement-title">Pool Money Dispersed</h4>
+                            <p class="statement-date">Jan 15, 2024</p>
+                            <p class="statement-subtitle">Winner: John D. (Round 2/10)</p>
                         </div>
-                        <div class="statement-amount positive">+ $3,000.00</div>
+                        <div class="statement-amount neutral">$5,000.00</div>
                     </div>
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-arrow-down"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Shopping</h4>
-                            <p class="statement-date">Jan 18, 2025</p>
+                            <h4 class="statement-title">Dhukuti Contribution</h4>
+                            <p class="statement-date">Jan 15, 2024</p>
+                            <p class="statement-subtitle">Round 2/10</p>
                         </div>
-                        <div class="statement-amount negative">- $120.75</div>
+                        <div class="statement-amount negative">- $500.00</div>
                     </div>
                     <div class="statement-item">
                         <div class="statement-logo">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fas fa-arrow-down"></i>
                         </div>
                         <div class="statement-info">
-                            <h4 class="statement-title">Salary</h4>
-                            <p class="statement-date">Jan 15, 2025</p>
+                            <h4 class="statement-title">Dhukuti Contribution</h4>
+                            <p class="statement-date">Dec 30, 2023</p>
+                            <p class="statement-subtitle">Round 1/10</p>
                         </div>
-                        <div class="statement-amount positive">+ $3,000.00</div>
-                    </div>
-                    <div class="statement-item">
-                        <div class="statement-logo">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div class="statement-info">
-                            <h4 class="statement-title">Shopping</h4>
-                            <p class="statement-date">Jan 18, 2025</p>
-                        </div>
-                        <div class="statement-amount negative">- $120.75</div>
-                    </div>
-                    <div class="statement-item">
-                        <div class="statement-logo">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="statement-info">
-                            <h4 class="statement-title">Salary</h4>
-                            <p class="statement-date">Jan 15, 2025</p>
-                        </div>
-                        <div class="statement-amount positive">+ $3,000.00</div>
+                        <div class="statement-amount negative">- $500.00</div>
                     </div>
                 </div>
         
@@ -338,14 +519,69 @@
                 }
                 isHidden = !isHidden; // Toggle state
             });
+
+            // Dhukuti Wallet Information
+            const updateWalletInfo = (userData) => {
+                const walletInfo = document.getElementById('walletInfo');
+                const contributionSection = walletInfo.querySelector('.contribution-section');
+                const moneyOwedSection = walletInfo.querySelector('.money-owed-section');
+                
+                // Update contribution amount
+                contributionSection.querySelector('.amount').textContent = 
+                    `$${userData.totalContribution.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+                // Check if user has won Dhukuti
+                if (userData.hasWonDhukuti) {
+                    const moneyOwed = userData.dhukutiWinnings - userData.totalContribution;
+                    
+                    if (moneyOwed > 0) {
+                        // Show money owed section
+                        moneyOwedSection.style.display = 'block';
+                        moneyOwedSection.querySelector('.money-owed').textContent = 
+                            `$${moneyOwed.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                        moneyOwedSection.querySelector('.calculation-note').textContent = 
+                            `Dhukuti Winnings ($${userData.dhukutiWinnings.toLocaleString()}) - Contributions ($${userData.totalContribution.toLocaleString()})`;
+                        
+                        // Update main label to "Money Owed"
+                        contributionSection.querySelector('.label').textContent = 'Money Owed';
+                    }
+                }
+            };
+
+            // Sample user data - Replace with actual API data
+            const userData = {
+                totalContribution: 1520.00,
+                hasWonDhukuti: true,
+                dhukutiWinnings: 5000.00,
+                currentRound: 4,
+                totalRounds: 10
+            };
+
+            // Initialize wallet information
+            updateWalletInfo(userData);
     
+            // Initialize Swiper
+            const swiper = new Swiper('.swiper-statement', {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                },
+            });
+
             // Show the selected number of statements
             const itemsPerPageSelect = document.getElementById("items-per-page");
-            const statements         = document.querySelectorAll(".statement-item");
-            let   itemsPerPage       = parseInt(itemsPerPageSelect.value, 10);        // Default value
+            const statements = document.querySelectorAll(".statement-item");
+            let itemsPerPage = parseInt(itemsPerPageSelect?.value, 10) || 5; // Default value
     
             const showStatements = (startIndex = 0) => {
-                // Hide all statements
                 statements.forEach((statement, index) => {
                     if (index >= startIndex && index < startIndex + itemsPerPage) {
                         statement.style.display = "flex";
@@ -356,10 +592,11 @@
             };
     
             // Update items per page on selection change
-            itemsPerPageSelect.addEventListener("change", () => {
+            itemsPerPageSelect?.addEventListener("change", () => {
                 itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
                 showStatements(0); // Reset to the first page
                 currentPage = 0; // Reset pagination
+                updatePagination();
             });
     
             // Pagination
@@ -369,11 +606,13 @@
             let currentPage = 0;
             
             const updatePagination = () => {
+                if (!pageNumbersContainer) return;
+
                 const totalPages = Math.ceil(statements.length / itemsPerPage);
 
                 // Enable/disable navigation buttons
-                prevButton.disabled = currentPage === 0;
-                nextButton.disabled = currentPage >= totalPages - 1;
+                if (prevButton) prevButton.disabled = currentPage === 0;
+                if (nextButton) nextButton.disabled = currentPage >= totalPages - 1;
 
                 // Generate page numbers
                 pageNumbersContainer.innerHTML = ""; // Clear existing page numbers
@@ -391,7 +630,7 @@
                 }
             };
 
-            prevButton.addEventListener("click", () => {
+            prevButton?.addEventListener("click", () => {
                 if (currentPage > 0) {
                     currentPage--;
                     showStatements(currentPage * itemsPerPage);
@@ -399,7 +638,7 @@
                 }
             });
 
-            nextButton.addEventListener("click", () => {
+            nextButton?.addEventListener("click", () => {
                 if (currentPage < Math.ceil(statements.length / itemsPerPage) - 1) {
                     currentPage++;
                     showStatements(currentPage * itemsPerPage);
@@ -411,20 +650,6 @@
             showStatements(0);
             updatePagination();
         });
-        const swiper = new Swiper('.swiper-statement', {
-          loop: true,
-          slidesPerView: 1,
-          spaceBetween: 20,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          breakpoints: {
-            768: {
-              slidesPerView: 2,
-            },
-          },
-        });
-      </script>
+    </script>
 </body>
 </html>

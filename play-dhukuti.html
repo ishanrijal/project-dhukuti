@@ -12,49 +12,95 @@
         <header class="dhukuti-header">
             <h1 class="title">DHUKUTI SELECTION</h1>
             <div class="header-description">
-                <p>Choose from weekly, monthly, or fortnightly Options.Invite your friends, create a group, and plan your Dhukuti!</p>
+                <p>Choose from weekly, monthly, or fortnightly Options. Invite your friends, create a group, and plan your Dhukuti!</p>
                 <p class="quote">"harnessing the power of community"</p>
             </div>
         </header>
 
         <main class="dhukuti-content">
-            <section class="currency-section">
-                <h2>CURRENCY:</h2>
-                <div class="currency-options">
-                    <button class="currency-btn active">
-                        <img src="assets/images/flags/us.svg" alt="USD">
-                        <span>USD</span>
+            <section class="frequency-section">
+                <h2>FREQUENCY:</h2>
+                <div class="frequency-options">
+                    <button class="frequency-btn active" data-frequency="weekly">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>Weekly</span>
                     </button>
-                    <button class="currency-btn">
-                        <img src="assets/images/flags/gb.svg" alt="GBP">
-                        <span>GBP</span>
+                    <button class="frequency-btn" data-frequency="fortnightly">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Fortnightly</span>
                     </button>
-                    <button class="currency-btn">
-                        <img src="assets/images/flags/eu.svg" alt="EUR">
-                        <span>EUR</span>
-                    </button>
-                    <button class="currency-btn">
-                        <img src="assets/images/flags/au.svg" alt="AUD">
-                        <span>AUD</span>
-                    </button>
-                    <button class="currency-btn">
-                        <img src="assets/images/flags/ch.svg" alt="CHF">
-                        <span>CHF</span>
+                    <button class="frequency-btn" data-frequency="monthly">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Monthly</span>
                     </button>
                 </div>
             </section>
 
-            <section class="balance-section">
-                <h2>BALANCE:</h2>
-                <div class="balance-options">
-                    <button class="balance-btn active">
-                        <span class="amount">$10,000</span>
+            <section class="contribution-section">
+                <h2>CONTRIBUTION AMOUNT:</h2>
+                <div class="contribution-options">
+                    <!-- Weekly Options (Default) -->
+                    <div class="weekly-options">
+                        <button class="contribution-btn active" data-amount="100">
+                            <span class="amount">$100</span>
+                            <span class="availability">Available</span>
+                        </button>
+                        <button class="contribution-btn disabled" data-amount="250">
+                            <span class="amount">$250</span>
+                            <span class="availability">Coming Soon</span>
+                        </button>
+                        <button class="contribution-btn disabled" data-amount="500">
+                            <span class="amount">$500</span>
+                            <span class="availability">Coming Soon</span>
+                        </button>
+                    </div>
+                    <!-- Fortnightly Options (Hidden by default) -->
+                    <div class="fortnightly-options" style="display: none;">
+                        <button class="contribution-btn" data-amount="250">
+                            <span class="amount">$250</span>
+                            <span class="availability">Available</span>
+                        </button>
+                        <button class="contribution-btn" data-amount="500">
+                            <span class="amount">$500</span>
+                            <span class="availability">Available</span>
+                        </button>
+                        <button class="contribution-btn disabled" data-amount="1000">
+                            <span class="amount">$1000</span>
+                            <span class="availability">Coming Soon</span>
+                        </button>
+                    </div>
+                    <!-- Monthly Options (Hidden by default) -->
+                    <div class="monthly-options" style="display: none;">
+                        <button class="contribution-btn" data-amount="500">
+                            <span class="amount">$500</span>
+                            <span class="availability">Available</span>
+                        </button>
+                        <button class="contribution-btn" data-amount="1000">
+                            <span class="amount">$1000</span>
+                            <span class="availability">Available</span>
+                        </button>
+                        <button class="contribution-btn" data-amount="2500">
+                            <span class="amount">$2500</span>
+                            <span class="availability">Available</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="members-section">
+                <h2>GROUP SIZE:</h2>
+                <div class="members-options">
+                    <button class="members-btn active" data-members="5">
+                        <i class="fas fa-users"></i>
+                        <span class="count">5 Members</span>
                     </button>
-                    <button class="balance-btn">
-                        <span class="amount">$25,000</span>
+                    <button class="members-btn" data-members="8">
+                        <i class="fas fa-users"></i>
+                        <span class="count">8 Members</span>
                     </button>
-                    <button class="balance-btn">
-                        <span class="amount">$50,000</span>
+                    <button class="members-btn" data-members="10">
+                        <i class="fas fa-users"></i>
+                        <span class="count">10 Members</span>
                     </button>
                 </div>
             </section>
@@ -64,7 +110,7 @@
             <section class="rules-section">
                 <h2>Dhukuti Rules</h2>
                 <div class="rules-content">
-                    <p>10 Participants will contribute 100 each, per week. Every week total sum of 1000 is collected, which will be given to the winner member that specific week. A dhukuti cycle is completed when all 10 members receive their contributed amount back.</p>
+                    <p>Members will contribute the selected amount based on the chosen frequency. The total sum collected will be given to the winner member for that specific period. A dhukuti cycle is completed when all members receive their contributed amount back.</p>
                     <div class="rules-navigation">
                         <span class="dot active"></span>
                         <span class="dot"></span>

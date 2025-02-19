@@ -856,52 +856,118 @@ document.addEventListener('DOMContentLoaded', () => {
 // Future JavaScript functionality for group info can be added here 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Static data - will be replaced with API data
+    const dhukutiData = {
+        currentRound: 1,
+        totalRounds: 10,
+        contributionType: "Fortnightly Contribution",
+        endDate: "Week of 27 June",
+        duration: "5 months after starting date",
+        totalPool: 120000,
+        memberCount: 10,
+        nextWinner: {
+            date: "27th February, Thursday",
+            countdown: "2 days 14 hours"
+        },
+        biddingOpens: {
+            date: "22nd February",
+            countdown: "1 day 6 hours"
+        }
+    };
+
+    // Populate dhukuti specs
+    function populateDhukutiSpecs() {
+        // Update title and badge
+        document.querySelector('.dhukuti-specs .title').textContent = `Dhukuti Round ${dhukutiData.currentRound}/${dhukutiData.totalRounds}`;
+        document.querySelector('.dhukuti-specs .badge').textContent = dhukutiData.contributionType;
+
+        // Update spec cards
+        const specContents = document.querySelectorAll('.spec-content');
+        
+        // Dhukuti Ends
+        specContents[0].querySelector('p').textContent = dhukutiData.endDate;
+        specContents[0].querySelector('.sub-text').textContent = dhukutiData.duration;
+
+        // Total Pool
+        specContents[1].querySelector('p').textContent = `₹${dhukutiData.totalPool.toLocaleString()}`;
+        specContents[1].querySelector('.sub-text').textContent = `${dhukutiData.memberCount} members`;
+
+        // Next Winner
+        specContents[2].querySelector('p').textContent = dhukutiData.nextWinner.date;
+        specContents[2].querySelector('.countdown').textContent = dhukutiData.nextWinner.countdown;
+
+        // Bidding Opens
+        specContents[3].querySelector('p').textContent = dhukutiData.biddingOpens.date;
+        specContents[3].querySelector('.countdown').textContent = dhukutiData.biddingOpens.countdown;
+    }
+
     // Sample member data - replace with actual data from your backend
     const members = [
-        { rank: 1, name: "Where's The New Update", stars: 230, points: 7491, icon: "🏰" },
-        { rank: 2, name: "Goblin Builder Fanclub", stars: 229, points: 7568, icon: "👾" },
-        { rank: 3, name: "SoupCell", stars: 195, points: 6808, icon: "🍜" },
-        { rank: 4, name: "Home_village_wreckers", stars: 195, points: 6511, icon: "🏠" },
-        { rank: 5, name: "NoMoreOresPlease", stars: 185, points: 6717, icon: "⛏️" },
-        { rank: 6, name: "MOAR ORES", stars: 145, points: 5303, icon: "💎" },
-        { rank: 7, name: "Clash Bros", stars: 132, points: 4337, icon: "⚔️" },
-        { rank: 8, name: "NoDragNoWin", stars: 123, points: 4652, icon: "🐉" }
+        { name: "Where's The New Update", icon: "🏰", dhukutiWins: true, dhukutiBids: true },
+        { name: "Goblin Builder Fanclub", icon: "👾", dhukutiWins: false, dhukutiBids: true },
+        { name: "SoupCell", icon: "🍜", dhukutiWins: true, dhukutiBids: false },
+        { name: "Home_village_wreckers", icon: "🏠", dhukutiWins: false, dhukutiBids: true },
+        { name: "NoMoreOresPlease", icon: "⛏️", dhukutiWins: true, dhukutiBids: true },
+        { name: "MOAR ORES", icon: "💎", dhukutiWins: false, dhukutiBids: false },
+        { name: "Clash Bros", icon: "⚔️", dhukutiWins: false, dhukutiBids: true },
+        { name: "NoDragNoWin", icon: "🐉", dhukutiWins: true, dhukutiBids: false }
     ];
 
-    // Populate members list
-    const membersList = document.querySelector('.members-list');
-    members.forEach((member, index) => {
-        const memberRow = document.createElement('div');
-        memberRow.className = 'member-row';
-        memberRow.style.animationDelay = `${index * 0.1}s`;
+    // Populate members table
+    function populateMembers() {
+        const tableBody = document.querySelector('.minimalist-variation tbody');
         
-        const rankIcon = index < 3 ? `<img src="assets/images/rank-${index + 1}.png" class="rank-icon" alt="Rank ${index + 1}">` : '';
-        
-        memberRow.innerHTML = `
-            <div class="position">
-                ${rankIcon}
-                <span>${member.rank}</span>
-            </div>
-            <div class="member-info">
-                <div class="member-icon">
-                    <span>${member.icon}</span>
-                </div>
-                <span class="name">${member.name}</span>
-            </div>
-            <div class="stars">
-                <i class="fas fa-star" style="color: #FFD700"></i>
-                ${member.stars}
-            </div>
-            <div class="points">${member.points}</div>
-            <div class="actions">
-                <button class="more-btn">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
-            </div>
-        `;
-        
-        membersList.appendChild(memberRow);
-    });
+        members.forEach((member, index) => {
+            const row = document.createElement('tr');
+            row.className = 'member-row';
+            row.style.animationDelay = `${index * 0.1}s`;
+            
+            row.innerHTML = `
+                <td class="member-info">
+                    <div class="member-icon">${member.icon}</div>
+                    <span class="name">${member.name}</span>
+                </td>
+                <td class="dhukuti-status">
+                    <div class="status-indicator ${member.dhukutiWins ? 'success' : 'danger'}">
+                        <i class="fas ${member.dhukutiWins ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                        <span>${member.dhukutiWins ? 'Won' : 'Not Won'}</span>
+                    </div>
+                </td>
+                <td class="bidding-status">
+                    <div class="status-indicator ${member.dhukutiBids ? 'success' : 'danger'}">
+                        <i class="fas ${member.dhukutiBids ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                        <span>${member.dhukutiBids ? 'Bid Placed' : 'No Bid'}</span>
+                    </div>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Bid calculations
+    const bidCalculations = {
+        totalPool: dhukutiData.totalPool,
+        minBidPercentage: 5,
+        maxBidPercentage: 10,
+        serviceFeePercentage: 1,
+
+        get minBidAmount() {
+            return Math.round(this.totalPool * (this.minBidPercentage / 100));
+        },
+
+        get maxBidAmount() {
+            return Math.round(this.totalPool * (this.maxBidPercentage / 100));
+        },
+
+        calculateServiceFee(amount) {
+            return Math.round(amount * (this.serviceFeePercentage / 100));
+        },
+
+        calculateReceiveAmount(amount) {
+            return amount - this.calculateServiceFee(amount);
+        }
+    };
 
     // Modal functionality
     const modal = document.getElementById('bidModal');
@@ -913,10 +979,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiveAmount = document.querySelector('.receive-amount');
     const serviceFee = document.querySelector('.service-fee');
 
+    // Update bid modal information
+    function updateBidModalInfo() {
+        // Update pool amount and minimum bid
+        document.querySelector('.bid-information .info-row:first-child .value')
+            .textContent = `₹${bidCalculations.totalPool.toLocaleString()}`;
+        document.querySelector('.bid-information .info-row:last-child .value')
+            .textContent = `₹${bidCalculations.minBidAmount.toLocaleString()}`;
+
+        // Update input constraints
+        bidAmountInput.min = bidCalculations.minBidAmount;
+        bidAmountInput.max = bidCalculations.maxBidAmount;
+        bidAmountInput.placeholder = `Enter amount (₹${bidCalculations.minBidAmount.toLocaleString()} - ₹${bidCalculations.maxBidAmount.toLocaleString()})`;
+    }
+
     // Open modal
-    placeBidBtn.addEventListener('click', () => {
+    placeBidBtn?.addEventListener('click', () => {
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
+        updateBidModalInfo();
         bidAmountInput.focus();
     });
 
@@ -928,118 +1009,70 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBidCalculations(0);
     };
 
-    closeBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
+    closeBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
 
-    // Calculate bid amounts
+    // Handle bid amount input
+    bidAmountInput?.addEventListener('input', (e) => {
+        const amount = parseInt(e.target.value) || 0;
+        
+        // Validate bid amount
+        if (amount < bidCalculations.minBidAmount) {
+            bidAmountInput.setCustomValidity(`Minimum bid amount is ₹${bidCalculations.minBidAmount.toLocaleString()}`);
+        } else if (amount > bidCalculations.maxBidAmount) {
+            bidAmountInput.setCustomValidity(`Maximum bid amount is ₹${bidCalculations.maxBidAmount.toLocaleString()}`);
+        } else {
+            bidAmountInput.setCustomValidity('');
+        }
+
+        updateBidCalculations(amount);
+    });
+
+    // Calculate and update bid amounts
     const updateBidCalculations = (amount) => {
-        const fee = Math.round(amount * 0.01); // 1% service fee
-        const receive = amount - fee;
+        const fee = bidCalculations.calculateServiceFee(amount);
+        const receive = bidCalculations.calculateReceiveAmount(amount);
         
         receiveAmount.textContent = `₹${receive.toLocaleString()}`;
         serviceFee.textContent = `₹${fee.toLocaleString()}`;
     };
 
-    // Handle bid amount input
-    bidAmountInput.addEventListener('input', (e) => {
-        const amount = parseInt(e.target.value) || 0;
-        updateBidCalculations(amount);
-    });
-
     // Handle form submission
-    bidForm.addEventListener('submit', async (e) => {
+    bidForm?.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const submitBtn = bidForm.querySelector('.btn-submit');
-        const originalText = submitBtn.innerHTML;
-        
-        // Add loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        submitBtn.disabled = true;
-
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Show success state
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Bid Placed!';
-            submitBtn.style.background = '#4CAF50';
-            
-            // Close modal after delay
-            setTimeout(() => {
-                closeModal();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.background = '';
-            }, 1500);
-
-        } catch (error) {
-            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error';
-            submitBtn.style.background = '#F44336';
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.background = '';
-            }, 3000);
-        }
-    });
-
-    // Animate stats on load
-    const animateValue = (element, start, end, duration) => {
-        const range = end - start;
-        const increment = range / (duration / 16);
-        let current = start;
-        
-        const animate = () => {
-            current += increment;
-            if (current < end) {
-                element.textContent = Math.floor(current).toLocaleString();
-                requestAnimationFrame(animate);
-            } else {
-                element.textContent = end.toLocaleString();
-            }
+        const formData = {
+            bidAmount: parseInt(bidAmountInput.value),
+            timestamp: new Date().toISOString()
         };
+
+        // TODO: Send to API
+        console.log('Submitting bid:', formData);
         
-        animate();
-    };
-
-    // Animate all stat values
-    document.querySelectorAll('.stat-card .value').forEach(stat => {
-        const value = parseInt(stat.textContent.replace(/,/g, ''));
-        stat.textContent = '0';
-        animateValue(stat, 0, value, 2000);
+        // Show success message and close modal
+        alert('Bid placed successfully!');
+        closeModal();
     });
 
-    // Add hover effects
-    document.querySelectorAll('.member-row').forEach(row => {
-        row.addEventListener('mouseenter', () => {
-            row.style.transform = 'translateX(5px)';
-        });
-
-        row.addEventListener('mouseleave', () => {
-            row.style.transform = 'translateX(0)';
-        });
+    // Filter functionality
+    const filterBtn = document.querySelector('.filter-btn');
+    filterBtn?.addEventListener('click', () => {
+        // Add filter functionality here
+        console.log('Filter button clicked');
     });
 
-    // Handle bid history button
-    const bidHistoryBtn = document.getElementById('bidHistoryBtn');
-    bidHistoryBtn.addEventListener('click', () => {
-        // Implement bid history view
-        console.log('Opening bid history...');
+    // Refresh functionality
+    const refreshBtn = document.querySelector('.refresh-btn');
+    refreshBtn?.addEventListener('click', () => {
+        // Add refresh functionality here
+        console.log('Refresh button clicked');
     });
 
-    // Handle member info buttons
-    document.querySelectorAll('.action-icon').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const memberName = e.currentTarget.dataset.member;
-            console.log(`Viewing info for ${memberName}`);
-            // Implement member info view
-        });
-    });
+    // Initialize
+    populateDhukutiSpecs();
+    populateMembers();
 }); 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1326,18 +1359,133 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Quick comparison button
-    const comparisonBtn = document.querySelector('.comparison-btn');
-    comparisonBtn?.addEventListener('click', () => {
-        // Add your comparison logic here
-        console.log('Opening comparison view...');
+    // Get DOM elements
+    const frequencyBtns = document.querySelectorAll('.frequency-btn');
+    const contributionOptions = document.querySelector('.contribution-options');
+    const weeklyOptions = document.querySelector('.weekly-options');
+    const fortnightlyOptions = document.querySelector('.fortnightly-options');
+    const monthlyOptions = document.querySelector('.monthly-options');
+    const membersBtns = document.querySelectorAll('.members-btn');
+
+    // Contribution amounts configuration
+    const contributionConfig = {
+        weekly: {
+            amounts: [100, 250, 500],
+            available: [100]
+        },
+        fortnightly: {
+            amounts: [250, 500, 1000],
+            available: [250, 500]
+        },
+        monthly: {
+            amounts: [500, 1000, 2500],
+            available: [500, 1000, 2500]
+        }
+    };
+
+    // Handle frequency selection
+    frequencyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            frequencyBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            // Get selected frequency
+            const frequency = btn.dataset.frequency;
+            
+            // Hide all options
+            weeklyOptions.style.display = 'none';
+            fortnightlyOptions.style.display = 'none';
+            monthlyOptions.style.display = 'none';
+
+            // Show selected frequency options
+            switch(frequency) {
+                case 'weekly':
+                    weeklyOptions.style.display = 'flex';
+                    break;
+                case 'fortnightly':
+                    fortnightlyOptions.style.display = 'flex';
+                    break;
+                case 'monthly':
+                    monthlyOptions.style.display = 'flex';
+                    break;
+            }
+
+            updateRulesText();
+        });
     });
 
-    // Subscribe button
+    // Handle contribution amount selection
+    const contributionBtns = document.querySelectorAll('.contribution-btn');
+    contributionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('disabled')) return;
+
+            // Remove active class from all buttons in the same options group
+            const parentDiv = btn.closest('div');
+            parentDiv.querySelectorAll('.contribution-btn').forEach(b => b.classList.remove('active'));
+            
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            updateRulesText();
+        });
+    });
+
+    // Handle member count selection
+    membersBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            membersBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            updateRulesText();
+        });
+    });
+
+    // Update rules text based on selections
+    function updateRulesText() {
+        const selectedFrequency = document.querySelector('.frequency-btn.active').dataset.frequency;
+        const selectedMembers = document.querySelector('.members-btn.active').dataset.members;
+        const selectedAmount = document.querySelector(`.${selectedFrequency}-options .contribution-btn.active`)?.dataset.amount || '0';
+
+        const rulesText = document.querySelector('.rules-content p');
+        const totalAmount = parseInt(selectedAmount) * parseInt(selectedMembers);
+
+        rulesText.textContent = `${selectedMembers} members will contribute $${selectedAmount} each, ${selectedFrequency}. Every ${selectedFrequency} period, a total sum of $${totalAmount} is collected, which will be given to the winner member for that specific period. A dhukuti cycle is completed when all ${selectedMembers} members receive their contributed amount back.`;
+    }
+
+    // Handle quick comparison button
+    const comparisonBtn = document.querySelector('.comparison-btn');
+    comparisonBtn?.addEventListener('click', () => {
+        // TODO: Implement comparison functionality
+        alert('Comparison feature coming soon!');
+    });
+
+    // Handle subscribe button
     const subscribeBtn = document.querySelector('.subscribe-btn');
     subscribeBtn?.addEventListener('click', () => {
-        // Add your subscription logic here
-        console.log('Processing subscription...');
+        const selectedFrequency = document.querySelector('.frequency-btn.active').dataset.frequency;
+        const selectedMembers = document.querySelector('.members-btn.active').dataset.members;
+        const selectedAmount = document.querySelector(`.${selectedFrequency}-options .contribution-btn.active`)?.dataset.amount;
+
+        if (!selectedAmount) {
+            alert('Please select a contribution amount');
+            return;
+        }
+
+        // TODO: Implement subscription functionality
+        const subscriptionDetails = {
+            frequency: selectedFrequency,
+            memberCount: selectedMembers,
+            contributionAmount: selectedAmount,
+            timestamp: new Date().toISOString()
+        };
+
+        console.log('Subscription details:', subscriptionDetails);
+        alert('Thank you for subscribing to Dhukuti! We will contact you soon.');
     });
 
     // Add hover effects to all buttons

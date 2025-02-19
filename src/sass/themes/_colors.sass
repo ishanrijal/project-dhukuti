@@ -1,0 +1,76 @@
+@use '../utils/variables' as variables
+
+// Text Colors
+.text-primary
+    color: variables.$text-primary
+
+.text-secondary
+    color: variables.$text-secondary
+
+.text-muted
+    color: variables.$text-muted
+
+// Background Colors
+.bg-primary
+    background-color: variables.$primary-color
+
+.bg-secondary
+    background-color: variables.$secondary-color
+
+.bg-electric
+    background-color: variables.$electric-blue
+    &:hover
+        box-shadow: variables.$neon-shadow
+
+.bg-neon
+    background-color: variables.$neon-purple
+    &:hover
+        box-shadow: variables.$purple-shadow
+
+// Gradients
+.gradient-neon
+    background: variables.$neon-gradient
+
+.gradient-muted
+    background: variables.$muted-gradient
+
+// Button Styles
+.btn
+    font-family: variables.$primary-font
+    
+    &-outline
+        border: 2px solid variables.$button-outline
+        color: variables.$button-outline
+        &:hover
+            background: rgba(variables.$electric-blue, 0.1)
+            box-shadow: variables.$neon-shadow
+
+    &-neon
+        background: variables.$electric-blue
+        color: variables.$text-primary
+        &:hover
+            box-shadow: variables.$neon-shadow
+
+    &-purple
+        background: variables.$neon-purple
+        color: variables.$text-primary
+        &:hover
+            box-shadow: variables.$purple-shadow
+
+// Status Indicators
+.status
+    &-success
+        color: variables.$success-color
+        background: rgba(variables.$success-color, 0.1)
+
+    &-error
+        color: variables.$error-color
+        background: rgba(variables.$error-color, 0.1)
+
+// Text Glows
+.glow
+    &-blue
+        text-shadow: 0 0 10px variables.$neon-glow-blue
+    
+    &-purple
+        text-shadow: 0 0 10px variables.$neon-glow-purple

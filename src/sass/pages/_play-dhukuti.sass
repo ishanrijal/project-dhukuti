@@ -1,160 +1,255 @@
-@use '../utils/mixins' as mixins
 @use '../utils/variables' as variables
+@use '../utils/mixins' as mixins
 
 .play-dhukuti-container
-    background: #1a1d23
+    background: #1E1E1E
     min-height: 100vh
+    padding: 2rem
     color: #fff
-    padding: 2rem 1.5rem
+    font-family: variables.$primary-font
 
 .dhukuti-header
     text-align: center
     margin-bottom: 3rem
-
+    
     .title
         font-size: 2.5rem
         font-weight: 700
-        background: linear-gradient(45deg, #ff6b6b, #4ecdc4)
+        margin-bottom: 1rem
+        background: linear-gradient(135deg, #6e8efb, #a777e3)
         -webkit-background-clip: text
         -webkit-text-fill-color: transparent
-        margin-bottom: 1.5rem
-        font-family: 'Allura', cursive
-
+        
     .header-description
-        color: rgba(255, 255, 255, 0.8)
-        line-height: 1.6
-
+        max-width: 600px
+        margin: 0 auto
+        
+        p
+            color: rgba(255, 255, 255, 0.8)
+            font-size: 1.1rem
+            line-height: 1.6
+            
         .quote
+            color: #6e8efb
             font-style: italic
-            color: #4ecdc4
             margin-top: 0.5rem
 
-.currency-section, .balance-section
-    margin-bottom: 2rem
+.dhukuti-content
+    max-width: 1200px
+    margin: 0 auto
 
-    h2
-        font-size: 1.2rem
-        color: rgba(255, 255, 255, 0.9)
-        margin-bottom: 1rem
+    section
+        margin-bottom: 3rem
 
-.currency-options
-    display: grid
-    grid-template-columns: repeat(3, 1fr)
-    gap: 1rem
-    margin-bottom: 1rem
-
-    .currency-btn
-        @include mixins.flexbox
-        @include mixins.align-items(center)
-        gap: 0.5rem
-        background: rgba(255, 255, 255, 0.1)
-        border: 1px solid rgba(255, 255, 255, 0.2)
-        border-radius: 12px
-        padding: 0.8rem
-        color: #fff
-        cursor: pointer
-        transition: all 0.3s ease
-
-        img
-            width: 24px
-            height: 24px
-            border-radius: 50%
-
-        &.active
-            background: linear-gradient(45deg, #4a90e2, #63b3ed)
-            border-color: transparent
-
-        &:hover
-            transform: translateY(-2px)
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
-
-.balance-options
-    display: grid
-    grid-template-columns: repeat(3, 1fr)
-    gap: 1rem
-
-    .balance-btn
-        background: rgba(255, 255, 255, 0.1)
-        border: 1px solid rgba(255, 255, 255, 0.2)
-        border-radius: 12px
-        padding: 1rem
-        color: #fff
-        cursor: pointer
-        transition: all 0.3s ease
-
-        .amount
+        h2
+            color: rgba(255, 255, 255, 0.9)
             font-size: 1.2rem
-            font-weight: 600
+            margin-bottom: 1.5rem
+            letter-spacing: 2px
 
-        &.active
-            background: linear-gradient(45deg, #4a90e2, #63b3ed)
-            border-color: transparent
+// Frequency Section Styles
+.frequency-section
+    .frequency-options
+        display: flex
+        gap: 1rem
+        flex-wrap: wrap
+        
+        .frequency-btn
+            background: rgba(255, 255, 255, 0.05)
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 12px
+            padding: 1rem 2rem
+            color: #fff
+            cursor: pointer
+            transition: all 0.3s ease
+            display: flex
+            align-items: center
+            gap: 0.8rem
+            min-width: 160px
+            
+            i
+                font-size: 1.2rem
+                color: #6e8efb
+                
+            span
+                font-size: 1rem
+                font-weight: 500
+            
+            &:hover
+                background: rgba(255, 255, 255, 0.1)
+                transform: translateY(-2px)
+            
+            &.active
+                background: linear-gradient(135deg, rgba(110, 142, 251, 0.2), rgba(167, 119, 227, 0.2))
+                border-color: #6e8efb
+                box-shadow: 0 4px 15px rgba(110, 142, 251, 0.2)
 
-        &:hover
-            transform: translateY(-2px)
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
+// Contribution Section Styles
+.contribution-section
+    .contribution-options
+        > div
+            display: flex
+            gap: 1rem
+            flex-wrap: wrap
+            
+        .contribution-btn
+            background: rgba(255, 255, 255, 0.05)
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 12px
+            padding: 1.5rem
+            min-width: 180px
+            cursor: pointer
+            transition: all 0.3s ease
+            text-align: center
+            
+            .amount
+                display: block
+                font-size: 1.5rem
+                font-weight: 600
+                color: #fff
+                margin-bottom: 0.5rem
+            
+            .availability
+                font-size: 0.9rem
+                color: #6e8efb
+            
+            &:hover:not(.disabled)
+                background: rgba(255, 255, 255, 0.1)
+                transform: translateY(-2px)
+            
+            &.active
+                background: linear-gradient(135deg, rgba(110, 142, 251, 0.2), rgba(167, 119, 227, 0.2))
+                border-color: #6e8efb
+                box-shadow: 0 4px 15px rgba(110, 142, 251, 0.2)
+            
+            &.disabled
+                opacity: 0.5
+                cursor: not-allowed
+                
+                .availability
+                    color: rgba(255, 255, 255, 0.5)
 
-.comparison-btn
-    width: 100%
-    background: transparent
-    border: 1px solid rgba(255, 255, 255, 0.2)
-    border-radius: 12px
-    padding: 1rem
-    color: #fff
-    font-size: 1rem
-    cursor: pointer
-    margin-bottom: 2rem
-    transition: all 0.3s ease
+// Members Section Styles
+.members-section
+    .members-options
+        display: flex
+        gap: 1rem
+        flex-wrap: wrap
+        
+        .members-btn
+            background: rgba(255, 255, 255, 0.05)
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 12px
+            padding: 1.2rem 2rem
+            color: #fff
+            cursor: pointer
+            transition: all 0.3s ease
+            display: flex
+            align-items: center
+            gap: 1rem
+            min-width: 160px
+            
+            i
+                font-size: 1.2rem
+                color: #6e8efb
+                
+            .count
+                font-size: 1rem
+                font-weight: 500
+            
+            &:hover
+                background: rgba(255, 255, 255, 0.1)
+                transform: translateY(-2px)
+            
+            &.active
+                background: linear-gradient(135deg, rgba(110, 142, 251, 0.2), rgba(167, 119, 227, 0.2))
+                border-color: #6e8efb
+                box-shadow: 0 4px 15px rgba(110, 142, 251, 0.2)
 
-    &:hover
-        background: rgba(255, 255, 255, 0.1)
-        transform: translateY(-2px)
-
+// Rules Section Styles
 .rules-section
-    background: rgba(255, 255, 255, 0.05)
+    background: rgba(255, 255, 255, 0.03)
     border-radius: 16px
-    padding: 1.5rem
-    margin-bottom: 2rem
-
+    padding: 2rem
+    
     h2
-        font-size: 1.2rem
-        color: rgba(255, 255, 255, 0.9)
+        color: #6e8efb
         margin-bottom: 1rem
-
+    
     .rules-content
         p
             color: rgba(255, 255, 255, 0.8)
             line-height: 1.6
             margin-bottom: 1.5rem
+        
+        .rules-navigation
+            display: flex
+            justify-content: center
+            gap: 0.5rem
+            
+            .dot
+                width: 8px
+                height: 8px
+                border-radius: 50%
+                background: rgba(255, 255, 255, 0.2)
+                cursor: pointer
+                transition: all 0.3s ease
+                
+                &.active
+                    background: #6e8efb
+                    transform: scale(1.2)
 
-    .rules-navigation
-        @include mixins.flexbox
-        @include mixins.justify-content(center)
-        gap: 0.5rem
-
-        .dot
-            width: 8px
-            height: 8px
-            border-radius: 50%
-            background: rgba(255, 255, 255, 0.3)
-            cursor: pointer
-            transition: background 0.3s ease
-
-            &.active
-                background: #4a90e2
-
+// Button Styles
+.comparison-btn,
 .subscribe-btn
+    display: block
     width: 100%
-    background: linear-gradient(45deg, #4a90e2, #63b3ed)
-    border: none
-    border-radius: 12px
+    max-width: 300px
+    margin: 2rem auto
     padding: 1rem
-    color: #fff
-    font-size: 1.1rem
-    font-weight: 600
+    border-radius: 12px
+    font-size: 1rem
+    font-weight: 500
+    text-align: center
     cursor: pointer
     transition: all 0.3s ease
+    border: none
 
+.comparison-btn
+    background: rgba(255, 255, 255, 0.05)
+    color: #fff
+    border: 1px solid rgba(255, 255, 255, 0.1)
+    
+    &:hover
+        background: rgba(255, 255, 255, 0.1)
+        transform: translateY(-2px)
+
+.subscribe-btn
+    background: linear-gradient(135deg, #6e8efb, #a777e3)
+    color: #fff
+    
     &:hover
         transform: translateY(-2px)
-        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3)
+        box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3)
+
+// Animations
+@keyframes fadeIn
+    from
+        opacity: 0
+        transform: translateY(10px)
+    to
+        opacity: 1
+        transform: translateY(0)
+
+// Responsive Styles
+@media (max-width: 768px)
+    .frequency-options,
+    .contribution-options > div,
+    .members-options
+        justify-content: center
+        
+    .frequency-btn,
+    .contribution-btn,
+    .members-btn
+        width: 100%
+        max-width: 300px
