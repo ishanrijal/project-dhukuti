@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get all required DOM elements
     const progressSteps = document.querySelectorAll('.progress-bar__step');
     const progressLine = document.querySelector('.progress-bar__line');
     const statusText = document.querySelector('.status-text');
     const estimatedTime = document.querySelector('.estimated-time');
     const cancelButton = document.querySelector('.group-matching__cancel');
+
+    // Check if required elements exist
+    if (!progressLine || !statusText || !estimatedTime || !progressSteps.length) {
+        console.warn('Required group matching elements are missing');
+        return;
+    }
 
     const statusMessages = [
         'Initializing group search...',
@@ -17,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize progress animation
     function updateProgress() {
+        if (!progressLine || !statusText || !estimatedTime || !progressSteps.length) return;
+
         // Update progress line
         const progress = (currentStep / (totalSteps - 1)) * 100;
         progressLine.style.width = `${progress}%`;
@@ -44,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Progress animation
     function startMatching() {
+        if (!progressLine || !statusText || !estimatedTime) return null;
+
         currentStep = 0;
         updateProgress();
 
@@ -63,11 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show status message
     function showStatusMessage(message, type = 'info') {
+        const container = document.querySelector('.group-matching__status');
+        if (!container) return;
+
         const statusMessage = document.createElement('div');
         statusMessage.className = `status-message ${type} show`;
         statusMessage.textContent = message;
 
-        const container = document.querySelector('.group-matching__status');
         container.appendChild(statusMessage);
 
         setTimeout(() => {
@@ -87,34 +100,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle cancel button
     let matchingInterval;
     
-    cancelButton.addEventListener('click', () => {
-        if (matchingInterval) {
-            clearInterval(matchingInterval);
-            showStatusMessage('Group matching cancelled', 'error');
-            
-            // Reset progress
-            currentStep = 0;
-            updateProgress();
-            
-            // Enable restart
-            setTimeout(() => {
-                matchingInterval = startMatching();
-            }, 1000);
-        }
-    });
+    if (cancelButton) {
+        cancelButton.addEventListener('click', () => {
+            if (matchingInterval) {
+                clearInterval(matchingInterval);
+                showStatusMessage('Group matching cancelled', 'error');
+                
+                // Reset progress
+                currentStep = 0;
+                updateProgress();
+                
+                // Enable restart
+                setTimeout(() => {
+                    matchingInterval = startMatching();
+                }, 1000);
+            }
+        });
+    }
 
     // Start matching process
     matchingInterval = startMatching();
 
     // Add hover effects
     const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            button.style.transform = 'translateY(-2px)';
+    if (buttons.length > 0) {
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
         });
-        
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'translateY(0)';
-        });
-    });
+    }
 }); 

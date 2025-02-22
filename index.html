@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -163,59 +164,56 @@
             </div>
         </section>
             
-    <footer class="mobile-footer">
-        <nav class="mobile-footer__nav">
-            <a href="/" class="mobile-footer__item">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a href="/calendar" class="mobile-footer__item">
-                <i class="fas fa-calendar"></i>
-                <span>Calendar</span>
-            </a>
-            <a href="/pay" class="mobile-footer__item">
-                <div class="pay-icon">
-                    <i class="fas fa-circle-dollar-to-slot"></i>
-                </div>
-                <span>Pay</span>
-            </a>
-            <a href="/groups" class="mobile-footer__item">
-                <i class="fas fa-users"></i>
-                <span>Groups</span>
-            </a>
-            <a href="/payments" class="mobile-footer__item">
-                <i class="fas fa-wallet"></i>
-                <span>Payments</span>
-            </a>
-        </nav>
-    </footer>
+        <footer class="mobile-footer">
+            <nav class="mobile-footer__nav">
+                <a href="/" class="mobile-footer__item">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/calendar" class="mobile-footer__item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Calendar</span>
+                </a>
+                <a href="/pay" class="mobile-footer__item">
+                    <div class="pay-icon">
+                        <i class="fas fa-circle-dollar-to-slot"></i>
+                    </div>
+                    <span>Pay</span>
+                </a>
+                <a href="/groups" class="mobile-footer__item">
+                    <i class="fas fa-users"></i>
+                    <span>Groups</span>
+                </a>
+                <a href="/payments" class="mobile-footer__item">
+                    <i class="fas fa-wallet"></i>
+                    <span>Payments</span>
+                </a>
+            </nav>
+        </footer>
 
-    <script src="assets/js/main.js"></script>
-    <!-- Add in head -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-<!-- Add before closing body -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    const aiSwiper = new Swiper('.ai-features', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-        speed: 800,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        }
-    });
-</script>
+        <script src="assets/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            const aiSwiper = new Swiper('.ai-features', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true
+                },
+                speed: 800,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                }
+            });
+        </script>
+    </div>
 </body>
 </html>

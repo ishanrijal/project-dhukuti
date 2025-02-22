@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const onboardingSteps = document.querySelectorAll('.onboarding-step');
     const progressDots = document.querySelectorAll('.progress-dots .dot');
 
+    // Check if required elements exist
+    if (!chatMessages || !messageInput || !onboardingModal || !onboardingSteps.length || !progressDots.length) {
+        console.warn('Some required chat elements are missing');
+        return;
+    }
+
     // @todo: Replace with API - User assessment data storage
     let userAssessment = {
         fluency: null,
@@ -22,16 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let maxStepReached = 1;
 
     // Handle start assessment button
-    startAssessmentBtn?.addEventListener('click', () => {
-        onboardingModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        // Hide the initial welcome message
-        const welcomeMessage = startAssessmentBtn.closest('.message');
-        if (welcomeMessage) {
-            welcomeMessage.style.display = 'none';
-        }
-        initializeOnboarding();
-    });
+    if (startAssessmentBtn) {
+        startAssessmentBtn.addEventListener('click', () => {
+            onboardingModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            // Hide the initial welcome message
+            const welcomeMessage = startAssessmentBtn.closest('.message');
+            if (welcomeMessage) {
+                welcomeMessage.style.display = 'none';
+            }
+            initializeOnboarding();
+        });
+    }
 
     // Initialize onboarding
     function initializeOnboarding() {
@@ -47,54 +55,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Handle option selection
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const step = btn.closest('.onboarding-step');
-            const stepNum = parseInt(step.dataset.step);
-            const value = btn.dataset.value;
+    const optionBtns = document.querySelectorAll('.option-btn');
+    if (optionBtns.length > 0) {
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const step = btn.closest('.onboarding-step');
+                if (!step) return;
 
-            // Remove previous selection in current step
-            step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+                const stepNum = parseInt(step.dataset.step);
+                const value = btn.dataset.value;
 
-            // Store the selection
-            switch(stepNum) {
-                case 1:
-                    userAssessment.fluency = value;
-                    break;
-                case 2:
-                    userAssessment.pteGoal = value;
-                    break;
-                case 3:
-                    userAssessment.focusSkill = value;
-                    break;
-            }
+                // Remove previous selection in current step
+                step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
 
-            // Update max step reached
-            maxStepReached = Math.max(maxStepReached, stepNum + 1);
+                // Store the selection
+                switch(stepNum) {
+                    case 1:
+                        userAssessment.fluency = value;
+                        break;
+                    case 2:
+                        userAssessment.pteGoal = value;
+                        break;
+                    case 3:
+                        userAssessment.focusSkill = value;
+                        break;
+                }
 
-            // Move to next step after a short delay
-            if (stepNum < 3) {
-                setTimeout(() => {
-                    navigateToStep(stepNum + 1);
-                }, 300);
-            } else {
-                completeOnboarding();
-            }
+                // Update max step reached
+                maxStepReached = Math.max(maxStepReached, stepNum + 1);
+
+                // Move to next step after a short delay
+                if (stepNum < 3) {
+                    setTimeout(() => {
+                        navigateToStep(stepNum + 1);
+                    }, 300);
+                } else {
+                    completeOnboarding();
+                }
+            });
         });
-    });
+    }
 
     // Handle progress dot clicks
-    progressDots.forEach((dot, index) => {
-        const stepNumber = index + 1;
-        dot.dataset.step = stepNumber;
-        
-        dot.addEventListener('click', () => {
-            if (stepNumber <= maxStepReached) {
-                navigateToStep(stepNumber);
-            }
+    if (progressDots.length > 0) {
+        progressDots.forEach((dot, index) => {
+            const stepNumber = index + 1;
+            dot.dataset.step = stepNumber;
+            
+            dot.addEventListener('click', () => {
+                if (stepNumber <= maxStepReached) {
+                    navigateToStep(stepNumber);
+                }
+            });
         });
-    });
+    }
 
     // Function to navigate to a specific step
     function navigateToStep(stepNumber) {
@@ -103,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const direction = stepNumber > currentStep ? 'Next' : 'Prev';
         const currentStepEl = document.querySelector(`.onboarding-step[data-step="${currentStep}"]`);
         const nextStepEl = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+
+        if (!nextStepEl) return;
 
         // Remove active class from all steps
         onboardingSteps.forEach(step => {
@@ -130,6 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update progress dots
     function updateProgressDots() {
+        if (!progressDots.length) return;
+
         progressDots.forEach((dot, index) => {
             const stepNum = index + 1;
             dot.classList.toggle('active', stepNum === currentStep);
@@ -144,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (userAssessment[stepKey]) {
             const step = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+            if (!step) return;
+
             const selectedOption = step.querySelector(`[data-value="${userAssessment[stepKey]}"]`);
             if (selectedOption) {
                 selectedOption.classList.add('selected');
@@ -153,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to complete onboarding
     function completeOnboarding() {
+        if (!onboardingModal) return;
+
         // @todo: Replace with API - Send assessment data to backend
         console.log('User Assessment:', userAssessment);
 
@@ -198,24 +221,29 @@ Would you like to:
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const dropdownMenu = document.querySelector('.dropdown-menu');
     
-    // Toggle dropdown on click
-    dropdownToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
-    
-    // Prevent dropdown from closing when clicking inside
-    dropdownMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
+    // Only initialize dropdown if elements exist
+    if (dropdownToggle && dropdownMenu) {
+        // Toggle dropdown on click
+        dropdownToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 
     // Initialize emoji picker
     const initEmojiPicker = () => {
+        if (!emojiBtn || !messageInput) return;
+
         const picker = new EmojiButton({
             position: 'top-start',
             theme: 'dark',
@@ -234,15 +262,22 @@ Would you like to:
 
     // Load emoji picker script dynamically
     const loadEmojiPicker = () => {
+        if (!emojiBtn) return;
+
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js';
         script.onload = initEmojiPicker;
         document.head.appendChild(script);
     };
-    loadEmojiPicker();
+
+    // Only load emoji picker if button exists
+    if (emojiBtn) {
+        loadEmojiPicker();
+    }
 
     // Scroll to bottom of chat
     const scrollToBottom = () => {
+        if (!chatMessages) return;
         chatMessages.scrollTop = chatMessages.scrollHeight;
     };
     scrollToBottom();
@@ -657,143 +692,181 @@ document.addEventListener('DOMContentLoaded', () => {
     const verificationForm = document.querySelector('.verification-form');
     const profilePicture = document.querySelector('.profile-picture');
 
-    // Verification section toggle
-    verificationBanner?.addEventListener('click', () => {
-        verificationSection.classList.toggle('hidden');
-        const icon = toggleButton.querySelector('i');
-        icon.classList.toggle('fa-chevron-down');
-        icon.classList.toggle('fa-chevron-up');
-    });
+    // Check if verification elements exist and set up verification section toggle
+    if (verificationBanner && verificationSection && toggleButton) {
+        verificationBanner.addEventListener('click', () => {
+            verificationSection.classList.toggle('hidden');
+            const icon = toggleButton.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            }
+        });
+    }
 
     // Balance visibility toggle
     let isBalanceVisible = true;
-    balanceToggle?.addEventListener('click', () => {
-        isBalanceVisible = !isBalanceVisible;
-        const icon = balanceToggle.querySelector('i');
-        
-        if (isBalanceVisible) {
-            balanceAmount.textContent = '$5,000'; // Replace with actual balance
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        } else {
-            balanceAmount.textContent = '****';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        }
-    });
+    if (balanceToggle && balanceAmount) {
+        balanceToggle.addEventListener('click', () => {
+            isBalanceVisible = !isBalanceVisible;
+            const icon = balanceToggle.querySelector('i');
+            
+            if (isBalanceVisible) {
+                balanceAmount.textContent = '$5,000'; // Replace with actual balance
+                if (icon) {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            } else {
+                balanceAmount.textContent = '****';
+                if (icon) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            }
+        });
+    }
 
     // Investment frequency selection
-    frequencyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            frequencyButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+    if (frequencyButtons.length > 0) {
+        frequencyButtons.forEach(button => {
+            if (!button) return;
+            button.addEventListener('click', () => {
+                frequencyButtons.forEach(btn => btn?.classList?.remove('active'));
+                button.classList.add('active');
+            });
         });
-    });
+    }
 
     // Profile picture navigation
-    profilePicture.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = '/profile';
-    });
+    if (profilePicture) {
+        profilePicture.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/profile';
+        });
+    }
 
     // Verification form submission
-    verificationForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(verificationForm);
-        
-        try {
-            // Show loading state
+    if (verificationForm) {
+        verificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(verificationForm);
             const submitButton = verificationForm.querySelector('.submit-btn');
-            submitButton.textContent = 'Submitting...';
-            submitButton.disabled = true;
+            if (!submitButton) return;
+            
+            try {
+                // Show loading state
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
 
-            // Replace with your actual API endpoint
-            const response = await fetch('/api/verify', {
-                method: 'POST',
-                body: formData
-            });
+                // Replace with your actual API endpoint
+                const response = await fetch('/api/verify', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            if (response.ok) {
-                alert('Documents submitted successfully!');
-                verificationSection.classList.add('hidden');
-            } else {
-                throw new Error('Submission failed');
+                if (response.ok) {
+                    alert('Documents submitted successfully!');
+                    verificationSection?.classList?.add('hidden');
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                alert('Error submitting documents. Please try again.');
+            } finally {
+                // Reset button state
+                submitButton.textContent = 'Submit for Verification';
+                submitButton.disabled = false;
             }
-        } catch (error) {
-            alert('Error submitting documents. Please try again.');
-        } finally {
-            // Reset button state
-            const submitButton = verificationForm.querySelector('.submit-btn');
-            submitButton.textContent = 'Submit for Verification';
-            submitButton.disabled = false;
-        }
-    });
+        });
+    }
 
     // Button hover effects
     const buttons = document.querySelectorAll('.cta-button, .find-group-btn');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            button.style.transform = 'translateY(-2px)';
+    if (buttons.length > 0) {
+        buttons.forEach(button => {
+            if (!button) return;
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
         });
-        
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'translateY(0)';
-        });
-    });
+    }
 
     // Initialize tooltips if needed
     const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    tooltipElements.forEach(element => {
-        element.setAttribute('title', element.dataset.tooltip);
-    });
+    if (tooltipElements.length > 0) {
+        tooltipElements.forEach(element => {
+            if (!element) return;
+            element.setAttribute('title', element.dataset.tooltip);
+        });
+    }
 });
 
-
-
+// Tab functionality
 document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Hide all tab contents
-            tabContents.forEach(content => content.classList.add('hidden'));
-            
-            // Show selected tab content
-            const tabId = button.dataset.tab;
-            document.getElementById(tabId).classList.remove('hidden');
+    if (tabButtons.length > 0 && tabContents.length > 0) {
+        tabButtons.forEach(button => {
+            if (!button) return;
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => btn?.classList?.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => content?.classList?.add('hidden'));
+                
+                // Show selected tab content
+                const tabId = button.dataset.tab;
+                if (!tabId) return;
+
+                const selectedContent = document.getElementById(tabId);
+                if (selectedContent) {
+                    selectedContent.classList.remove('hidden');
+                }
+            });
         });
-    });
-    
+    }
 });
 
+// Animation functionality
 window.addEventListener('load', () => {
     const dhukutiLetters = document.querySelectorAll('.letter');
     const aiText = document.getElementById('ai-text');
     
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                dhukutiLetters.forEach((letter, index) => {
-                    letter.style.animationDelay = `${index * 0.1}s`;
-                });
-                setTimeout(() => {
-                    aiText.classList.add('loaded');
-                    setTimeout(() => aiText.classList.add('floating'), 1500);
-                }, 1000);
-                observer.unobserve(entry.target);
-            }
+    if (dhukutiLetters.length > 0 && aiText) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    dhukutiLetters.forEach((letter, index) => {
+                        if (!letter) return;
+                        letter.style.animationDelay = `${index * 0.1}s`;
+                    });
+                    
+                    setTimeout(() => {
+                        aiText.classList.add('loaded');
+                        setTimeout(() => aiText.classList.add('floating'), 1500);
+                    }, 1000);
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
         });
-    });
-    
-    observer.observe(document.querySelector('.dhukuti-text'));
+        
+        const dhukutiText = document.querySelector('.dhukuti-text');
+        if (dhukutiText) {
+            observer.observe(dhukutiText);
+        }
+    }
 });
 document.addEventListener('DOMContentLoaded', () => {
     // Handle new session button
@@ -877,28 +950,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate dhukuti specs
     function populateDhukutiSpecs() {
+        // Get all required elements
+        const titleEl = document.querySelector('.dhukuti-specs .title');
+        const badgeEl = document.querySelector('.dhukuti-specs .badge');
+        const specContents = document.querySelectorAll('.spec-content');
+
+        // Only proceed if required elements exist
+        if (!titleEl || !badgeEl || specContents.length < 4) return;
+
         // Update title and badge
-        document.querySelector('.dhukuti-specs .title').textContent = `Dhukuti Round ${dhukutiData.currentRound}/${dhukutiData.totalRounds}`;
-        document.querySelector('.dhukuti-specs .badge').textContent = dhukutiData.contributionType;
+        titleEl.textContent = `Dhukuti Round ${dhukutiData.currentRound}/${dhukutiData.totalRounds}`;
+        badgeEl.textContent = dhukutiData.contributionType;
 
         // Update spec cards
-        const specContents = document.querySelectorAll('.spec-content');
-        
         // Dhukuti Ends
-        specContents[0].querySelector('p').textContent = dhukutiData.endDate;
-        specContents[0].querySelector('.sub-text').textContent = dhukutiData.duration;
+        const endDateP = specContents[0].querySelector('p');
+        const endDateSub = specContents[0].querySelector('.sub-text');
+        if (endDateP && endDateSub) {
+            endDateP.textContent = dhukutiData.endDate;
+            endDateSub.textContent = dhukutiData.duration;
+        }
 
         // Total Pool
-        specContents[1].querySelector('p').textContent = `₹${dhukutiData.totalPool.toLocaleString()}`;
-        specContents[1].querySelector('.sub-text').textContent = `${dhukutiData.memberCount} members`;
+        const poolP = specContents[1].querySelector('p');
+        const poolSub = specContents[1].querySelector('.sub-text');
+        if (poolP && poolSub) {
+            poolP.textContent = `₹${dhukutiData.totalPool.toLocaleString()}`;
+            poolSub.textContent = `${dhukutiData.memberCount} members`;
+        }
 
         // Next Winner
-        specContents[2].querySelector('p').textContent = dhukutiData.nextWinner.date;
-        specContents[2].querySelector('.countdown').textContent = dhukutiData.nextWinner.countdown;
+        const winnerP = specContents[2].querySelector('p');
+        const winnerCount = specContents[2].querySelector('.countdown');
+        if (winnerP && winnerCount) {
+            winnerP.textContent = dhukutiData.nextWinner.date;
+            winnerCount.textContent = dhukutiData.nextWinner.countdown;
+        }
 
         // Bidding Opens
-        specContents[3].querySelector('p').textContent = dhukutiData.biddingOpens.date;
-        specContents[3].querySelector('.countdown').textContent = dhukutiData.biddingOpens.countdown;
+        const biddingP = specContents[3].querySelector('p');
+        const biddingCount = specContents[3].querySelector('.countdown');
+        if (biddingP && biddingCount) {
+            biddingP.textContent = dhukutiData.biddingOpens.date;
+            biddingCount.textContent = dhukutiData.biddingOpens.countdown;
+        }
     }
 
     // Sample member data - replace with actual data from your backend
@@ -916,6 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate members table
     function populateMembers() {
         const tableBody = document.querySelector('.minimalist-variation tbody');
+        if (!tableBody) return;
         
         members.forEach((member, index) => {
             const row = document.createElement('tr');
@@ -969,7 +1065,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Modal functionality
+    // Get modal elements
     const modal = document.getElementById('bidModal');
     const placeBidBtn = document.getElementById('placeBidBtn');
     const closeBtn = document.querySelector('.close-btn');
@@ -981,11 +1077,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update bid modal information
     function updateBidModalInfo() {
-        // Update pool amount and minimum bid
-        document.querySelector('.bid-information .info-row:first-child .value')
-            .textContent = `₹${bidCalculations.totalPool.toLocaleString()}`;
-        document.querySelector('.bid-information .info-row:last-child .value')
-            .textContent = `₹${bidCalculations.minBidAmount.toLocaleString()}`;
+        if (!modal || !bidAmountInput) return;
+
+        const poolAmountEl = document.querySelector('.bid-information .info-row:first-child .value');
+        const minBidEl = document.querySelector('.bid-information .info-row:last-child .value');
+
+        if (poolAmountEl) {
+            poolAmountEl.textContent = `₹${bidCalculations.totalPool.toLocaleString()}`;
+        }
+        
+        if (minBidEl) {
+            minBidEl.textContent = `₹${bidCalculations.minBidAmount.toLocaleString()}`;
+        }
 
         // Update input constraints
         bidAmountInput.min = bidCalculations.minBidAmount;
@@ -994,45 +1097,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Open modal
-    placeBidBtn?.addEventListener('click', () => {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        updateBidModalInfo();
-        bidAmountInput.focus();
-    });
+    if (placeBidBtn && modal) {
+        placeBidBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            updateBidModalInfo();
+            bidAmountInput?.focus();
+        });
+    }
 
     // Close modal functions
     const closeModal = () => {
+        if (!modal || !bidForm) return;
+        
         modal.classList.remove('show');
         document.body.style.overflow = '';
         bidForm.reset();
         updateBidCalculations(0);
     };
 
-    closeBtn?.addEventListener('click', closeModal);
-    cancelBtn?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeModal);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
 
     // Handle bid amount input
-    bidAmountInput?.addEventListener('input', (e) => {
-        const amount = parseInt(e.target.value) || 0;
-        
-        // Validate bid amount
-        if (amount < bidCalculations.minBidAmount) {
-            bidAmountInput.setCustomValidity(`Minimum bid amount is ₹${bidCalculations.minBidAmount.toLocaleString()}`);
-        } else if (amount > bidCalculations.maxBidAmount) {
-            bidAmountInput.setCustomValidity(`Maximum bid amount is ₹${bidCalculations.maxBidAmount.toLocaleString()}`);
-        } else {
-            bidAmountInput.setCustomValidity('');
-        }
+    if (bidAmountInput) {
+        bidAmountInput.addEventListener('input', (e) => {
+            const amount = parseInt(e.target.value) || 0;
+            
+            // Validate bid amount
+            if (amount < bidCalculations.minBidAmount) {
+                bidAmountInput.setCustomValidity(`Minimum bid amount is ₹${bidCalculations.minBidAmount.toLocaleString()}`);
+            } else if (amount > bidCalculations.maxBidAmount) {
+                bidAmountInput.setCustomValidity(`Maximum bid amount is ₹${bidCalculations.maxBidAmount.toLocaleString()}`);
+            } else {
+                bidAmountInput.setCustomValidity('');
+            }
 
-        updateBidCalculations(amount);
-    });
+            updateBidCalculations(amount);
+        });
+    }
 
     // Calculate and update bid amounts
     const updateBidCalculations = (amount) => {
+        if (!receiveAmount || !serviceFee) return;
+        
         const fee = bidCalculations.calculateServiceFee(amount);
         const receive = bidCalculations.calculateReceiveAmount(amount);
         
@@ -1041,34 +1160,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Handle form submission
-    bidForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = {
-            bidAmount: parseInt(bidAmountInput.value),
-            timestamp: new Date().toISOString()
-        };
+    if (bidForm) {
+        bidForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = {
+                bidAmount: parseInt(bidAmountInput?.value || '0'),
+                timestamp: new Date().toISOString()
+            };
 
-        // TODO: Send to API
-        console.log('Submitting bid:', formData);
-        
-        // Show success message and close modal
-        alert('Bid placed successfully!');
-        closeModal();
-    });
+            // TODO: Send to API
+            console.log('Submitting bid:', formData);
+            
+            // Show success message and close modal
+            alert('Bid placed successfully!');
+            closeModal();
+        });
+    }
 
     // Filter functionality
     const filterBtn = document.querySelector('.filter-btn');
-    filterBtn?.addEventListener('click', () => {
-        // Add filter functionality here
-        console.log('Filter button clicked');
-    });
+    if (filterBtn) {
+        filterBtn.addEventListener('click', () => {
+            // Add filter functionality here
+            console.log('Filter button clicked');
+        });
+    }
 
     // Refresh functionality
     const refreshBtn = document.querySelector('.refresh-btn');
-    refreshBtn?.addEventListener('click', () => {
-        // Add refresh functionality here
-        console.log('Refresh button clicked');
-    });
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            // Add refresh functionality here
+            console.log('Refresh button clicked');
+        });
+    }
 
     // Initialize
     populateDhukutiSpecs();
@@ -1076,11 +1201,18 @@ document.addEventListener('DOMContentLoaded', () => {
 }); 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Get all required DOM elements
     const progressSteps = document.querySelectorAll('.progress-bar__step');
     const progressLine = document.querySelector('.progress-bar__line');
     const statusText = document.querySelector('.status-text');
     const estimatedTime = document.querySelector('.estimated-time');
     const cancelButton = document.querySelector('.group-matching__cancel');
+
+    // Check if required elements exist
+    if (!progressLine || !statusText || !estimatedTime || !progressSteps.length) {
+        console.warn('Required group matching elements are missing');
+        return;
+    }
 
     const statusMessages = [
         'Initializing group search...',
@@ -1094,6 +1226,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize progress animation
     function updateProgress() {
+        if (!progressLine || !statusText || !estimatedTime || !progressSteps.length) return;
+
         // Update progress line
         const progress = (currentStep / (totalSteps - 1)) * 100;
         progressLine.style.width = `${progress}%`;
@@ -1121,6 +1255,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Progress animation
     function startMatching() {
+        if (!progressLine || !statusText || !estimatedTime) return null;
+
         currentStep = 0;
         updateProgress();
 
@@ -1140,11 +1276,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show status message
     function showStatusMessage(message, type = 'info') {
+        const container = document.querySelector('.group-matching__status');
+        if (!container) return;
+
         const statusMessage = document.createElement('div');
         statusMessage.className = `status-message ${type} show`;
         statusMessage.textContent = message;
 
-        const container = document.querySelector('.group-matching__status');
         container.appendChild(statusMessage);
 
         setTimeout(() => {
@@ -1164,41 +1302,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle cancel button
     let matchingInterval;
     
-    cancelButton.addEventListener('click', () => {
-        if (matchingInterval) {
-            clearInterval(matchingInterval);
-            showStatusMessage('Group matching cancelled', 'error');
-            
-            // Reset progress
-            currentStep = 0;
-            updateProgress();
-            
-            // Enable restart
-            setTimeout(() => {
-                matchingInterval = startMatching();
-            }, 1000);
-        }
-    });
+    if (cancelButton) {
+        cancelButton.addEventListener('click', () => {
+            if (matchingInterval) {
+                clearInterval(matchingInterval);
+                showStatusMessage('Group matching cancelled', 'error');
+                
+                // Reset progress
+                currentStep = 0;
+                updateProgress();
+                
+                // Enable restart
+                setTimeout(() => {
+                    matchingInterval = startMatching();
+                }, 1000);
+            }
+        });
+    }
 
     // Start matching process
     matchingInterval = startMatching();
 
     // Add hover effects
     const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            button.style.transform = 'translateY(-2px)';
+    if (buttons.length > 0) {
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
         });
-        
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'translateY(0)';
-        });
-    });
+    }
 }); 
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab-button');
     const topPlayersContainer = document.querySelector('.top-players');
     const leaderboardList = document.querySelector('.leaderboard-list');
+
+    // Check if required elements exist
+    if (!topPlayersContainer || !leaderboardList || !tabs.length) {
+        console.warn('Required leaderboard elements are missing');
+        return;
+    }
 
     // Mock data - Replace this with your API call in the future
     const leaderboardData = {
@@ -1226,18 +1374,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function renderTopPlayers(players) {
+        if (!topPlayersContainer || !players || players.length < 3) return;
+
         const top3 = players.slice(0, 3);
         const [first, second, third] = [top3[0], top3[1], top3[2]];
+
+        // Ensure all required player data exists
+        if (!first || !second || !third) return;
 
         topPlayersContainer.innerHTML = `
             <div class="player second">
                 <div class="player-avatar">
-                    <img src="${second.avatar}" alt="${second.name}">
+                    <img src="${second.avatar || ''}" alt="${second.name || 'Player'}" onerror="this.src='default-avatar.png'">
                 </div>
                 <div class="player-info">
-                    <span class="player-name">${second.name}</span>
-                    <span class="player-score">${second.score}</span>
-                    <span class="player-username">${second.username}</span>
+                    <span class="player-name">${second.name || 'Unknown Player'}</span>
+                    <span class="player-score">${second.score || 0}</span>
+                    <span class="player-username">${second.username || '@unknown'}</span>
                 </div>
             </div>
 
@@ -1246,44 +1399,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     <i class="fas fa-crown"></i>
                 </div>
                 <div class="player-avatar">
-                    <img src="${first.avatar}" alt="${first.name}">
+                    <img src="${first.avatar || ''}" alt="${first.name || 'Player'}" onerror="this.src='default-avatar.png'">
                 </div>
                 <div class="player-info">
-                    <span class="player-name">${first.name}</span>
-                    <span class="player-score">${first.score}</span>
-                    <span class="player-username">${first.username}</span>
+                    <span class="player-name">${first.name || 'Unknown Player'}</span>
+                    <span class="player-score">${first.score || 0}</span>
+                    <span class="player-username">${first.username || '@unknown'}</span>
                 </div>
             </div>
 
             <div class="player third">
                 <div class="player-avatar">
-                    <img src="${third.avatar}" alt="${third.name}">
+                    <img src="${third.avatar || ''}" alt="${third.name || 'Player'}" onerror="this.src='default-avatar.png'">
                 </div>
                 <div class="player-info">
-                    <span class="player-name">${third.name}</span>
-                    <span class="player-score">${third.score}</span>
-                    <span class="player-username">${third.username}</span>
+                    <span class="player-name">${third.name || 'Unknown Player'}</span>
+                    <span class="player-score">${third.score || 0}</span>
+                    <span class="player-username">${third.username || '@unknown'}</span>
                 </div>
             </div>
         `;
     }
 
     function renderLeaderboardList(players) {
+        if (!leaderboardList || !players || players.length < 4) return;
+
         // Get players from index 3 onwards (after top 3)
         const remainingPlayers = players.slice(3);
         
-        leaderboardList.innerHTML = remainingPlayers.map(player => `
-            <div class="list-item">
-                <span class="rank">${players.indexOf(player) + 1}</span>
-                <img src="${player.avatar}" alt="${player.name}" class="player-avatar">
-                <span class="player-name">${player.name}</span>
-                <span class="player-score">${player.score}</span>
-                <span class="status-dot ${player.status}"></span>
-            </div>
-        `).join('');
+        leaderboardList.innerHTML = remainingPlayers.map(player => {
+            if (!player) return '';
+            
+            return `
+                <div class="list-item">
+                    <span class="rank">${players.indexOf(player) + 1}</span>
+                    <img src="${player.avatar || ''}" alt="${player.name || 'Player'}" class="player-avatar" onerror="this.src='default-avatar.png'">
+                    <span class="player-name">${player.name || 'Unknown Player'}</span>
+                    <span class="player-score">${player.score || 0}</span>
+                    <span class="status-dot ${player.status || 'offline'}"></span>
+                </div>
+            `;
+        }).join('');
     }
 
     function loadLeaderboardData(tabId) {
+        if (!tabId) return;
+
         // In the future, replace this with an API call
         const data = leaderboardData[tabId];
         if (data) {
@@ -1293,46 +1454,63 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Tab click handlers
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            tabs.forEach(t => t.classList.remove('active'));
-            // Add active class to clicked tab
-            tab.classList.add('active');
+    if (tabs.length > 0) {
+        tabs.forEach(tab => {
+            if (!tab) return;
 
-            // Load data for the selected tab
-            const tabId = tab.dataset.tab;
-            loadLeaderboardData(tabId);
+            tab.addEventListener('click', () => {
+                const tabsContainer = document.querySelector('.leaderboard-tabs');
+                if (!tabsContainer) return;
 
-            // Update the indicator position
-            const tabsContainer = document.querySelector('.leaderboard-tabs');
-            const index = Array.from(tabs).indexOf(tab);
-            const width = 100 / tabs.length;
-            tabsContainer.style.setProperty('--indicator-position', `${width * index}%`);
+                // Remove active class from all tabs
+                tabs.forEach(t => t?.classList?.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Load data for the selected tab
+                const tabId = tab.dataset.tab;
+                if (!tabId) return;
+                
+                loadLeaderboardData(tabId);
+
+                // Update the indicator position
+                const index = Array.from(tabs).indexOf(tab);
+                const width = 100 / tabs.length;
+                tabsContainer.style.setProperty('--indicator-position', `${width * index}%`);
+            });
         });
-    });
 
-    // Load initial data
-    loadLeaderboardData('region');
+        // Load initial data
+        const defaultTab = tabs[0]?.dataset?.tab;
+        if (defaultTab) {
+            loadLeaderboardData(defaultTab);
+        } else {
+            loadLeaderboardData('region'); // Fallback to region if no tab is found
+        }
+    }
 });
 document.addEventListener('DOMContentLoaded', () => {
     // Currency selection
     const currencyButtons = document.querySelectorAll('.currency-btn');
-    currencyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            currencyButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+    if (currencyButtons.length > 0) {
+        currencyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currencyButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
         });
-    });
+    }
 
     // Balance selection
     const balanceButtons = document.querySelectorAll('.balance-btn');
-    balanceButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            balanceButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+    if (balanceButtons.length > 0) {
+        balanceButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                balanceButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
         });
-    });
+    }
 
     // Rules navigation
     const dots = document.querySelectorAll('.rules-navigation .dot');
@@ -1345,19 +1523,21 @@ document.addEventListener('DOMContentLoaded', () => {
         "All transactions are secured and monitored. Members must maintain consistent contributions to remain eligible for collections."
     ];
 
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
-            rulesContent.textContent = rulesPages[index];
-            
-            // Add fade animation
-            rulesContent.style.opacity = '0';
-            setTimeout(() => {
-                rulesContent.style.opacity = '1';
-            }, 150);
+    if (dots.length > 0 && rulesContent) {
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                rulesContent.textContent = rulesPages[index];
+                
+                // Add fade animation
+                rulesContent.style.opacity = '0';
+                setTimeout(() => {
+                    rulesContent.style.opacity = '1';
+                }, 150);
+            });
         });
-    });
+    }
 
     // Get DOM elements
     const frequencyBtns = document.querySelectorAll('.frequency-btn');
@@ -1367,91 +1547,89 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthlyOptions = document.querySelector('.monthly-options');
     const membersBtns = document.querySelectorAll('.members-btn');
 
-    // Contribution amounts configuration
-    const contributionConfig = {
-        weekly: {
-            amounts: [100, 250, 500],
-            available: [100]
-        },
-        fortnightly: {
-            amounts: [250, 500, 1000],
-            available: [250, 500]
-        },
-        monthly: {
-            amounts: [500, 1000, 2500],
-            available: [500, 1000, 2500]
-        }
-    };
+    // Only proceed if required elements exist
+    if (frequencyBtns.length > 0 && weeklyOptions && fortnightlyOptions && monthlyOptions) {
+        // Handle frequency selection
+        frequencyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                frequencyBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
 
-    // Handle frequency selection
-    frequencyBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all buttons
-            frequencyBtns.forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            btn.classList.add('active');
+                // Get selected frequency
+                const frequency = btn.dataset.frequency;
+                
+                // Hide all options
+                weeklyOptions.style.display = 'none';
+                fortnightlyOptions.style.display = 'none';
+                monthlyOptions.style.display = 'none';
 
-            // Get selected frequency
-            const frequency = btn.dataset.frequency;
-            
-            // Hide all options
-            weeklyOptions.style.display = 'none';
-            fortnightlyOptions.style.display = 'none';
-            monthlyOptions.style.display = 'none';
+                // Show selected frequency options
+                switch(frequency) {
+                    case 'weekly':
+                        weeklyOptions.style.display = 'flex';
+                        break;
+                    case 'fortnightly':
+                        fortnightlyOptions.style.display = 'flex';
+                        break;
+                    case 'monthly':
+                        monthlyOptions.style.display = 'flex';
+                        break;
+                }
 
-            // Show selected frequency options
-            switch(frequency) {
-                case 'weekly':
-                    weeklyOptions.style.display = 'flex';
-                    break;
-                case 'fortnightly':
-                    fortnightlyOptions.style.display = 'flex';
-                    break;
-                case 'monthly':
-                    monthlyOptions.style.display = 'flex';
-                    break;
-            }
-
-            updateRulesText();
+                updateRulesText();
+            });
         });
-    });
+    }
 
     // Handle contribution amount selection
     const contributionBtns = document.querySelectorAll('.contribution-btn');
-    contributionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (btn.classList.contains('disabled')) return;
+    if (contributionBtns.length > 0) {
+        contributionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('disabled')) return;
 
-            // Remove active class from all buttons in the same options group
-            const parentDiv = btn.closest('div');
-            parentDiv.querySelectorAll('.contribution-btn').forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
-            btn.classList.add('active');
+                // Remove active class from all buttons in the same options group
+                const parentDiv = btn.closest('div');
+                if (parentDiv) {
+                    parentDiv.querySelectorAll('.contribution-btn').forEach(b => b.classList.remove('active'));
+                }
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
 
-            updateRulesText();
+                updateRulesText();
+            });
         });
-    });
+    }
 
     // Handle member count selection
-    membersBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all buttons
-            membersBtns.forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            btn.classList.add('active');
+    if (membersBtns.length > 0) {
+        membersBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                membersBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
 
-            updateRulesText();
+                updateRulesText();
+            });
         });
-    });
+    }
 
     // Update rules text based on selections
     function updateRulesText() {
-        const selectedFrequency = document.querySelector('.frequency-btn.active').dataset.frequency;
-        const selectedMembers = document.querySelector('.members-btn.active').dataset.members;
+        const activeFreqBtn = document.querySelector('.frequency-btn.active');
+        const activeMembersBtn = document.querySelector('.members-btn.active');
+        const rulesText = document.querySelector('.rules-content p');
+
+        if (!activeFreqBtn || !activeMembersBtn || !rulesText) return;
+
+        const selectedFrequency = activeFreqBtn.dataset.frequency;
+        const selectedMembers = activeMembersBtn.dataset.members;
         const selectedAmount = document.querySelector(`.${selectedFrequency}-options .contribution-btn.active`)?.dataset.amount || '0';
 
-        const rulesText = document.querySelector('.rules-content p');
         const totalAmount = parseInt(selectedAmount) * parseInt(selectedMembers);
 
         rulesText.textContent = `${selectedMembers} members will contribute $${selectedAmount} each, ${selectedFrequency}. Every ${selectedFrequency} period, a total sum of $${totalAmount} is collected, which will be given to the winner member for that specific period. A dhukuti cycle is completed when all ${selectedMembers} members receive their contributed amount back.`;
@@ -1466,39 +1644,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle subscribe button
     const subscribeBtn = document.querySelector('.subscribe-btn');
-    subscribeBtn?.addEventListener('click', () => {
-        const selectedFrequency = document.querySelector('.frequency-btn.active').dataset.frequency;
-        const selectedMembers = document.querySelector('.members-btn.active').dataset.members;
-        const selectedAmount = document.querySelector(`.${selectedFrequency}-options .contribution-btn.active`)?.dataset.amount;
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', () => {
+            const activeFreqBtn = document.querySelector('.frequency-btn.active');
+            const activeMembersBtn = document.querySelector('.members-btn.active');
 
-        if (!selectedAmount) {
-            alert('Please select a contribution amount');
-            return;
-        }
+            if (!activeFreqBtn || !activeMembersBtn) {
+                alert('Please select all required options');
+                return;
+            }
 
-        // TODO: Implement subscription functionality
-        const subscriptionDetails = {
-            frequency: selectedFrequency,
-            memberCount: selectedMembers,
-            contributionAmount: selectedAmount,
-            timestamp: new Date().toISOString()
-        };
+            const selectedFrequency = activeFreqBtn.dataset.frequency;
+            const selectedMembers = activeMembersBtn.dataset.members;
+            const selectedAmount = document.querySelector(`.${selectedFrequency}-options .contribution-btn.active`)?.dataset.amount;
 
-        console.log('Subscription details:', subscriptionDetails);
-        alert('Thank you for subscribing to Dhukuti! We will contact you soon.');
-    });
+            if (!selectedAmount) {
+                alert('Please select a contribution amount');
+                return;
+            }
+
+            // TODO: Implement subscription functionality
+            const subscriptionDetails = {
+                frequency: selectedFrequency,
+                memberCount: selectedMembers,
+                contributionAmount: selectedAmount,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Subscription details:', subscriptionDetails);
+            alert('Thank you for subscribing to Dhukuti! We will contact you soon.');
+        });
+    }
 
     // Add hover effects to all buttons
     const allButtons = document.querySelectorAll('button');
-    allButtons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            button.style.transform = 'translateY(-2px)';
+    if (allButtons.length > 0) {
+        allButtons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+            });
         });
-        
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'translateY(0)';
-        });
-    });
+    }
 });
 document.addEventListener('DOMContentLoaded', () => {
     const profileUpload = document.getElementById('profile-upload');
@@ -1506,68 +1696,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.profile-setup-form');
     const verifyButtons = document.querySelectorAll('.verify-btn');
 
-    // Handle profile picture upload
-    profileUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                profilePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Handle verification buttons
-    verifyButtons.forEach(button => {
-        button.addEventListener('click', async (e) => {
-            const inputGroup = button.closest('.form-group');
-            const input = inputGroup.querySelector('input');
-            const status = inputGroup.querySelector('.verification-status');
-            
-            button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-
-            try {
-                // Simulate verification API call
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                status.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
-                status.classList.remove('unverified');
-                status.classList.add('verified');
-                button.innerHTML = '<i class="fas fa-check"></i> Verified';
-                button.style.background = 'var(--success-color, #27ae60)';
-            } catch (error) {
-                button.disabled = false;
-                button.innerHTML = '<i class="fas fa-exclamation-circle"></i> Retry';
+    // Only run profile upload logic if elements exist
+    if (profileUpload && profilePreview) {
+        profileUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         });
-    });
+    }
 
-    // Handle form submission
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = form.querySelector('.save-profile-btn');
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    // Only run verification buttons logic if buttons exist
+    if (verifyButtons.length > 0) {
+        verifyButtons.forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const inputGroup = button.closest('.form-group');
+                const input = inputGroup?.querySelector('input');
+                const status = inputGroup?.querySelector('.verification-status');
+                
+                if (!inputGroup || !status) return;
+                
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+                try {
+                    // Simulate verification API call
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    status.innerHTML = '<i class="fas fa-check-circle"></i> Verified';
+                    status.classList.remove('unverified');
+                    status.classList.add('verified');
+                    button.innerHTML = '<i class="fas fa-check"></i> Verified';
+                    button.style.background = 'var(--success-color, #27ae60)';
+                } catch (error) {
+                    button.disabled = false;
+                    button.innerHTML = '<i class="fas fa-exclamation-circle"></i> Retry';
+                }
+            });
+        });
+    }
+
+    // Only run form submission logic if form exists
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('.save-profile-btn');
             
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Profile Saved!';
-            submitBtn.style.background = 'var(--success-color, #27ae60)';
-            
-            // Redirect to profile page after successful save
-            setTimeout(() => {
-                window.location.href = '/profile';
-            }, 1000);
-        } catch (error) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> Save Profile';
-        }
-    });
+            if (!submitBtn) return;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Profile Saved!';
+                submitBtn.style.background = 'var(--success-color, #27ae60)';
+                
+                // Redirect to profile page after successful save
+                setTimeout(() => {
+                    window.location.href = '/profile';
+                }, 1000);
+            } catch (error) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Save Profile';
+            }
+        });
+    }
 });
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize variables

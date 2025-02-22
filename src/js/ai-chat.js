@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const onboardingSteps = document.querySelectorAll('.onboarding-step');
     const progressDots = document.querySelectorAll('.progress-dots .dot');
 
+    // Check if required elements exist
+    if (!chatMessages || !messageInput || !onboardingModal || !onboardingSteps.length || !progressDots.length) {
+        console.warn('Some required chat elements are missing');
+        return;
+    }
+
     // @todo: Replace with API - User assessment data storage
     let userAssessment = {
         fluency: null,
@@ -22,16 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let maxStepReached = 1;
 
     // Handle start assessment button
-    startAssessmentBtn?.addEventListener('click', () => {
-        onboardingModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        // Hide the initial welcome message
-        const welcomeMessage = startAssessmentBtn.closest('.message');
-        if (welcomeMessage) {
-            welcomeMessage.style.display = 'none';
-        }
-        initializeOnboarding();
-    });
+    if (startAssessmentBtn) {
+        startAssessmentBtn.addEventListener('click', () => {
+            onboardingModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            // Hide the initial welcome message
+            const welcomeMessage = startAssessmentBtn.closest('.message');
+            if (welcomeMessage) {
+                welcomeMessage.style.display = 'none';
+            }
+            initializeOnboarding();
+        });
+    }
 
     // Initialize onboarding
     function initializeOnboarding() {
@@ -47,54 +55,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Handle option selection
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const step = btn.closest('.onboarding-step');
-            const stepNum = parseInt(step.dataset.step);
-            const value = btn.dataset.value;
+    const optionBtns = document.querySelectorAll('.option-btn');
+    if (optionBtns.length > 0) {
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const step = btn.closest('.onboarding-step');
+                if (!step) return;
 
-            // Remove previous selection in current step
-            step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+                const stepNum = parseInt(step.dataset.step);
+                const value = btn.dataset.value;
 
-            // Store the selection
-            switch(stepNum) {
-                case 1:
-                    userAssessment.fluency = value;
-                    break;
-                case 2:
-                    userAssessment.pteGoal = value;
-                    break;
-                case 3:
-                    userAssessment.focusSkill = value;
-                    break;
-            }
+                // Remove previous selection in current step
+                step.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
 
-            // Update max step reached
-            maxStepReached = Math.max(maxStepReached, stepNum + 1);
+                // Store the selection
+                switch(stepNum) {
+                    case 1:
+                        userAssessment.fluency = value;
+                        break;
+                    case 2:
+                        userAssessment.pteGoal = value;
+                        break;
+                    case 3:
+                        userAssessment.focusSkill = value;
+                        break;
+                }
 
-            // Move to next step after a short delay
-            if (stepNum < 3) {
-                setTimeout(() => {
-                    navigateToStep(stepNum + 1);
-                }, 300);
-            } else {
-                completeOnboarding();
-            }
+                // Update max step reached
+                maxStepReached = Math.max(maxStepReached, stepNum + 1);
+
+                // Move to next step after a short delay
+                if (stepNum < 3) {
+                    setTimeout(() => {
+                        navigateToStep(stepNum + 1);
+                    }, 300);
+                } else {
+                    completeOnboarding();
+                }
+            });
         });
-    });
+    }
 
     // Handle progress dot clicks
-    progressDots.forEach((dot, index) => {
-        const stepNumber = index + 1;
-        dot.dataset.step = stepNumber;
-        
-        dot.addEventListener('click', () => {
-            if (stepNumber <= maxStepReached) {
-                navigateToStep(stepNumber);
-            }
+    if (progressDots.length > 0) {
+        progressDots.forEach((dot, index) => {
+            const stepNumber = index + 1;
+            dot.dataset.step = stepNumber;
+            
+            dot.addEventListener('click', () => {
+                if (stepNumber <= maxStepReached) {
+                    navigateToStep(stepNumber);
+                }
+            });
         });
-    });
+    }
 
     // Function to navigate to a specific step
     function navigateToStep(stepNumber) {
@@ -103,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const direction = stepNumber > currentStep ? 'Next' : 'Prev';
         const currentStepEl = document.querySelector(`.onboarding-step[data-step="${currentStep}"]`);
         const nextStepEl = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+
+        if (!nextStepEl) return;
 
         // Remove active class from all steps
         onboardingSteps.forEach(step => {
@@ -130,6 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update progress dots
     function updateProgressDots() {
+        if (!progressDots.length) return;
+
         progressDots.forEach((dot, index) => {
             const stepNum = index + 1;
             dot.classList.toggle('active', stepNum === currentStep);
@@ -144,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (userAssessment[stepKey]) {
             const step = document.querySelector(`.onboarding-step[data-step="${stepNumber}"]`);
+            if (!step) return;
+
             const selectedOption = step.querySelector(`[data-value="${userAssessment[stepKey]}"]`);
             if (selectedOption) {
                 selectedOption.classList.add('selected');
@@ -153,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to complete onboarding
     function completeOnboarding() {
+        if (!onboardingModal) return;
+
         // @todo: Replace with API - Send assessment data to backend
         console.log('User Assessment:', userAssessment);
 
@@ -198,24 +221,29 @@ Would you like to:
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const dropdownMenu = document.querySelector('.dropdown-menu');
     
-    // Toggle dropdown on click
-    dropdownToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('show');
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('show');
-    });
-    
-    // Prevent dropdown from closing when clicking inside
-    dropdownMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
+    // Only initialize dropdown if elements exist
+    if (dropdownToggle && dropdownMenu) {
+        // Toggle dropdown on click
+        dropdownToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 
     // Initialize emoji picker
     const initEmojiPicker = () => {
+        if (!emojiBtn || !messageInput) return;
+
         const picker = new EmojiButton({
             position: 'top-start',
             theme: 'dark',
@@ -234,15 +262,22 @@ Would you like to:
 
     // Load emoji picker script dynamically
     const loadEmojiPicker = () => {
+        if (!emojiBtn) return;
+
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js';
         script.onload = initEmojiPicker;
         document.head.appendChild(script);
     };
-    loadEmojiPicker();
+
+    // Only load emoji picker if button exists
+    if (emojiBtn) {
+        loadEmojiPicker();
+    }
 
     // Scroll to bottom of chat
     const scrollToBottom = () => {
+        if (!chatMessages) return;
         chatMessages.scrollTop = chatMessages.scrollHeight;
     };
     scrollToBottom();

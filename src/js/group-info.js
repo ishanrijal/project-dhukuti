@@ -22,28 +22,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate dhukuti specs
     function populateDhukutiSpecs() {
+        // Get all required elements
+        const titleEl = document.querySelector('.dhukuti-specs .title');
+        const badgeEl = document.querySelector('.dhukuti-specs .badge');
+        const specContents = document.querySelectorAll('.spec-content');
+
+        // Only proceed if required elements exist
+        if (!titleEl || !badgeEl || specContents.length < 4) return;
+
         // Update title and badge
-        document.querySelector('.dhukuti-specs .title').textContent = `Dhukuti Round ${dhukutiData.currentRound}/${dhukutiData.totalRounds}`;
-        document.querySelector('.dhukuti-specs .badge').textContent = dhukutiData.contributionType;
+        titleEl.textContent = `Dhukuti Round ${dhukutiData.currentRound}/${dhukutiData.totalRounds}`;
+        badgeEl.textContent = dhukutiData.contributionType;
 
         // Update spec cards
-        const specContents = document.querySelectorAll('.spec-content');
-        
         // Dhukuti Ends
-        specContents[0].querySelector('p').textContent = dhukutiData.endDate;
-        specContents[0].querySelector('.sub-text').textContent = dhukutiData.duration;
+        const endDateP = specContents[0].querySelector('p');
+        const endDateSub = specContents[0].querySelector('.sub-text');
+        if (endDateP && endDateSub) {
+            endDateP.textContent = dhukutiData.endDate;
+            endDateSub.textContent = dhukutiData.duration;
+        }
 
         // Total Pool
-        specContents[1].querySelector('p').textContent = `₹${dhukutiData.totalPool.toLocaleString()}`;
-        specContents[1].querySelector('.sub-text').textContent = `${dhukutiData.memberCount} members`;
+        const poolP = specContents[1].querySelector('p');
+        const poolSub = specContents[1].querySelector('.sub-text');
+        if (poolP && poolSub) {
+            poolP.textContent = `₹${dhukutiData.totalPool.toLocaleString()}`;
+            poolSub.textContent = `${dhukutiData.memberCount} members`;
+        }
 
         // Next Winner
-        specContents[2].querySelector('p').textContent = dhukutiData.nextWinner.date;
-        specContents[2].querySelector('.countdown').textContent = dhukutiData.nextWinner.countdown;
+        const winnerP = specContents[2].querySelector('p');
+        const winnerCount = specContents[2].querySelector('.countdown');
+        if (winnerP && winnerCount) {
+            winnerP.textContent = dhukutiData.nextWinner.date;
+            winnerCount.textContent = dhukutiData.nextWinner.countdown;
+        }
 
         // Bidding Opens
-        specContents[3].querySelector('p').textContent = dhukutiData.biddingOpens.date;
-        specContents[3].querySelector('.countdown').textContent = dhukutiData.biddingOpens.countdown;
+        const biddingP = specContents[3].querySelector('p');
+        const biddingCount = specContents[3].querySelector('.countdown');
+        if (biddingP && biddingCount) {
+            biddingP.textContent = dhukutiData.biddingOpens.date;
+            biddingCount.textContent = dhukutiData.biddingOpens.countdown;
+        }
     }
 
     // Sample member data - replace with actual data from your backend
@@ -61,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate members table
     function populateMembers() {
         const tableBody = document.querySelector('.minimalist-variation tbody');
+        if (!tableBody) return;
         
         members.forEach((member, index) => {
             const row = document.createElement('tr');
@@ -114,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Modal functionality
+    // Get modal elements
     const modal = document.getElementById('bidModal');
     const placeBidBtn = document.getElementById('placeBidBtn');
     const closeBtn = document.querySelector('.close-btn');
@@ -126,11 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update bid modal information
     function updateBidModalInfo() {
-        // Update pool amount and minimum bid
-        document.querySelector('.bid-information .info-row:first-child .value')
-            .textContent = `₹${bidCalculations.totalPool.toLocaleString()}`;
-        document.querySelector('.bid-information .info-row:last-child .value')
-            .textContent = `₹${bidCalculations.minBidAmount.toLocaleString()}`;
+        if (!modal || !bidAmountInput) return;
+
+        const poolAmountEl = document.querySelector('.bid-information .info-row:first-child .value');
+        const minBidEl = document.querySelector('.bid-information .info-row:last-child .value');
+
+        if (poolAmountEl) {
+            poolAmountEl.textContent = `₹${bidCalculations.totalPool.toLocaleString()}`;
+        }
+        
+        if (minBidEl) {
+            minBidEl.textContent = `₹${bidCalculations.minBidAmount.toLocaleString()}`;
+        }
 
         // Update input constraints
         bidAmountInput.min = bidCalculations.minBidAmount;
@@ -139,45 +169,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Open modal
-    placeBidBtn?.addEventListener('click', () => {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        updateBidModalInfo();
-        bidAmountInput.focus();
-    });
+    if (placeBidBtn && modal) {
+        placeBidBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            updateBidModalInfo();
+            bidAmountInput?.focus();
+        });
+    }
 
     // Close modal functions
     const closeModal = () => {
+        if (!modal || !bidForm) return;
+        
         modal.classList.remove('show');
         document.body.style.overflow = '';
         bidForm.reset();
         updateBidCalculations(0);
     };
 
-    closeBtn?.addEventListener('click', closeModal);
-    cancelBtn?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeModal);
+    }
+    
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
 
     // Handle bid amount input
-    bidAmountInput?.addEventListener('input', (e) => {
-        const amount = parseInt(e.target.value) || 0;
-        
-        // Validate bid amount
-        if (amount < bidCalculations.minBidAmount) {
-            bidAmountInput.setCustomValidity(`Minimum bid amount is ₹${bidCalculations.minBidAmount.toLocaleString()}`);
-        } else if (amount > bidCalculations.maxBidAmount) {
-            bidAmountInput.setCustomValidity(`Maximum bid amount is ₹${bidCalculations.maxBidAmount.toLocaleString()}`);
-        } else {
-            bidAmountInput.setCustomValidity('');
-        }
+    if (bidAmountInput) {
+        bidAmountInput.addEventListener('input', (e) => {
+            const amount = parseInt(e.target.value) || 0;
+            
+            // Validate bid amount
+            if (amount < bidCalculations.minBidAmount) {
+                bidAmountInput.setCustomValidity(`Minimum bid amount is ₹${bidCalculations.minBidAmount.toLocaleString()}`);
+            } else if (amount > bidCalculations.maxBidAmount) {
+                bidAmountInput.setCustomValidity(`Maximum bid amount is ₹${bidCalculations.maxBidAmount.toLocaleString()}`);
+            } else {
+                bidAmountInput.setCustomValidity('');
+            }
 
-        updateBidCalculations(amount);
-    });
+            updateBidCalculations(amount);
+        });
+    }
 
     // Calculate and update bid amounts
     const updateBidCalculations = (amount) => {
+        if (!receiveAmount || !serviceFee) return;
+        
         const fee = bidCalculations.calculateServiceFee(amount);
         const receive = bidCalculations.calculateReceiveAmount(amount);
         
@@ -186,34 +232,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Handle form submission
-    bidForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = {
-            bidAmount: parseInt(bidAmountInput.value),
-            timestamp: new Date().toISOString()
-        };
+    if (bidForm) {
+        bidForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = {
+                bidAmount: parseInt(bidAmountInput?.value || '0'),
+                timestamp: new Date().toISOString()
+            };
 
-        // TODO: Send to API
-        console.log('Submitting bid:', formData);
-        
-        // Show success message and close modal
-        alert('Bid placed successfully!');
-        closeModal();
-    });
+            // TODO: Send to API
+            console.log('Submitting bid:', formData);
+            
+            // Show success message and close modal
+            alert('Bid placed successfully!');
+            closeModal();
+        });
+    }
 
     // Filter functionality
     const filterBtn = document.querySelector('.filter-btn');
-    filterBtn?.addEventListener('click', () => {
-        // Add filter functionality here
-        console.log('Filter button clicked');
-    });
+    if (filterBtn) {
+        filterBtn.addEventListener('click', () => {
+            // Add filter functionality here
+            console.log('Filter button clicked');
+        });
+    }
 
     // Refresh functionality
     const refreshBtn = document.querySelector('.refresh-btn');
-    refreshBtn?.addEventListener('click', () => {
-        // Add refresh functionality here
-        console.log('Refresh button clicked');
-    });
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            // Add refresh functionality here
+            console.log('Refresh button clicked');
+        });
+    }
 
     // Initialize
     populateDhukutiSpecs();
