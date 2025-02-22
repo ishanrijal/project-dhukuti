@@ -66,9 +66,43 @@
         </div>
 
         <div class="group-info__header">
-
             <h1 class="title">Dhukuti Group</h1>
             <p class="subtitle">Round 3/12</p>
+        </div>
+
+        <!-- Add Dhukuti Debt Overview Section -->
+        <div class="dhukuti-debt-overview">
+            <div class="debt-card">
+                <div class="debt-header">
+                    <i class="fas fa-hand-holding-dollar"></i>
+                    <h2>Dhukuti Debt Overview</h2>
+                </div>
+                <div class="debt-content">
+                    <div class="debt-info">
+                        <div class="info-row">
+                            <span class="label">Total Winnings</span>
+                            <span class="value winning-amount">₹120,000</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Your Contributions</span>
+                            <span class="value contribution-amount">₹20,000</span>
+                        </div>
+                        <div class="info-row total">
+                            <span class="label">Amount Owed</span>
+                            <span class="value owed-amount">₹100,000</span>
+                        </div>
+                    </div>
+                    <div class="debt-progress">
+                        <div class="progress-info">
+                            <span>Repayment Progress</span>
+                            <span class="progress-percentage">16.67%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 16.67%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="group-info__stats">
@@ -343,6 +377,111 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .dhukuti-debt-overview {
+            margin: 2rem 0;
+            display: none; /* Hidden by default, shown via JS when user has won */
+        }
+
+        .debt-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .debt-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .debt-header i {
+            font-size: 1.5rem;
+            color: #00ffcc;
+        }
+
+        .debt-header h2 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .debt-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-row.total {
+            border-bottom: none;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-row .label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .info-row .value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .info-row.total .value {
+            color: #00ffcc;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .debt-progress {
+            margin-top: 1.5rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .progress-percentage {
+            color: #00ffcc;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffcc, #00a884);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+    </style>
 
     <script src="src/js/group-info.js"></script>
 </body>
